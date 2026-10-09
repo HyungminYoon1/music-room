@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; media-src 'self' blob:; frame-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'"
+    />
+    <meta
+      name="description"
+      content="다중 트랙 피아노 롤, 실제 피아노 음원과 정밀 편집. WAV·MIDI·악보를 만드는 작곡실."
+    />
+    <title>SCORE LAB · 작곡실</title>
+    <link rel="icon" href="assets/icon.svg" />
+    <link rel="stylesheet" href="styles.css" />
+    <script type="module" src="src/app.js"></script>
+  </head>
+  <body>
+    <a class="skip" href="#editor">편집기로</a>
+    <header>
+      <a class="brand" href="./"
+        ><span class="logo">Sl</span
+        ><span>SCORE LAB<small>작곡실</small></span></a
+      ><input id="title" maxlength="160" aria-label="곡 제목" />
+      <div class="file-actions">
+        <button id="new">새 곡</button
+        ><label class="file-open"
+          >열기<input
+            id="open"
+            type="file"
+            accept=".json,application/json" /></label
+        ><button id="save">프로젝트 저장</button
+        ><a href="https://hyungminyoon1.github.io/web-lab/">WEB LAB ↗</a>
+      </div>
+    </header>
+    <section class="transport" aria-label="재생과 곡 설정">
+      <button id="play" class="primary">▶ 재생</button
+      ><button id="stop">■ 정지</button
+      ><label class="check"><input id="loop" type="checkbox" /> 반복</label
+      ><label
+        >BPM<input
+          id="tempo"
+          type="number"
+          min="40"
+          max="240"
+          step="1" /></label
+      ><label
+        >박자<select id="meter">
+          <option>4/4</option>
+          <option>3/4</option>
+          <option>6/8</option>
+        </select></label
+      ><label>마디<input id="bars" type="number" min="1" max="64" /></label
+      ><output id="clock">01 : 1 : 000</output>
+      <div class="level" aria-label="재생 음량"><i id="level"></i></div>
+      <span id="save-state">브라우저 저장</span>
+    </section>
+    <main>
+      <aside class="tracks">
+        <div class="section-head">
+          <h1>트랙</h1>
+          <button id="add-track" aria-label="트랙 추가">＋</button>
+        </div>
+        <div id="track-list"></div>
+        <div class="track-settings">
+          <label>이름<input id="track-name" maxlength="60" /></label
+          ><label
+            >악기<select id="instrument">
+              <option value="piano">그랜드 피아노</option>
+              <option value="bass">신스 베이스</option>
+              <option value="organ">오르간</option>
+              <option value="pluck">플럭 신스</option>
+              <option value="pad">패드</option>
+              <option value="drums">드럼 키트</option>
+            </select></label
+          ><label
+            >음량 <output id="volume-read"></output
+            ><input
+              id="volume"
+              type="range"
+              min="0"
+              max="1"
+              step=".01" /></label
+          ><label
+            >좌우 <output id="pan-read"></output
+            ><input id="pan" type="range" min="-1" max="1" step=".01" /></label
+          ><button id="remove-track">트랙 삭제</button>
+        </div>
+      </aside>
+      <section class="workspace" id="editor">
+        <div class="editor-bar">
+          <div class="tabs">
+            <button id="roll-tab" aria-pressed="true">피아노 롤</button
+            ><button id="score-tab" aria-pressed="false">악보</button>
+          </div>
+          <button id="undo" title="Ctrl+Z">↶ 실행 취소</button
+          ><button id="redo" title="Ctrl+Shift+Z">↷</button
+          ><label
+            >격자<select id="snap">
+              <option value="960">1/4</option>
+              <option value="480">1/8</option>
+              <option value="240" selected>1/16</option>
+              <option value="120">1/32</option>
+              <option value="1">없음 · 1틱</option>
+            </select></label
+          ><label
+            >확대<input id="zoom" type="range" min="36" max="180" value="84"
+          /></label>
+        </div>
+        <div id="roll-view">
+          <div class="roll-scroll" id="roll-scroll">
+            <div id="roll">
+              <div id="ruler"></div>
+              <div id="keys"></div>
+              <div
+                id="grid"
+                tabindex="0"
+                role="application"
+                aria-label="피아노 롤. 빈 곳 클릭으로 음 추가, 음 드래그로 이동, 오른쪽 끝 드래그로 길이 변경"
+              >
+                <div id="playhead"></div>
+              </div>
+            </div>
+          </div>
+          <div class="hint">
+            빈 곳 클릭: 음 추가 · 드래그: 이동 · 오른쪽 끝: 길이 · Ctrl/Shift
+            클릭: 여러 음 선택 · 방향키: 이동 · Delete: 삭제
+          </div>
+        </div>
+        <div id="score-view" hidden>
+          <div class="score-caption">
+            16분음표 격자 악보 · 연주 데이터는 그대로 유지됩니다.
+          </div>
+          <div id="score-pages"></div>
+        </div>
+        <section class="inspector" aria-label="선택한 음 편집">
+          <strong id="selection">음 선택</strong
+          ><label
+            >음높이<input
+              id="note-pitch"
+              type="number"
+              min="21"
+              max="108" /></label
+          ><label
+            >시작 · 틱<input
+              id="note-start"
+              type="number"
+              min="0"
+              step="1" /></label
+          ><label
+            >길이 · 틱<input
+              id="note-duration"
+              type="number"
+              min="1"
+              step="1" /></label
+          ><label
+            >세기<input
+              id="note-velocity"
+              type="number"
+              min="1"
+              max="127" /></label
+          ><button id="copy">복사</button><button id="paste">붙여넣기</button
+          ><button id="duplicate">복제</button><button id="delete">삭제</button
+          ><small>4분음표 = 960틱</small>
+        </section>
+      </section>
+    </main>
+    <footer>
+      <div class="exports">
+        <strong>내보내기</strong><button data-export="wav">WAV · 24bit</button
+        ><button data-export="midi">MIDI</button
+        ><button data-export="xml">MusicXML</button
+        ><button data-export="svg">악보 SVG</button
+        ><button data-export="pdf">악보 PDF</button
+        ><button id="cancel-export" hidden>취소</button>
+      </div>
+      <output id="status" role="status">음원을 켜려면 재생을 누르세요.</output>
+      <details>
+        <summary>사용 안내 · 음원 출처</summary>
+        <p>
+          프로젝트는 이 브라우저에 자동 저장됩니다. 다른 기기에서 편집하려면
+          프로젝트 JSON을 저장하세요. 피아노는 Alexander Holm의 Salamander Grand
+          Piano MP3 샘플이며 다른 악기는 합성음입니다.
+          <a href="assets/piano/SOURCE.txt">음원 출처와 CC BY 3.0</a> ·
+          <a href="assets/fonts/OFL.txt">글꼴 라이선스</a>
+        </p>
+        <p>
+          WAV: 48 kHz, 24-bit 스테레오, 잔향 포함 최대 180초. MIDI·MusicXML은
+          원래 틱을 유지합니다. SVG는 벡터, PDF는 300 dpi A4입니다. 겹치는 음은
+          악보에서 여러 성부로 나뉩니다.
+        </p>
+      </details>
+    </footer>
+  </body>
+</html>

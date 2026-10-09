@@ -1,0 +1,7 @@
+* text=auto eol=crlf
+*.png binary
+*.jpg binary
+*.woff2 binary
+*.mp3 binary
+dist/vendor/music.js -whitespace
+dist/assets/piano/SOURCE.txt -whitespace
