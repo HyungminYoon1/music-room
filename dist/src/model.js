@@ -38,6 +38,7 @@ export function validate(p) {
     !finite(p.tempo, 40, 240) ||
     !Number.isInteger(p.tempo) ||
     !Array.isArray(p.meter) ||
+    !p.meter.every(Number.isInteger) ||
     !["4/4", "3/4", "6/8"].includes(p.meter.join("/")) ||
     !Number.isInteger(p.bars) ||
     p.bars < 1 ||
@@ -90,7 +91,8 @@ export function validate(p) {
   return p;
 }
 export function parseProject(raw) {
-  if (typeof raw !== "string" || raw.length > 2000000)
+  if (typeof raw !== "string" || raw.length > 2000000 ||
+      new TextEncoder().encode(raw).byteLength > 2000000)
     throw Error("프로젝트 파일은 2MB 이내입니다.");
   return validate(JSON.parse(raw));
 }

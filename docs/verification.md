@@ -1,5 +1,9 @@
 # Verification
 
+## 2026-10-13 NEW systematic edge audit — LOCAL / parent integration pending
+
+[Full source inventory, existing/new executable matrix, RED_GREEN logs and limitations](edge-cases-20261013.md). Added 22 Node tests; **30/30** full suite PASS. New browser scenarios **12/12** PASS, plus the retained primary-flow/export harness. Tests passing unchanged source are coverage additions. All evidence: ignored output/playwright/edge-20261013. Decision D07. UI change: NO layout change. No commit/push/deploy/remote CI/live run; parent publishes.
+
 ## 2026-10-13 구절 편집과 두 마디 연습 — LOCAL / 통합 대기
 
 - SOURCE VERIFIED: 저장소 인벤토리, architecture.md → requirements.md → README.md, decisions/verification, .gitattributes/ignore/workflow, model/app/audio/notation, HTML, 기존 테스트와 build/check/serve. api-spec.md와 AGENTS.md는 없음. SOURCE PARTIAL: CSS 관련 레이아웃과 번들/음원/폰트 인벤토리·정적 검사; 바이너리 전체 및 vendor의 모든 내부 구현을 재검토하지 않음.

@@ -34,6 +34,9 @@ let p = demoProject(),
   snap = 240,
   drag = null,
   pages = [];
+let importGeneration = 0;
+// A late file read must not discard even an input that has not blurred yet.
+document.addEventListener("input", () => { importGeneration++; });
 try {
   const raw = localStorage.getItem(KEY);
   if (raw) p = parseProject(raw);
@@ -64,7 +67,7 @@ function save() {
   }
   try {
     const raw = JSON.stringify(validate(p));
-    if (raw.length > 1900000) throw Error();
+    if (new TextEncoder().encode(raw).byteLength > 1900000) throw Error();
     localStorage.setItem(KEY, raw);
     if (localStorage.getItem(KEY) !== raw) throw Error();
     $("save-state").textContent = "자동 저장됨";
@@ -75,6 +78,7 @@ function save() {
   }
 }
 function change(fn) {
+  importGeneration++;
   audio.stop();
   const before = clone(p);
   const beforeSelection = new Set(selection), beforeTrack = trackId;
@@ -270,6 +274,7 @@ function quant(t) {
 }
 function beginDrag(e) {
   if (e.button !== 0) return;
+  importGeneration++;
   e.preventDefault();
   e.stopPropagation();
   $("grid").focus({preventScroll:true});
@@ -430,6 +435,7 @@ $("duplicate").onclick = () => {
   paste();
 };
 $("undo").onclick = () => {
+  importGeneration++;
   audio.stop();
   p = history.undo(p);
   pages = [];
@@ -437,6 +443,7 @@ $("undo").onclick = () => {
   render();
 };
 $("redo").onclick = () => {
+  importGeneration++;
   audio.stop();
   p = history.redo(p);
   pages = [];
@@ -562,6 +569,7 @@ $("save").onclick = () => {
   status("프로젝트 파일 저장을 요청했습니다.");
 };
 function replace(q) {
+  importGeneration++;
   audio.stop();
   p = validate(q);
   trackId = p.tracks[0].id;
@@ -584,16 +592,18 @@ $("open-exercise").onclick = () => {
     replace(exerciseProject());
 };
 $("open").onchange = async () => {
+  const token = ++importGeneration;
   const f = $("open").files[0];
+  $("open").value = "";
   if (!f) return;
   try {
     if (f.size > 2000000) throw Error("2MB 이하의 프로젝트 파일을 선택하세요.");
-    const q = parseProject(await f.text());
+    const raw = await f.text();
+    if (token !== importGeneration) return;
+    const q = parseProject(raw);
     if (confirm("현재 곡을 불러온 파일로 바꿀까요?")) replace(q);
   } catch (e) {
-    status(e.message);
-  } finally {
-    $("open").value = "";
+    if (token === importGeneration) status(e.message);
   }
 };
 document.querySelectorAll("[data-export]").forEach(
