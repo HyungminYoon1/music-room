@@ -89,6 +89,17 @@
         </div>
       </aside>
       <section class="workspace" id="editor">
+        <details id="practice" class="practice">
+          <summary>두 마디로 익히는 작곡 편집</summary>
+          <button id="open-exercise">연습 곡 열기 · 질문과 응답</button>
+          <ol>
+            <li>첫 트랙의 첫 음을 누르고 시작 1틱, 길이 419틱으로 바꿔 보세요. Shift+좌우 방향키로 1틱씩 옮기고 실행 취소·다시 실행으로 비교하세요.</li>
+            <li>첫 음을 선택한 상태에서 Ctrl/Shift+클릭으로 나머지 세 음도 선택하세요. 함께 드래그하면 간격을 유지합니다. Esc로 이동을 취소하고, 복제로 다음 구절을 만들어 보세요.</li>
+            <li>두 트랙을 번갈아 SOLO로 들어 보세요. 응답 트랙의 마지막 음높이와 세기를 바꿔 원하는 끝맺음을 찾으세요. 겹친 SOLO는 함께 재생되므로 앞 트랙의 SOLO를 꺼 주세요.</li>
+            <li>프로젝트 JSON을 저장하고 다시 열어 수치를 확인하세요. MIDI·MusicXML은 원래 틱을, 화면 악보는 1/16 격자를 사용합니다.</li>
+          </ol>
+          <p>가로 이동은 선택한 격자 단위, Shift+좌우는 1틱, 위아래는 반음입니다. 빈 공간 클릭은 음 추가, 오른쪽 끝 드래그는 길이 편집입니다.</p>
+        </details>
         <div class="editor-bar">
           <div class="tabs">
             <button id="roll-tab" aria-pressed="true">피아노 롤</button
@@ -125,7 +136,7 @@
           </div>
           <div class="hint">
             빈 곳 클릭: 음 추가 · 드래그: 이동 · 오른쪽 끝: 길이 · Ctrl/Shift
-            클릭: 여러 음 선택 · 방향키: 이동 · Delete: 삭제
+            클릭: 여러 음 선택 · 방향키: 이동 · Shift+좌우: 1틱 · Esc: 드래그 취소 · Delete: 삭제
           </div>
         </div>
         <div id="score-view" hidden>

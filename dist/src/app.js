@@ -14,6 +14,8 @@ import {
   History,
   encodeMidi,
   musicXML,
+  moveNotes,
+  exerciseProject,
 } from "./model.js";
 import * as audio from "./audio.js";
 import { scorePages, pdf } from "./notation.js";
@@ -75,15 +77,18 @@ function save() {
 function change(fn) {
   audio.stop();
   const before = clone(p);
+  const beforeSelection = new Set(selection), beforeTrack = trackId;
   try {
     fn();
     validate(p);
-    history.push(before);
+    if (JSON.stringify(p) !== JSON.stringify(before)) history.push(before);
     pages = [];
     save();
     render();
   } catch (e) {
     p = before;
+    selection = beforeSelection;
+    trackId = beforeTrack;
     render();
     status(e.message);
   }
@@ -169,6 +174,9 @@ function render() {
   if (!$("score-view").hidden) showScore();
 }
 function renderRoll() {
+  const focused = document.activeElement;
+  const focusId = focused?.classList.contains("note") ? focused.dataset.id : null;
+  const keepFocus = focused === $("grid") || !!focusId;
   const width = (totalTicks(p) / PPQ) * px;
   $("grid").style.width = width + "px";
   $("ruler").style.width = width + "px";
@@ -208,6 +216,10 @@ function renderRoll() {
     $("grid").append(e);
   }
   tick();
+  if (keepFocus) {
+    const target = [...$("grid").querySelectorAll(".note")].find(e=>e.dataset.id===focusId);
+    (target || $("grid")).focus({preventScroll:true});
+  }
 }
 for (let i = 108; i >= 21; i--) {
   const e = make(
@@ -260,6 +272,7 @@ function beginDrag(e) {
   if (e.button !== 0) return;
   e.preventDefault();
   e.stopPropagation();
+  $("grid").focus({preventScroll:true});
   audio.stop();
   const id = e.currentTarget.dataset.id,
     n = track().notes.find((n) => n.id === id);
@@ -284,7 +297,8 @@ function beginDrag(e) {
   e.currentTarget.setPointerCapture(e.pointerId);
   e.currentTarget.onpointermove = moveDrag;
   e.currentTarget.onpointerup = endDrag;
-  e.currentTarget.onpointercancel = endDrag;
+  e.currentTarget.onpointercancel = () => endDrag(true);
+  e.currentTarget.onlostpointercapture = () => { if (drag) endDrag(true); };
   inspect();
 }
 function moveDrag(e) {
@@ -293,6 +307,7 @@ function moveDrag(e) {
     dp = -Math.round((e.clientY - drag.y) / 14);
   if (Math.abs(e.clientX - drag.x) + Math.abs(e.clientY - drag.y) > 3)
     drag.moved = true;
+  const moved = moveNotes(drag.notes, dt, dp, totalTicks(p));
   for (const original of drag.notes) {
     const n = track().notes.find((n) => n.id === original.id);
     if (drag.resize)
@@ -301,11 +316,9 @@ function moveDrag(e) {
         Math.min(totalTicks(p) - n.start, original.duration + dt),
       );
     else {
-      n.start = Math.max(
-        0,
-        Math.min(totalTicks(p) - n.duration, original.start + dt),
-      );
-      n.pitch = Math.max(21, Math.min(108, original.pitch + dp));
+      const result = moved.find(n=>n.id===original.id);
+      n.start = result.start;
+      n.pitch = result.pitch;
     }
     const el = $("grid").querySelector(`[data-id="${n.id}"]`);
     el.style.left = (n.start / PPQ) * px + "px";
@@ -315,11 +328,13 @@ function moveDrag(e) {
   }
   inspect();
 }
-function endDrag() {
+function endDrag(cancel = false) {
   if (!drag) return;
   const d = drag;
   drag = null;
-  if (d.moved) {
+  if (cancel === true) {
+    p = d.before;
+  } else if (d.moved) {
     validate(p);
     history.push(d.before);
     pages = [];
@@ -355,23 +370,18 @@ $("grid").addEventListener("pointerdown", (e) => {
   audio.preview(track(), pitch).catch((e) => status(e.message));
 });
 function keyEdit(e) {
+  if (e.isComposing || e.ctrlKey || e.metaKey || e.altKey) return;
   if (
     ["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown"].includes(e.key) &&
     selected().length
   ) {
     e.preventDefault();
     change(() => {
-      for (const n of selected()) {
-        if (e.key === "ArrowLeft")
-          n.start = Math.max(0, n.start - (e.shiftKey ? 1 : snap));
-        if (e.key === "ArrowRight")
-          n.start = Math.min(
-            totalTicks(p) - n.duration,
-            n.start + (e.shiftKey ? 1 : snap),
-          );
-        if (e.key === "ArrowUp") n.pitch = Math.min(108, n.pitch + 1);
-        if (e.key === "ArrowDown") n.pitch = Math.max(21, n.pitch - 1);
-      }
+      const step=e.shiftKey?1:snap;
+      const dt=e.key==='ArrowLeft'?-step:e.key==='ArrowRight'?step:0;
+      const dp=e.key==='ArrowUp'?1:e.key==='ArrowDown'?-1:0;
+      for(const result of moveNotes(selected(),dt,dp,totalTicks(p)))
+        Object.assign(track().notes.find(n=>n.id===result.id),result);
     });
   }
   if (e.key === "Delete" || e.key === "Backspace") {
@@ -569,6 +579,10 @@ $("new").onclick = () => {
   if (confirm("새 곡을 시작할까요? 현재 곡은 파일로 저장해 두세요."))
     replace(emptyProject());
 };
+$("open-exercise").onclick = () => {
+  if (confirm("두 마디 연습 곡을 열까요? 현재 곡은 프로젝트 파일로 저장해 두세요."))
+    replace(exerciseProject());
+};
 $("open").onchange = async () => {
   const f = $("open").files[0];
   if (!f) return;
@@ -644,7 +658,8 @@ $("cancel-export").onclick = () => {
   status("음원 내보내기를 취소했습니다.");
 };
 document.addEventListener("keydown", (e) => {
-  if (e.target.closest("input,textarea,select")) return;
+  if (e.target.closest("input,textarea,select") || e.isComposing) return;
+  if (e.key === "Escape" && drag) { e.preventDefault(); endDrag(true); return; }
   const mod = e.ctrlKey || e.metaKey;
   if (mod && e.key.toLowerCase() === "z") {
     e.preventDefault();
@@ -663,6 +678,7 @@ document.addEventListener("keydown", (e) => {
     paste();
   }
   if (e.code === "Space") {
+    if (e.target.closest("button,a")) return;
     e.preventDefault();
     $("play").click();
   }
@@ -674,6 +690,7 @@ document.addEventListener("visibilitychange", () => {
   }
 });
 window.addEventListener("pagehide", audio.stop);
+window.addEventListener("blur", () => { if (drag) endDrag(true); });
 window.addEventListener("beforeunload", (e) => {
   if (dirty) {
     e.preventDefault();

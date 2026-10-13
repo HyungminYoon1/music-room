@@ -668,3 +668,7 @@ details a {
     padding: 7px;
   }
 }
+.practice { margin: 12px; padding: 10px 14px; border: 1px solid #dbe0eb; border-radius: 8px; background: #f8faff; color: #465574; font-size: 12px; line-height: 1.7; }
+.practice summary { cursor: pointer; color: #334d87; }
+.practice button { margin-top: 10px; }
+.practice ol { padding-left: 22px; }

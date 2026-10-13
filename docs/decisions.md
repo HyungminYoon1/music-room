@@ -1,5 +1,9 @@
 # Decisions
 
+## D06 — Stable note editing, bounded group movement and a short practice project (2026-10-13)
+
+Context: recreating note nodes lost keyboard focus after one arrow edit; Escape/pointer cancellation committed a drag. Per-note boundary clipping could change intervals within a selected phrase. Options: individually clamp each note, refuse every boundary move, or clamp one shared time/pitch delta. Decision: the pure model computes one bounded integer delta for the group; app keeps grid/note focus, restores cancelled drags, preserves selection/track on rejected changes and avoids pushing unchanged projects into history. Inputs/composition and native button Space handling retain their own behavior. Decision: add a validated two-bar/two-track question/response project behind explicit replacement confirmation, with an optional four-step practice panel. Rationale: preserve a phrase and make exact timing, mixing and file portability easy to try. Affected: model/app/index/styles, model tests and browser verification tools. No schema, dependency, audio fidelity, export resolution, account or storage-boundary change. Review: focused consecutive keys, Escape, group boundary pointer move, exact 1/419 ticks, imported files, quota/180-second refusal, every existing export and desktop/mobile QA. Listening quality and external DAW compatibility remain NOT_RUN.
+
 ## D01 — local composition and bounded resources (2026-10-09)
 
 Context: an independent, free creative tool must preserve existing WEB LAB records. Options: shared schema, backend storage, own local key. Decision: own bounded key, JSON files, eight tracks/4096 notes and a 180-second WAV limit. No API, ranking or shared-summary writes. Invalid autosave remains untouched pending explicit replacement. Rationale: no account costs or migration/data-loss risk. Files: model, app, audio, CSP. Review: actual browser quota failures and imports, not just static checks.

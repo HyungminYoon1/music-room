@@ -1,0 +1,48 @@
+import { createRequire } from 'node:module';
+import { readFile, mkdir, writeFile } from 'node:fs/promises';
+import { resolve } from 'node:path';
+import vm from 'node:vm';
+import assert from 'node:assert/strict';
+const { chromium }=createRequire(resolve(process.argv[2]))('playwright');
+const root=resolve(import.meta.dirname,'..'),out=resolve(root,'output/playwright/qa-20261013');await mkdir(out,{recursive:true});
+const browser=await chromium.launch({executablePath:'C:/Program Files/Google/Chrome/Application/chrome.exe',headless:true,args:['--mute-audio']});
+const context=await browser.newContext({viewport:{width:1440,height:1000},acceptDownloads:true});
+const page=await context.newPage(),errors=[];page.on('pageerror',e=>errors.push(e.message));page.on('dialog',d=>d.accept());
+const checks=[],screenshots=[],project=()=>page.evaluate(()=>JSON.parse(localStorage.getItem('score-lab-project-v1')));
+const download=async(selector,name)=>{const promise=page.waitForEvent('download');await page.locator(selector).click();const d=await promise;const path=resolve(out,name);await d.saveAs(path);return path;};
+try{
+  const regression=vm.runInNewContext(await readFile(resolve(root,'tools/browser-regression.js'),'utf8'),{console});await regression(page);checks.push('two consecutive focused-note arrow edits; Escape restores note drag');
+  await page.locator('#practice summary').click();await page.locator('#open-exercise').click();await page.waitForFunction(()=>document.querySelector('#title').value==='주고받는 두 마디');
+  let p=await project();assert.equal(p.tracks.length,2);assert.equal(p.bars,2);
+  await page.locator('.note').first().click({position:{x:10,y:6}});
+  await page.locator('#note-start').fill('1');await page.locator('#note-start').press('Tab');
+  await page.locator('#note-duration').fill('419');await page.locator('#note-duration').press('Tab');
+  const exact=await project();assert.equal(exact.tracks[0].notes[0].start,1);assert.equal(exact.tracks[0].notes[0].duration,419);
+  await page.locator('#note-pitch').fill('109');await page.locator('#note-pitch').press('Tab');assert.deepEqual(await project(),exact);assert.equal(await page.locator('#note-start').inputValue(),'1');
+  await page.locator('#undo').click();await page.locator('#redo').click();assert.deepEqual(await project(),exact);checks.push('exercise opens through confirmation; exact 1/419 ticks; invalid pitch preserves selection; undo/redo');
+  const json=await download('#save','roundtrip.score.json');assert.deepEqual(JSON.parse(await readFile(json,'utf8')),exact);
+  await page.locator('#open').setInputFiles(json);await page.waitForFunction(()=>document.querySelectorAll('#track-list .track-card').length===2);assert.deepEqual(await project(),exact);
+  await page.locator('#open').setInputFiles({name:'bad.json',mimeType:'application/json',buffer:Buffer.from('{}')});assert.deepEqual(await project(),exact);checks.push('actual project download/reimport; malformed file preserves both tracks');
+  await page.locator('.note').first().click({position:{x:10,y:6}});await page.locator('.note').nth(1).click({position:{x:10,y:6},modifiers:['Control']});
+  const notes=(await project()).tracks[0].notes.slice(0,2),box=await page.locator('.note').first().boundingBox();
+  await page.mouse.move(box.x+10,box.y+6);await page.mouse.down();await page.mouse.move(box.x-90,box.y+6,{steps:8});await page.mouse.up();
+  let moved=(await project()).tracks[0].notes;assert.equal(moved[1].start-moved[0].start,notes[1].start-notes[0].start);assert.equal(moved[0].start,0);await page.locator('#undo').click();assert.deepEqual(await project(),exact);
+  checks.push('multi-note pointer move against left boundary preserves relative timing');
+  await page.locator('#play').click();await page.waitForTimeout(350);assert((await page.locator('#clock').textContent()).includes('01'));await page.waitForFunction(()=>document.querySelector('#play').textContent.includes('일시'));await page.locator('#stop').click();checks.push('explicit muted playback advances transport; stop');
+  const midi=await readFile(await download('[data-export=midi]','score.mid'));assert.equal(midi.subarray(0,4).toString(),'MThd');assert.equal(midi.readUInt16BE(12),960);
+  const xml=await readFile(await download('[data-export=xml]','score.musicxml'),'utf8');assert(xml.includes('<duration>419</duration>'));assert(await page.evaluate(s=>!new DOMParser().parseFromString(s,'application/xml').querySelector('parsererror'),xml));
+  const wav=await readFile(await download('[data-export=wav]','score.wav'));assert.equal(wav.subarray(0,4).toString(),'RIFF');assert.equal(wav.readUInt32LE(24),48000);assert.equal(wav.readUInt16LE(22),2);assert.equal(wav.readUInt16LE(34),24);assert(wav.subarray(44).some(b=>b!==0));
+  await page.locator('#score-tab').click();assert.equal(await page.locator('#score-pages>svg').count(),2);
+  const svg=await readFile(await download('[data-export=svg]','score.svg'),'utf8');assert(await page.evaluate(s=>!new DOMParser().parseFromString(s,'image/svg+xml').querySelector('parsererror'),svg));
+  const pdf=await readFile(await download('[data-export=pdf]','score.pdf'));assert.equal(pdf.subarray(0,5).toString(),'%PDF-');
+  await page.screenshot({path:resolve(out,'score-desktop.png')});screenshots.push('score-desktop.png');
+  checks.push(`MIDI PPQ960; exact XML; stereo 48kHz/24bit WAV ${wav.length} bytes; parsed SVG; real PDF; two score pages`);
+  await page.locator('#roll-tab').click();await page.locator('#practice').scrollIntoViewIfNeeded();await page.screenshot({path:resolve(out,'desktop.png')});screenshots.push('desktop.png');
+  await page.locator('#bars').fill('64');await page.locator('#bars').press('Tab');await page.locator('#tempo').fill('40');await page.locator('#tempo').press('Tab');
+  const long=await project();await page.locator('[data-export=wav]').click();await page.waitForFunction(()=>document.querySelector('#status').textContent.includes('180초'));assert.deepEqual(await project(),long);await page.locator('#undo').click();await page.locator('#undo').click();assert.deepEqual(await project(),exact);checks.push('over-180-second WAV rejects without truncation or state loss');
+  for(const width of [390,320]){await page.setViewportSize({width,height:900});await page.locator('#practice').scrollIntoViewIfNeeded();assert.equal(await page.evaluate(()=>Math.max(0,document.documentElement.scrollWidth-innerWidth)),0);await page.screenshot({path:resolve(out,`mobile-${width}.png`)});screenshots.push(`mobile-${width}.png`);}
+  await page.locator('#track-list .track-card').nth(1).click();await page.locator('#track-list .track-card').first().click();
+  await page.locator('.note').first().click({position:{x:10,y:6}});await page.locator('#grid').focus();await page.keyboard.press('Shift+ArrowRight');assert.equal(await page.locator('#note-start').inputValue(),'2');checks.push('390/320 no overflow; narrow viewport selection and 1-tick key edit');
+  const failed=await context.newPage();await failed.addInitScript(raw=>{localStorage.setItem('score-lab-project-v1',raw);Storage.prototype.setItem=function(){throw new DOMException('QA quota','QuotaExceededError');};},JSON.stringify(exact));await failed.goto('http://127.0.0.1:4292/');await failed.locator('#title').fill('저장 실패 연습');await failed.locator('#title').press('Tab');assert.equal(await failed.locator('#save-state').textContent(),'파일 저장 필요');assert.equal(await failed.evaluate(()=>JSON.parse(localStorage.getItem('score-lab-project-v1')).title),exact.title);await failed.close();checks.push('quota fixture preserves prior autosave and shows file-save state');
+  assert.deepEqual(errors,[]);const report={status:'PASS',checks,errors,screenshots,selectors:['#practice','#open-exercise','#grid','.note','#note-start','#open','#score-pages']};await writeFile(resolve(out,'report.json'),JSON.stringify(report,null,2));console.log(JSON.stringify(report));
+}finally{await browser.close();}

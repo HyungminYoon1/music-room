@@ -13,6 +13,9 @@ import {
   lanes,
   vlq,
   totalTicks,
+  barTicks,
+  moveNotes,
+  exerciseProject,
 } from "../dist/src/model.js";
 test("valid original project, exact ticks and strict imported bounds", () => {
   const p = demoProject();
@@ -30,6 +33,32 @@ test("valid original project, exact ticks and strict imported bounds", () => {
     mutate(q);
     assert.throws(() => validate(q));
   }
+});
+
+test('group translation keeps timing and pitch intervals at every boundary',()=>{
+  const notes=[{id:'a',pitch:107,start:10,duration:100,velocity:88},{id:'b',pitch:100,start:300,duration:200,velocity:60}];
+  const before=structuredClone(notes);
+  for(const [dt,dp] of [[-100,20],[900,-200],[1,1],[-1,-1]]){
+    const moved=moveNotes(notes,dt,dp,1000);
+    assert.equal(moved[1].start-moved[0].start,290);
+    assert.equal(moved[0].pitch-moved[1].pitch,7);
+    assert(moved.every(n=>n.start>=0&&n.start+n.duration<=1000&&n.pitch>=21&&n.pitch<=108));
+    assert.deepEqual(moved.map(n=>[n.id,n.duration,n.velocity]),notes.map(n=>[n.id,n.duration,n.velocity]));
+  }
+  assert.deepEqual(notes,before);
+  assert.throws(()=>moveNotes(notes,NaN,0,1000));
+});
+
+test('two-bar exercise remains editable through project, MIDI and printed timing',()=>{
+  const p=exerciseProject(),raw=JSON.stringify(p);
+  assert.deepEqual(parseProject(raw),p);
+  assert.equal(p.bars,2);assert.equal(p.tracks.length,2);
+  assert(p.tracks[0].notes.every(n=>n.start+n.duration<=barTicks(p)));
+  assert(p.tracks[1].notes.every(n=>n.start>=barTicks(p)));
+  const q=parseProject(raw);q.tracks[0].notes[0].start=1;q.tracks[0].notes[0].duration=419;
+  validate(q);assert(encodeMidi(q).byteLength>100);assert(musicXML(q).includes('<duration>419</duration>'));
+  lanes(q.tracks[0].notes,240,8);assert.equal(q.tracks[0].notes[0].start,1);
+  assert.equal(JSON.stringify(p),raw);
 });
 test("history preserves exact notes and drops redo after branching", () => {
   const p = demoProject(),

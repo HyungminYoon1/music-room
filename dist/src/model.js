@@ -170,6 +170,31 @@ export function soundingTracks(p) {
   const solo = p.tracks.some((t) => t.solo);
   return p.tracks.filter((t) => !t.mute && (!solo || t.solo));
 }
+export function exerciseProject() {
+  const p = emptyProject();
+  p.title = "주고받는 두 마디";
+  p.bars = 2;
+  p.tracks[0].name = "질문 · 첫 마디";
+  p.tracks[0].notes = [72,76,79,76].map((pitch,i)=>({
+    id:uid(),pitch,start:i*480,duration:420,velocity:i%2?70:90,
+  }));
+  p.tracks.push({id:uid(),name:"응답 · 둘째 마디",instrument:"pluck",
+    volume:.6,pan:0,mute:false,solo:false,
+    notes:[72,74,67,72].map((pitch,i)=>({id:uid(),pitch,
+      start:barTicks(p)+i*480,duration:420,velocity:i%2?70:90})),
+  });
+  return validate(p);
+}
+export function moveNotes(notes, dt, dp, end) {
+  if (![dt, dp, end].every(Number.isInteger) || end < 1)
+    throw Error("음 이동 범위를 확인하세요.");
+  if (!notes.length) return [];
+  dt = Math.max(-Math.min(...notes.map(n=>n.start)),
+    Math.min(end-Math.max(...notes.map(n=>n.start+n.duration)),dt));
+  dp = Math.max(21-Math.min(...notes.map(n=>n.pitch)),
+    Math.min(108-Math.max(...notes.map(n=>n.pitch)),dp));
+  return notes.map(n=>({...n,start:n.start+dt,pitch:n.pitch+dp}));
+}
 export class History {
   constructor() {
     this.back = [];
