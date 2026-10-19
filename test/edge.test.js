@@ -21,9 +21,9 @@ test("meter requires numeric pair rather than coercible strings",()=>{
 });
 test("tracks, drums, notes, IDs and end-of-score boundaries",()=>{
   const p=fixture(),t=p.tracks[0];
-  p.tracks=Array.from({length:8},(_,i)=>({...structuredClone(t),id:"t"+i,notes:[]}));
+  p.tracks=Array.from({length:16},(_,i)=>({...structuredClone(t),id:"t"+i,instrument:i===15?'drums':t.instrument,notes:[]}));
   validate(p);p.tracks.push({...t,id:"overflow",notes:[]});assert.throws(()=>validate(p));p.tracks.pop();
-  p.tracks[0].instrument="drums";validate(p);p.tracks[1].instrument="drums";assert.throws(()=>validate(p));
+  p.tracks[15].instrument='piano';p.tracks[0].instrument="drums";validate(p);p.tracks[1].instrument="drums";assert.throws(()=>validate(p));
   p.tracks=[t];t.notes=Array.from({length:4096},(_,i)=>({id:"n"+i,pitch:108,start:3839,duration:1,velocity:127}));
   validate(p);t.notes.push({...t.notes[0],id:"extra"});assert.throws(()=>validate(p));t.notes.pop();
   t.notes[0].duration=2;assert.throws(()=>validate(p));t.notes[0].duration=1;

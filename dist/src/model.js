@@ -1,13 +1,13 @@
+import {
+  CATALOG,
+  INSTRUMENTS,
+  isPercussion,
+  midiChannels,
+  KIT_NOTES,
+} from "./instruments.js";
+export { INSTRUMENTS } from "./instruments.js";
 export const PPQ = 960,
   KEY = "score-lab-project-v1";
-export const INSTRUMENTS = {
-  piano: "그랜드 피아노",
-  bass: "신스 베이스",
-  organ: "오르간",
-  pluck: "플럭 신스",
-  pad: "패드",
-  drums: "드럼 키트",
-};
 export const uid = () => crypto.randomUUID();
 export const clone = (x) => structuredClone(x);
 const finite = (x, min, max) =>
@@ -45,7 +45,7 @@ export function validate(p) {
     p.bars > 64 ||
     !Array.isArray(p.tracks) ||
     !p.tracks.length ||
-    p.tracks.length > 8
+    p.tracks.length > 16
   )
     throw Error("프로젝트 형식이나 범위를 확인하세요.");
   const ids = new Set();
@@ -69,8 +69,15 @@ export function validate(p) {
       !Array.isArray(t.notes)
     )
       throw Error("트랙 설정을 확인하세요.");
-    if (t.instrument === "drums") drums++;
+    if (isPercussion(t.instrument)) drums++;
     for (const n of t.notes) {
+      if (
+        t.instrument === "orchestral-kit" &&
+        !Object.hasOwn(KIT_NOTES, n.pitch)
+      )
+        throw Error(
+          "오케스트라 타악기에는 큰북·작은북·심벌·탬버린·클라베스·트라이앵글 음을 사용하세요. 새 타악기 트랙을 추가할 수 있습니다.",
+        );
       id(n.id);
       count++;
       if (
@@ -88,11 +95,16 @@ export function validate(p) {
   }
   if (count > 4096 || drums > 1)
     throw Error("최대 4096음, 드럼 트랙은 1개까지입니다.");
+  if (p.tracks.length - drums > 15)
+    throw Error("선율 악기는 최대 15트랙, 타악기 키트는 1트랙입니다.");
   return p;
 }
 export function parseProject(raw) {
-  if (typeof raw !== "string" || raw.length > 2000000 ||
-      new TextEncoder().encode(raw).byteLength > 2000000)
+  if (
+    typeof raw !== "string" ||
+    raw.length > 2000000 ||
+    new TextEncoder().encode(raw).byteLength > 2000000
+  )
     throw Error("프로젝트 파일은 2MB 이내입니다.");
   return validate(JSON.parse(raw));
 }
@@ -177,13 +189,28 @@ export function exerciseProject() {
   p.title = "주고받는 두 마디";
   p.bars = 2;
   p.tracks[0].name = "질문 · 첫 마디";
-  p.tracks[0].notes = [72,76,79,76].map((pitch,i)=>({
-    id:uid(),pitch,start:i*480,duration:420,velocity:i%2?70:90,
+  p.tracks[0].notes = [72, 76, 79, 76].map((pitch, i) => ({
+    id: uid(),
+    pitch,
+    start: i * 480,
+    duration: 420,
+    velocity: i % 2 ? 70 : 90,
   }));
-  p.tracks.push({id:uid(),name:"응답 · 둘째 마디",instrument:"pluck",
-    volume:.6,pan:0,mute:false,solo:false,
-    notes:[72,74,67,72].map((pitch,i)=>({id:uid(),pitch,
-      start:barTicks(p)+i*480,duration:420,velocity:i%2?70:90})),
+  p.tracks.push({
+    id: uid(),
+    name: "응답 · 둘째 마디",
+    instrument: "pluck",
+    volume: 0.6,
+    pan: 0,
+    mute: false,
+    solo: false,
+    notes: [72, 74, 67, 72].map((pitch, i) => ({
+      id: uid(),
+      pitch,
+      start: barTicks(p) + i * 480,
+      duration: 420,
+      velocity: i % 2 ? 70 : 90,
+    })),
   });
   return validate(p);
 }
@@ -191,11 +218,15 @@ export function moveNotes(notes, dt, dp, end) {
   if (![dt, dp, end].every(Number.isInteger) || end < 1)
     throw Error("음 이동 범위를 확인하세요.");
   if (!notes.length) return [];
-  dt = Math.max(-Math.min(...notes.map(n=>n.start)),
-    Math.min(end-Math.max(...notes.map(n=>n.start+n.duration)),dt));
-  dp = Math.max(21-Math.min(...notes.map(n=>n.pitch)),
-    Math.min(108-Math.max(...notes.map(n=>n.pitch)),dp));
-  return notes.map(n=>({...n,start:n.start+dt,pitch:n.pitch+dp}));
+  dt = Math.max(
+    -Math.min(...notes.map((n) => n.start)),
+    Math.min(end - Math.max(...notes.map((n) => n.start + n.duration)), dt),
+  );
+  dp = Math.max(
+    21 - Math.min(...notes.map((n) => n.pitch)),
+    Math.min(108 - Math.max(...notes.map((n) => n.pitch)), dp),
+  );
+  return notes.map((n) => ({ ...n, start: n.start + dt, pitch: n.pitch + dp }));
 }
 export class History {
   constructor() {
@@ -267,13 +298,14 @@ export function encodeMidi(p) {
         },
       ]),
     ];
-  const programs = { piano: 0, bass: 38, organ: 16, pluck: 80, pad: 89 };
-  let ch = 0;
-  for (const t of p.tracks) {
-    const c = t.instrument === "drums" ? 9 : ch++,
+  const channels = midiChannels(p.tracks);
+  for (const [index, t] of p.tracks.entries()) {
+    const c = channels[index],
       e = [];
+    const name = new TextEncoder().encode(t.name);
     e.push(
-      { tick: 0, order: 0, data: [192 + c, programs[t.instrument] ?? 0] },
+      { tick: 0, order: 0, data: [255, 3, ...vlq(name.length), ...name] },
+      { tick: 0, order: 0, data: [192 + c, CATALOG[t.instrument].program] },
       { tick: 0, order: 1, data: [176 + c, 7, Math.round(t.volume * 127)] },
       {
         tick: 0,
@@ -332,6 +364,7 @@ export function lanes(notes, quantum = 1, limit = Infinity) {
 export function musicXML(p) {
   validate(p);
   const bt = barTicks(p);
+  const channels = midiChannels(p.tracks);
   let out =
     '<?xml version="1.0" encoding="UTF-8"?><score-partwise version="4.0"><work><work-title>' +
     xml(p.title) +
@@ -339,32 +372,32 @@ export function musicXML(p) {
     p.tracks
       .map((t, i) => {
         const pitches = [...new Set(t.notes.map((n) => n.pitch))];
-        const instruments =
-          t.instrument === "drums"
-            ? pitches
-                .map(
-                  (pitch) =>
-                    `<score-instrument id="P${i + 1}I${pitch}"><instrument-name>GM Drum ${pitch}</instrument-name></score-instrument>`,
-                )
-                .join("") +
-              pitches
-                .map(
-                  (pitch) =>
-                    `<midi-instrument id="P${i + 1}I${pitch}"><midi-channel>10</midi-channel><midi-unpitched>${pitch + 1}</midi-unpitched></midi-instrument>`,
-                )
-                .join("")
-            : "";
+        const instruments = isPercussion(t.instrument)
+          ? pitches
+              .map(
+                (pitch) =>
+                  `<score-instrument id="P${i + 1}I${pitch}"><instrument-name>GM Drum ${pitch}</instrument-name></score-instrument>`,
+              )
+              .join("") +
+            pitches
+              .map(
+                (pitch) =>
+                  `<midi-instrument id="P${i + 1}I${pitch}"><midi-channel>10</midi-channel><midi-unpitched>${pitch + 1}</midi-unpitched></midi-instrument>`,
+              )
+              .join("")
+          : `<score-instrument id="P${i + 1}I"><instrument-name>${xml(INSTRUMENTS[t.instrument])}</instrument-name></score-instrument><midi-instrument id="P${i + 1}I"><midi-channel>${channels[i] + 1}</midi-channel><midi-program>${CATALOG[t.instrument].program + 1}</midi-program></midi-instrument>`;
         return `<score-part id="P${i + 1}"><part-name>${xml(t.name)}</part-name>${instruments}</score-part>`;
       })
       .join("") +
     "</part-list>";
   for (const [ti, t] of p.tracks.entries()) {
     out += `<part id="P${ti + 1}">`;
+    const clef = CATALOG[t.instrument].clef;
     const voices = lanes(t.notes);
     for (let b = 0; b < p.bars; b++) {
       out += `<measure number="${b + 1}">`;
       if (b === 0)
-        out += `<attributes><divisions>${PPQ}</divisions><time><beats>${p.meter[0]}</beats><beat-type>${p.meter[1]}</beat-type></time><clef><sign>${t.instrument === "bass" ? "F" : "G"}</sign><line>${t.instrument === "bass" ? 4 : 2}</line></clef></attributes><direction><sound tempo="${p.tempo}"/></direction>`;
+        out += `<attributes><divisions>${PPQ}</divisions><time><beats>${p.meter[0]}</beats><beat-type>${p.meter[1]}</beat-type></time><clef><sign>${clef === "bass" ? "F" : clef === "alto" ? "C" : clef === "percussion" ? "percussion" : "G"}</sign><line>${clef === "bass" ? 4 : clef === "alto" ? 3 : 2}</line></clef></attributes><direction><sound tempo="${p.tempo}"/></direction>`;
       voices.forEach((lane, vi) => {
         if (vi) out += `<backup><duration>${bt}</duration></backup>`;
         let cursor = b * bt;
@@ -395,13 +428,13 @@ export function musicXML(p) {
             out +=
               "<note>" +
               (ni ? "<chord/>" : "") +
-              (t.instrument === "drums"
+              (isPercussion(t.instrument)
                 ? `<unpitched><display-step>${step}</display-step><display-octave>${Math.floor(n.pitch / 12) - 1}</display-octave></unpitched>`
                 : `<pitch><step>${step}</step>${alt}<octave>${Math.floor(n.pitch / 12) - 1}</octave></pitch>`) +
               `<duration>${end - start}</duration>` +
               (g.start < start ? '<tie type="stop"/>' : "") +
               (g.end > end ? '<tie type="start"/>' : "") +
-              (t.instrument === "drums"
+              (isPercussion(t.instrument)
                 ? `<instrument id="P${ti + 1}I${n.pitch}"/>`
                 : "") +
               `<voice>${vi + 1}</voice></note>`;

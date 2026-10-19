@@ -1,5 +1,26 @@
 # Verification
 
+## 2026-10-19 MUSIC ROOM — LOCAL PASS
+
+User approved the 16-track/orchestra architecture exception (D08). URL, version-1 projects and own save key remain unchanged. VERIFIED: architecture, requirements, README, decisions, authored model/audio/notation/app/HTML/CSS, tests and relevant tools/workflow. No api-spec or repository AGENTS file exists. All 180 new WAV hashes/headers and pinned sample/license provenance verified. Upstream raw library and vendor internals are PARTIAL, not fully audited. Other WEB LAB app implementations are out of scope.
+
+- Node **49/49 PASS** (baseline 30; 19 new). Static **218 files PASS**; pinned vendor rebuilt without unintended dependency/bundle changes. UTF-8 no BOM / CRLF and diff whitespace checks are release gates.
+- New browser suite **13/13 scenarios PASS**, isolated muted Chrome: search/family/audition/add; chord/inversion; group velocity/length/quantize/undo; marquee/group move; draw/erase/cancel; quoted IDs; loop/stop/invalid range; consecutive velocity-key edits; delayed-load stop status; 16-track/percussion budget; notation/XML; 1440/390/320 layouts. No page errors or root overflow.
+- Actual Web Audio: all **30 presets** rendered non-silent stereo 48 kHz / 24-bit WAV; all **180** new recordings decoded. Sustained violin has waveform energy at seconds 6–7, beyond the original clip. Ten orchestral score parts render, including alto/bass/percussion clefs. This is waveform/format evidence, not human listening certification.
+- Retained browser edges **12/12 PASS**: malformed/oversize import, cancellation/order/new/typing races, quota/denied/readback/corrupt-storage preservation, UTF-8 limits and mobile input. Retained primary suite PASS: exact 1/419 ticks, actual JSON download/reimport, MIDI/XML/WAV/SVG/PDF, 180s refusal and drag/history/selection.
+- Failure-first: orchestra channel/catalog tests failed 5/5 before implementation. New harp template exceeded the last bar; its regression failed then passed. Concurrent sample requests peaked at 12 instead of 4; a per-context semaphore fixed the failing test. Velocity arrows produced 91 instead of 92; focus restoration fixed it. Delayed loading overwrote 정지 with 음원 준비 1 / 1; generation guarding fixed it. Coverage additions are not claimed as regressions. An initial duplicate-browser expectation used too short a fixture; that test was corrected to four bars, not the product boundary.
+- Evidence (ignored): output/playwright/music-20261019/report.json, audio-render.json, desktop/library/notation/mobile screenshots; output/playwright/edge-20261013/music-browser.json and existing/report.json with actual exports. WEB LAB's JPEG is a real 1440×1050 isolated capture; other images are unchanged.
+
+Reproduce with `node tools/serve.mjs 0`, npm run build/test/check, and an existing Playwright package:
+
+```powershell
+node tools/music-browser.mjs ../output/playwright/implement-20261012/package.json http://127.0.0.1:PORT/
+node tools/edge-browser.mjs ../output/playwright/implement-20261012/package.json http://127.0.0.1:PORT/ music
+node tools/edge-browser.mjs ../output/playwright/implement-20261012/package.json http://127.0.0.1:PORT/ existing
+```
+
+NOT_RUN: physical touch/MIDI devices, Safari/iPhone, low-memory phones, external DAW/MusicXML import, subjective fidelity and exhaustive 4096-note performance. MIDI import, VST and microphone recording are NOT_IMPLEMENTED. No server/DB/account change. Windows/Linux CI and Pages are checked after push, separately from local browser evidence; consult the release run and handoff for public status.
+
 ## 2026-10-13 NEW systematic edge audit — LOCAL / parent integration pending
 
 [Full source inventory, existing/new executable matrix, RED_GREEN logs and limitations](edge-cases-20261013.md). Added 22 Node tests; **30/30** full suite PASS. New browser scenarios **12/12** PASS, plus the retained primary-flow/export harness. Tests passing unchanged source are coverage additions. All evidence: ignored output/playwright/edge-20261013. Decision D07. UI change: NO layout change. No commit/push/deploy/remote CI/live run; parent publishes.

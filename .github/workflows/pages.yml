@@ -1,4 +1,4 @@
-name: Verify and publish SCORE LAB
+name: Verify and publish MUSIC ROOM
 on:
   push:
     branches: [main]
@@ -10,7 +10,10 @@ concurrency:
   cancel-in-progress: true
 jobs:
   verify:
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
       - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
@@ -22,6 +25,7 @@ jobs:
       - run: npm test
       - run: npm run check
       - uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa # v3
+        if: matrix.os == 'ubuntu-latest'
         with:
           path: dist
   deploy:

@@ -1,0 +1,18 @@
+VSCO 2 Community Edition / Versilian Studios
+Creators: Sam Gossner and Simon Dalzell. Additional sample cutting: Elan Hickler / Soundemote.
+https://versilian-studios.com/vsco-community/
+https://github.com/sgossner/VSCO-2-CE
+License: CC0 1.0 Universal (full text: CC0.txt). Original Readme: Readme-upstream.txt.
+Source commit: 440300901dfe9275fd84e0b7763af1f8443ae62e
+SFZ mapping commit: 6dd651d55dde97fd4028699be9d4481f26917891
+manifest.json records every original path, root MIDI note, source SHA-256, processed SHA-256 and loop.
+
+MUSIC ROOM browser adaptation (not the complete upstream library):
+24 banks, 180 selected recordings; one dynamic layer and no round robin.
+Mono PCM16, source sample rate (44.1 or 48 kHz), normalized peak 0.8.
+Trimmed initial silence and length (sustained instruments <=5s, one-shots <=9s).
+180ms crossfade loops for sustained instruments; 20ms end fades.
+Root notes come from upstream SFZ pitch_keycenter, never inferred from file octave spelling.
+Upstream SFZ maps are used for pitch information; this browser is not an SFZ interpreter.
+Instrument ranges shown in the UI are composition guidance, not restrictions on transposition.
+Preparation: tools/prepare-orchestra.mjs. Samples are served locally; there is no runtime CDN.

@@ -5,3 +5,4 @@
 *.mp3 binary
 dist/vendor/music.js -whitespace
 dist/assets/piano/SOURCE.txt -whitespace
+*.wav binary

@@ -9,9 +9,9 @@
     />
     <meta
       name="description"
-      content="다중 트랙 피아노 롤, 실제 피아노 음원과 정밀 편집. WAV·MIDI·악보를 만드는 작곡실."
+      content="30개 음색과 16트랙으로 만드는 나만의 음악. 오케스트라 음원, 피아노 롤, 코드 편집과 WAV·MIDI·악보 내보내기."
     />
-    <title>SCORE LAB · 작곡실</title>
+    <title>MUSIC ROOM · 작곡실</title>
     <link rel="icon" href="assets/icon.svg" />
     <link rel="stylesheet" href="styles.css" />
     <script type="module" src="src/app.js"></script>
@@ -20,103 +20,157 @@
     <a class="skip" href="#editor">편집기로</a>
     <header>
       <a class="brand" href="./"
-        ><span class="logo">Sl</span
-        ><span>SCORE LAB<small>작곡실</small></span></a
-      ><input id="title" maxlength="160" aria-label="곡 제목" />
+        ><span class="logo" aria-hidden="true">♫</span
+        ><span>MUSIC ROOM<small>작곡실</small></span></a
+      >
+      <div class="project-title">
+        <label for="title">PROJECT</label
+        ><input id="title" maxlength="160" aria-label="곡 제목" />
+      </div>
       <div class="file-actions">
-        <button id="new">새 곡</button
+        <button id="templates">편곡 예제</button><button id="new">새 곡</button
         ><label class="file-open"
           >열기<input
             id="open"
             type="file"
             accept=".json,application/json" /></label
         ><button id="save">프로젝트 저장</button
-        ><a href="https://hyungminyoon1.github.io/web-lab/">WEB LAB ↗</a>
+        ><a
+          href="https://hyungminyoon1.github.io/web-lab/"
+          aria-label="WEB LAB으로"
+          >WEB LAB ↗</a
+        >
       </div>
     </header>
     <section class="transport" aria-label="재생과 곡 설정">
-      <button id="play" class="primary">▶ 재생</button
-      ><button id="stop">■ 정지</button
-      ><label class="check"><input id="loop" type="checkbox" /> 반복</label
-      ><label
-        >BPM<input
-          id="tempo"
-          type="number"
-          min="40"
-          max="240"
-          step="1" /></label
-      ><label
+      <div class="transport-buttons">
+        <button id="play" class="primary">▶ 재생</button
+        ><button id="stop" title="처음으로 정지">■ 정지</button>
+      </div>
+      <output id="clock" aria-label="마디, 박, 틱">01 : 1 : 000</output>
+      <label
+        >BPM<input id="tempo" type="number" min="40" max="240" step="1"
+      /></label>
+      <label
         >박자<select id="meter">
           <option>4/4</option>
           <option>3/4</option>
           <option>6/8</option>
         </select></label
-      ><label>마디<input id="bars" type="number" min="1" max="64" /></label
-      ><output id="clock">01 : 1 : 000</output>
+      >
+      <label>마디<input id="bars" type="number" min="1" max="64" /></label>
+      <div class="loop-controls">
+        <label class="check"><input id="loop" type="checkbox" /> 반복</label
+        ><input
+          id="loop-start"
+          type="number"
+          min="1"
+          max="64"
+          value="1"
+          aria-label="반복 시작 마디"
+        /><span>–</span
+        ><input
+          id="loop-end"
+          type="number"
+          min="1"
+          max="64"
+          value="8"
+          aria-label="반복 끝 마디"
+        />
+      </div>
+      <label class="check"
+        ><input id="metronome" type="checkbox" /> 메트로놈</label
+      >
       <div class="level" aria-label="재생 음량"><i id="level"></i></div>
       <span id="save-state">브라우저 저장</span>
     </section>
     <main>
-      <aside class="tracks">
+      <aside class="tracks" aria-label="트랙과 악기">
         <div class="section-head">
-          <h1>트랙</h1>
-          <button id="add-track" aria-label="트랙 추가">＋</button>
+          <h1>트랙 <span id="track-count"></span></h1>
+          <button id="add-track" aria-label="트랙 추가">＋ 악기</button>
         </div>
         <div id="track-list"></div>
-        <div class="track-settings">
+        <details class="track-settings" open>
+          <summary>선택한 트랙</summary>
           <label>이름<input id="track-name" maxlength="60" /></label
-          ><label
-            >악기<select id="instrument">
-              <option value="piano">그랜드 피아노</option>
-              <option value="bass">신스 베이스</option>
-              <option value="organ">오르간</option>
-              <option value="pluck">플럭 신스</option>
-              <option value="pad">패드</option>
-              <option value="drums">드럼 키트</option>
-            </select></label
-          ><label
-            >음량 <output id="volume-read"></output
-            ><input
-              id="volume"
-              type="range"
-              min="0"
-              max="1"
-              step=".01" /></label
-          ><label
-            >좌우 <output id="pan-read"></output
-            ><input id="pan" type="range" min="-1" max="1" step=".01" /></label
-          ><button id="remove-track">트랙 삭제</button>
-        </div>
+          ><label>악기<select id="instrument"></select></label
+          ><button id="browse-instruments">악기 찾아보기 · 미리듣기</button>
+          <p id="instrument-info"></p>
+          <div class="mix-controls">
+            <label
+              >음량 <output id="volume-read"></output
+              ><input
+                id="volume"
+                type="range"
+                min="0"
+                max="1"
+                step=".01" /></label
+            ><label
+              >좌우 <output id="pan-read"></output
+              ><input id="pan" type="range" min="-1" max="1" step=".01"
+            /></label>
+          </div>
+          <button id="remove-track" class="danger">트랙 삭제</button>
+        </details>
       </aside>
       <section class="workspace" id="editor">
-        <details id="practice" class="practice">
-          <summary>두 마디로 익히는 작곡 편집</summary>
-          <button id="open-exercise">연습 곡 열기 · 질문과 응답</button>
-          <ol>
-            <li>첫 트랙의 첫 음을 누르고 시작 1틱, 길이 419틱으로 바꿔 보세요. Shift+좌우 방향키로 1틱씩 옮기고 실행 취소·다시 실행으로 비교하세요.</li>
-            <li>첫 음을 선택한 상태에서 Ctrl/Shift+클릭으로 나머지 세 음도 선택하세요. 함께 드래그하면 간격을 유지합니다. Esc로 이동을 취소하고, 복제로 다음 구절을 만들어 보세요.</li>
-            <li>두 트랙을 번갈아 SOLO로 들어 보세요. 응답 트랙의 마지막 음높이와 세기를 바꿔 원하는 끝맺음을 찾으세요. 겹친 SOLO는 함께 재생되므로 앞 트랙의 SOLO를 꺼 주세요.</li>
-            <li>프로젝트 JSON을 저장하고 다시 열어 수치를 확인하세요. MIDI·MusicXML은 원래 틱을, 화면 악보는 1/16 격자를 사용합니다.</li>
-          </ol>
-          <p>가로 이동은 선택한 격자 단위, Shift+좌우는 1틱, 위아래는 반음입니다. 빈 공간 클릭은 음 추가, 오른쪽 끝 드래그는 길이 편집입니다.</p>
-        </details>
-        <div class="editor-bar">
+        <div class="workspace-heading">
+          <div>
+            <span class="eyebrow">COMPOSE / ARRANGE</span>
+            <h2 id="active-track">피아노 롤</h2>
+          </div>
           <div class="tabs">
             <button id="roll-tab" aria-pressed="true">피아노 롤</button
             ><button id="score-tab" aria-pressed="false">악보</button>
           </div>
-          <button id="undo" title="Ctrl+Z">↶ 실행 취소</button
-          ><button id="redo" title="Ctrl+Shift+Z">↷</button
+        </div>
+        <div class="arrangement-head">
+          <span>전체 편곡</span><span id="arrangement-info"></span>
+        </div>
+        <div id="arrangement" aria-label="트랙별 편곡 미리보기"></div>
+        <div class="editor-bar">
+          <div class="tool-group" aria-label="편집 도구">
+            <button data-tool="draw" aria-pressed="true" title="그리기 (D)">
+              ✎ 그리기</button
+            ><button
+              data-tool="select"
+              aria-pressed="false"
+              title="드래그 영역 선택 (V)"
+            >
+              ▧ 선택</button
+            ><button
+              data-tool="erase"
+              aria-pressed="false"
+              title="음 지우기 (E)"
+            >
+              지우개
+            </button>
+          </div>
+          <button id="undo" title="Ctrl+Z" aria-label="실행 취소">↶</button
+          ><button id="redo" title="Ctrl+Shift+Z" aria-label="다시 실행">
+            ↷</button
           ><label
             >격자<select id="snap">
               <option value="960">1/4</option>
               <option value="480">1/8</option>
+              <option value="320">1/8 셋잇단</option>
               <option value="240" selected>1/16</option>
               <option value="120">1/32</option>
-              <option value="1">없음 · 1틱</option>
+              <option value="1">1틱</option>
             </select></label
           ><label
-            >확대<input id="zoom" type="range" min="36" max="180" value="84"
+            >새 음 길이<select id="draw-duration">
+              <option value="240">16분음표</option>
+              <option value="480" selected>8분음표</option>
+              <option value="960">4분음표</option>
+              <option value="1920">2분음표</option>
+              <option value="3840">온음표</option>
+            </select></label
+          ><button id="add-chord">＋ 코드</button
+          ><button id="fit-notes">음역 맞춤</button
+          ><label class="zoom"
+            >확대<input id="zoom" type="range" min="36" max="200" value="72"
           /></label>
         </div>
         <div id="roll-view">
@@ -128,20 +182,26 @@
                 id="grid"
                 tabindex="0"
                 role="application"
-                aria-label="피아노 롤. 빈 곳 클릭으로 음 추가, 음 드래그로 이동, 오른쪽 끝 드래그로 길이 변경"
+                aria-label="피아노 롤. 빈 곳 드래그로 음 추가, 음 드래그로 이동, 오른쪽 끝 드래그로 길이 변경"
               >
                 <div id="playhead"></div>
               </div>
             </div>
           </div>
-          <div class="hint">
-            빈 곳 클릭: 음 추가 · 드래그: 이동 · 오른쪽 끝: 길이 · Ctrl/Shift
-            클릭: 여러 음 선택 · 방향키: 이동 · Shift+좌우: 1틱 · Esc: 드래그 취소 · Delete: 삭제
+          <div class="velocity-head">
+            <span>VELOCITY · 음의 세기</span
+            ><small>막대를 위아래로 드래그</small>
+          </div>
+          <div id="velocity-scroll"><div id="velocity-lane"></div></div>
+          <div class="hint" id="tool-hint">
+            빈 곳 클릭·드래그: 음 그리기 · 음 드래그: 이동 · 오른쪽 끝: 길이 ·
+            Ctrl/Shift 클릭: 여러 음 선택
           </div>
         </div>
         <div id="score-view" hidden>
           <div class="score-caption">
-            16분음표 격자 악보 · 연주 데이터는 그대로 유지됩니다.
+            16분음표 격자 악보 · 연주와 MIDI의 정확한 시간은 그대로 유지됩니다.
+            모든 악기는 실제 울리는 음높이로 표시합니다.
           </div>
           <div id="score-pages"></div>
         </div>
@@ -171,10 +231,51 @@
               type="number"
               min="1"
               max="127" /></label
+          ><label
+            >길이 적용<select id="length-preset">
+              <option value="">선택…</option>
+              <option value="240">16분음표</option>
+              <option value="480">8분음표</option>
+              <option value="960">4분음표</option>
+              <option value="1440">점4분음표</option>
+              <option value="1920">2분음표</option>
+              <option value="3840">온음표</option>
+            </select></label
+          ><button id="quantize">격자에 맞추기</button
           ><button id="copy">복사</button><button id="paste">붙여넣기</button
           ><button id="duplicate">복제</button><button id="delete">삭제</button
           ><small>4분음표 = 960틱</small>
         </section>
+        <details id="practice" class="practice">
+          <summary>처음이라면 · 네 단계로 한 구절 만들기</summary>
+          <button id="open-exercise">두 마디 연습 곡 열기 · 질문과 응답</button>
+          <ol>
+            <li>
+              <b>음을 넣습니다.</b> 그리기 도구로 빈 곳을 누르면 음이 생깁니다.
+              위아래는 음높이, 좌우는 시간입니다. 드래그하면서 넣으면 길이도
+              정할 수 있습니다.
+            </li>
+            <li>
+              <b>구절을 다듬습니다.</b> 음을 끌어 옮기고 오른쪽 끝으로 길이를
+              조절하세요. 선택 도구로 여러 음을 둘러싼 뒤 복제하면 다음 구절을
+              만들기 쉽습니다. Esc는 작업 취소, Ctrl+Z는 실행 취소입니다.
+            </li>
+            <li>
+              <b>악기를 쌓습니다.</b> ‘＋ 악기’에서 소리를 들어보고 새 트랙을
+              더하세요. M은 그 트랙 끄기, S는 선택한 트랙만 듣기입니다. 코드
+              도구로 반주 화음을 넣어 보세요.
+            </li>
+            <li>
+              <b>듣고 저장합니다.</b> 반복할 마디를 정하고 재생하세요. 편집을
+              이어가려면 프로젝트, 다른 음악 프로그램으로 옮기려면 MIDI, 완성된
+              소리는 WAV로 저장합니다.
+            </li>
+          </ol>
+          <p>
+            방향키: 반음·격자 이동 · Shift+좌우: 1틱 · Ctrl+A: 전체 음 선택 ·
+            Ctrl+D: 복제 · Space: 재생/일시 정지
+          </p>
+        </details>
       </section>
     </main>
     <footer>
@@ -184,24 +285,139 @@
         ><button data-export="xml">MusicXML</button
         ><button data-export="svg">악보 SVG</button
         ><button data-export="pdf">악보 PDF</button
-        ><button id="cancel-export" hidden>취소</button>
+        ><button id="cancel-export" hidden>음원 내보내기 취소</button>
       </div>
-      <output id="status" role="status">음원을 켜려면 재생을 누르세요.</output>
+      <output id="status" role="status"
+        >재생을 눌러 편곡을 들어보세요. 음원은 처음 사용할 때
+        불러옵니다.</output
+      >
       <details>
-        <summary>사용 안내 · 음원 출처</summary>
+        <summary>저장 방식 · 음원 출처 · 내보내기</summary>
         <p>
-          프로젝트는 이 브라우저에 자동 저장됩니다. 다른 기기에서 편집하려면
-          프로젝트 JSON을 저장하세요. 피아노는 Alexander Holm의 Salamander Grand
-          Piano MP3 샘플이며 다른 악기는 합성음입니다.
-          <a href="assets/piano/SOURCE.txt">음원 출처와 CC BY 3.0</a> ·
+          곡은 이 브라우저에 자동 저장됩니다. 다른 기기에서 작업하려면 프로젝트
+          JSON을 저장하세요. 최대 16트랙(선율 15 + 타악기 키트 1), 64마디,
+          4,096음입니다.
+        </p>
+        <p>
+          오케스트라: Sam Gossner·Simon Dalzell의 VSCO Community Edition(CC0).
+          브라우저용으로 편집한 단일 세기 녹음이며, 긴 현악·관악음에는 반복
+          구간을 적용합니다. 기존 피아노: Alexander Holm의 Salamander Grand
+          Piano MP3(CC BY 3.0). 전자음 5종은 합성음입니다.
+          <a href="assets/orchestra/SOURCE.txt">오케스트라 음원과 편집 내역</a>
+          · <a href="assets/piano/SOURCE.txt">피아노 출처</a> ·
           <a href="assets/fonts/OFL.txt">글꼴 라이선스</a>
         </p>
         <p>
-          WAV: 48 kHz, 24-bit 스테레오, 잔향 포함 최대 180초. MIDI·MusicXML은
-          원래 틱을 유지합니다. SVG는 벡터, PDF는 300 dpi A4입니다. 겹치는 음은
-          악보에서 여러 성부로 나뉩니다.
+          WAV: 48 kHz·24-bit 스테레오, 잔향 포함 최대 180초. MIDI·MusicXML은
+          원래 틱과 전체 트랙을 유지하며, WAV는 M/S 설정을 반영합니다. MIDI의
+          소리는 재생 프로그램의 악기 음원에 따라 달라집니다. SVG는 벡터, PDF는
+          300 dpi A4입니다. 실시간 재생은 최대 96동시음입니다.
         </p>
       </details>
     </footer>
+    <dialog id="instrument-dialog" aria-labelledby="instrument-heading">
+      <div class="dialog-head">
+        <div>
+          <span class="eyebrow">INSTRUMENT LIBRARY</span>
+          <h2 id="instrument-heading">악기 선택</h2>
+        </div>
+        <button data-close="instrument-dialog" aria-label="악기 창 닫기">
+          ✕
+        </button>
+      </div>
+      <p id="instrument-mode"></p>
+      <input
+        id="instrument-search"
+        type="search"
+        placeholder="악기 검색 · 바이올린, flute…"
+        aria-label="악기 검색"
+      />
+      <div id="families" class="family-tabs"></div>
+      <div id="instrument-results"></div>
+      <output id="audition-status" role="status"></output>
+      <p class="dialog-footnote">
+        실제 녹음 25개 음색 · 전자음 5개 · 음역 밖에서는 가장 가까운 녹음의
+        속도를 바꿉니다.
+      </p>
+    </dialog>
+    <dialog id="template-dialog" aria-labelledby="template-heading">
+      <div class="dialog-head">
+        <div>
+          <span class="eyebrow">START WITH A PHRASE</span>
+          <h2 id="template-heading">편곡 예제</h2>
+        </div>
+        <button data-close="template-dialog" aria-label="예제 창 닫기">
+          ✕
+        </button>
+      </div>
+      <p>
+        직접 고쳐 쓸 수 있는 오리지널 곡입니다. 현재 곡을 대체하기 전에
+        확인합니다.
+      </p>
+      <div id="template-list"></div>
+    </dialog>
+    <dialog id="chord-dialog" aria-labelledby="chord-heading">
+      <div class="dialog-head">
+        <div>
+          <span class="eyebrow">CHORD BUILDER</span>
+          <h2 id="chord-heading">반주 코드 넣기</h2>
+        </div>
+        <button data-close="chord-dialog" aria-label="코드 창 닫기">✕</button>
+      </div>
+      <p>
+        재생 커서 위치에 화음을 넣습니다. 마디 눈금을 누르면 커서가 이동합니다.
+      </p>
+      <div class="chord-fields">
+        <label
+          >근음<select id="chord-root">
+            <option value="0">C</option>
+            <option value="1">C♯</option>
+            <option value="2">D</option>
+            <option value="3">D♯</option>
+            <option value="4">E</option>
+            <option value="5">F</option>
+            <option value="6">F♯</option>
+            <option value="7">G</option>
+            <option value="8">G♯</option>
+            <option value="9">A</option>
+            <option value="10">A♯</option>
+            <option value="11">B</option>
+          </select></label
+        ><label
+          >옥타브<select id="chord-octave">
+            <option value="36">2</option>
+            <option value="48">3</option>
+            <option value="60" selected>4</option>
+            <option value="72">5</option>
+            <option value="84">6</option>
+          </select></label
+        ><label
+          >종류<select id="chord-quality">
+            <option value="major">장3화음 · Major</option>
+            <option value="minor">단3화음 · Minor</option>
+            <option value="maj7">Major 7</option>
+            <option value="min7">Minor 7</option>
+            <option value="dominant7">Dominant 7</option>
+            <option value="sus2">Sus 2</option>
+            <option value="sus4">Sus 4</option>
+            <option value="diminished">Diminished</option>
+          </select></label
+        ><label
+          >전위<select id="chord-inversion">
+            <option value="0">기본</option>
+            <option value="1">제1전위</option>
+            <option value="2">제2전위</option>
+          </select></label
+        ><label
+          >길이<select id="chord-duration">
+            <option value="960">1박</option>
+            <option value="1920">2박</option>
+            <option value="3840" selected>4박</option>
+          </select></label
+        >
+      </div>
+      <output id="chord-preview"></output
+      ><button id="insert-chord" class="primary">코드 넣기</button>
+    </dialog>
   </body>
 </html>

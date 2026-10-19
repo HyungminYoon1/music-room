@@ -1,5 +1,6 @@
 import { VF, jsPDF } from "../vendor/music.js";
 import { lanes, barTicks, pitchName } from "./model.js";
+import { CATALOG } from "./instruments.js";
 const Q = 240;
 function pieces(start, end) {
   const out = [];
@@ -26,7 +27,7 @@ export function scorePages(p) {
     H = 1123;
   for (const t of p.tracks) {
     const voices = lanes(t.notes, Q, 8),
-      clef = t.instrument === "bass" ? "bass" : "treble";
+      clef = CATALOG[t.instrument].clef;
     for (let pageBar = 0; pageBar < p.bars; pageBar += 8) {
       const host = document.createElement("div"),
         renderer = new VF.Renderer(host, VF.Renderer.Backends.SVG);

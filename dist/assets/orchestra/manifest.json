@@ -1,0 +1,2483 @@
+{
+  "license": "CC0-1.0",
+  "sourceCommit": "440300901dfe9275fd84e0b7763af1f8443ae62e",
+  "mappingCommit": "6dd651d55dde97fd4028699be9d4481f26917891",
+  "processing": "Mono PCM16, original sample rate; peak -1.94dBFS, trimmed <=5s sustain / 9s one-shot; 180ms crossfade sustain loops; one dynamic layer, no round robin.",
+  "banks": {
+    "pipe-organ": {
+      "mapping": "OrganQuiet.sfz",
+      "mappingSha256": "5f3b8ab5d81ec4b69e8faea9a4d468e6968abeb7b4a7dba94b48da6e48dabe15",
+      "samples": [
+        {
+          "root": 36,
+          "file": "pipe-organ-36.wav",
+          "loop": [
+            0.73,
+            4.7
+          ],
+          "bytes": 441044,
+          "frames": 220500,
+          "rate": 44100,
+          "sha256": "a2605f30dff297d34348a0f96d44a888ca24526f63076e5cdbd8027332b8aba8",
+          "source": "Keys/Organ/Quiet/NT5_Man3Quiet_122_rr1.wav",
+          "sourceSha256": "daad4df8c2cd9444a6ff04269149ea92dace2326c481cc6a07da67d7a2e5e76d"
+        },
+        {
+          "root": 45,
+          "file": "pipe-organ-45.wav",
+          "loop": [
+            0.73,
+            4.7
+          ],
+          "bytes": 441044,
+          "frames": 220500,
+          "rate": 44100,
+          "sha256": "3c43c7dd8c9b93f121a9e5e7850b45be85f04a709cf0eea0e6d2e7147dff51eb",
+          "source": "Keys/Organ/Quiet/NT5_Man3Quiet_131_rr1.wav",
+          "sourceSha256": "f19bf401923e49178fd88a0bc3076de35a5ef5af3ca1afb75f721ae9fd6214cc"
+        },
+        {
+          "root": 54,
+          "file": "pipe-organ-54.wav",
+          "loop": [
+            0.73,
+            4.7
+          ],
+          "bytes": 441044,
+          "frames": 220500,
+          "rate": 44100,
+          "sha256": "01eaae28f1573e881e35a931457073a3f8180fa8eee5c06bf2a6f4ba6bb36f2f",
+          "source": "Keys/Organ/Quiet/NT5_Man3Quiet_140_rr1.wav",
+          "sourceSha256": "3afa6caad64d5ef3c527b8bc4c22b7a0c55bc5dfaa6701c8b2b98c53de5876ae"
+        },
+        {
+          "root": 63,
+          "file": "pipe-organ-63.wav",
+          "loop": [
+            0.73,
+            4.7
+          ],
+          "bytes": 441044,
+          "frames": 220500,
+          "rate": 44100,
+          "sha256": "ad54038688baf17a85522b981ba644b8d6f0235e3d52ff8112cd7757585531de",
+          "source": "Keys/Organ/Quiet/NT5_Man3Quiet_149_rr1.wav",
+          "sourceSha256": "fa2784dca7e6ef639be46a2d9f129f480755b678c9cce145d257bb59839a77a9"
+        },
+        {
+          "root": 69,
+          "file": "pipe-organ-69.wav",
+          "loop": [
+            0.73,
+            4.7
+          ],
+          "bytes": 441044,
+          "frames": 220500,
+          "rate": 44100,
+          "sha256": "096370005e380ce4012fd884c42ecc207c03b6bc177829148599725839e9ec4d",
+          "source": "Keys/Organ/Quiet/NT5_Man3Quiet_155_rr1.wav",
+          "sourceSha256": "97df359ea6827d9b751cf85de91fb460d8c95871cb98dff0441494bc35ca1cb1"
+        },
+        {
+          "root": 78,
+          "file": "pipe-organ-78.wav",
+          "loop": [
+            0.73,
+            4.7
+          ],
+          "bytes": 441044,
+          "frames": 220500,
+          "rate": 44100,
+          "sha256": "45887e5d06560c53da86056ed3d9fdc178be19bb0d9a22f61fd6504625050678",
+          "source": "Keys/Organ/Quiet/NT5_Man3Quiet_164_rr1.wav",
+          "sourceSha256": "e7e1996aaf564294f3c0476592b3055fc00e6e6d19348172ea604170a1b07076"
+        },
+        {
+          "root": 87,
+          "file": "pipe-organ-87.wav",
+          "loop": [
+            0.73,
+            4.7
+          ],
+          "bytes": 441044,
+          "frames": 220500,
+          "rate": 44100,
+          "sha256": "89bf4b4e4309c7bb2a654fc1ac3859f5dd3d12f1cb811147d5669e93b8974349",
+          "source": "Keys/Organ/Quiet/NT5_Man3Quiet_173_rr1.wav",
+          "sourceSha256": "ce6f6f9e7bfde82ce2feaa5fc3f76137b917934f54835fb43e2ca4fd62bde9c9"
+        },
+        {
+          "root": 96,
+          "file": "pipe-organ-96.wav",
+          "loop": [
+            0.73,
+            4.7
+          ],
+          "bytes": 441044,
+          "frames": 220500,
+          "rate": 44100,
+          "sha256": "a63a56931d6dd6d7de6deac9488696d8607f58ee56bf649f0dd50a87b5bfb7a6",
+          "source": "Keys/Organ/Quiet/NT5_Man3Quiet_182_rr1.wav",
+          "sourceSha256": "178b87af471722aec4fbb7c22408e9509727d2dccd7ec927ebdec9b0d5d537ec"
+        }
+      ]
+    },
+    "violin": {
+      "mapping": "SViolinVib.sfz",
+      "mappingSha256": "a2ca3611463547ac9371aa9d13a693af9cd10804f9232d2c602d65937387a992",
+      "samples": [
+        {
+          "root": 55,
+          "file": "violin-55.wav",
+          "loop": [
+            0.73,
+            4.7
+          ],
+          "bytes": 441044,
+          "frames": 220500,
+          "rate": 44100,
+          "sha256": "30918a77cda8e5b5b61cf2561879cb41156a894386e6ffaef3544ba23a846cd5",
+          "source": "Strings/Solo Violin/Arco Vib/LLVln_ArcoVib_G3_f.wav",
+          "sourceSha256": "80bae3776b0ccd3d4774f47429e829c7764f5fe6061ff844a8affc6ac68b7899"
+        },
+        {
+          "root": 60,
+          "file": "violin-60.wav",
+          "loop": [
+            0.73,
+            4.7
+          ],
+          "bytes": 441044,
+          "frames": 220500,
+          "rate": 44100,
+          "sha256": "da2a77bb2b1c26c15acc16489b5dedcb5131a4d3e82b0a4fb97d4d8f890d0878",
+          "source": "Strings/Solo Violin/Arco Vib/LLVln_ArcoVib_C4_f.wav",
+          "sourceSha256": "4169605b51a72454f11bc2c34efc66c1d9993fd2b7d5f097a025ef9d3a2dbdfa"
+        },
+        {
+          "root": 67,
+          "file": "violin-67.wav",
+          "loop": [
+            0.73,
+            4.7
+          ],
+          "bytes": 441044,
+          "frames": 220500,
+          "rate": 44100,
+          "sha256": "8f63a353f4038a729f1949ec953eec7c1ea7b5fb0717bea7f0fd99ad03697969",
+          "source": "Strings/Solo Violin/Arco Vib/LLVln_ArcoVib_G4_f.wav",
+          "sourceSha256": "14e3ea3d5172722d4d2686bae5da3d603800a7a474fa295d98275a9410913822"
+        },
+        {
+          "root": 72,
+          "file": "violin-72.wav",
+          "loop": [
+            0.73,
+            4.7
+          ],
+          "bytes": 441044,
+          "frames": 220500,
+          "rate": 44100,
+          "sha256": "f288aa6f9b6601aa5c7a75c7e768e84d66a94ed60d50f2c09c04c664331434ab",
+          "source": "Strings/Solo Violin/Arco Vib/LLVln_ArcoVib_C5_f.wav",
+          "sourceSha256": "af72f852ef2892233699851dacf5f8d97d446822d8eb4ce9e0ec27d5a721b118"
+        },
+        {
+          "root": 79,
+          "file": "violin-79.wav",
+          "loop": [
+            0.73,
+            4.7
+          ],
+          "bytes": 441044,
+          "frames": 220500,
+          "rate": 44100,
+          "sha256": "bb4922d30a5cee4de5e35b64010f2a9a8f9d628aec094b3e4bab0fb9a33b8e16",
+          "source": "Strings/Solo Violin/Arco Vib/LLVln_ArcoVib_G5_f.wav",
+          "sourceSha256": "b5bb27541d6187e6eeb20baf50625ca35fc9d44c7f113936a9369bc7ce490a68"
+        },
+        {
+          "root": 84,
+          "file": "violin-84.wav",
+          "loop": [
+            0.73,
+            4.7
+          ],
+          "bytes": 441044,
+          "frames": 220500,
+          "rate": 44100,
+          "sha256": "55bf77b5e126f6d58fddb409a48937e756ff9f7b3372e5db8a71740d3db083a5",
+          "source": "Strings/Solo Violin/Arco Vib/LLVln_ArcoVib_C6_f.wav",
+          "sourceSha256": "7ec8e0c2dde75282a4aaacccc713c84faa3e84daa9cf43df45ffc0e209964d46"
+        },
+        {
+          "root": 91,
+          "file": "violin-91.wav",
+          "loop": [
+            0.73,
+            4.7
+          ],
+          "bytes": 441044,
+          "frames": 220500,
+          "rate": 44100,
+          "sha256": "ecb7f2a3d98f5a0fb4c5ad9074c9310e657abdebc6e65bc501c0d01e308b1c39",
+          "source": "Strings/Solo Violin/Arco Vib/LLVln_ArcoVib_G6_f.wav",
+          "sourceSha256": "68c49e55565810ea822866e3d39e51c1a5ad53cfa1a67bc25836ca7feac3fe0c"
+        },
+        {
+          "root": 96,
+          "file": "violin-96.wav",
+          "loop": [
+            0.73,
+            4.7
+          ],
+          "bytes": 441044,
+          "frames": 220500,
+          "rate": 44100,
+          "sha256": "ee55b6b6f9e39462459f023cc3f286c627a24c88f029a41dc01aa24a12e7547d",
+          "source": "Strings/Solo Violin/Arco Vib/LLVln_ArcoVib_C7_f.wav",
+          "sourceSha256": "f8223aed62911ef3f6937111bf3cdcc36fc25a636d4f99480b97029c4d28f393"
+        }
+      ]
+    },
+    "violin-section": {
+      "mapping": "ViolinEnsSusVib.sfz",
+      "mappingSha256": "4591e212cccf1cbcff0c78cf8429a8221bb0820b70cb7c8dd6685f470ace4eaa",
+      "samples": [
+        {
+          "root": 55,
+          "file": "violin-section-55.wav",
+          "loop": [
+            0.73,
+            4.7
+          ],
+          "bytes": 441044,
+          "frames": 220500,
+          "rate": 44100,
+          "sha256": "55ab2b96ae09af03e5d9d54b86c7aa2f4e9dda0c9dcb5c2e7fdeecc40fab5075",
+          "source": "Strings/Violin Section/susVib/VlnEns_susVib_G2_v2.wav",
+          "sourceSha256": "c0b06a23f0245c042f0609dc0db704adc14bfc9ea8a34cb5c97d80096715a0e6"
+        },
+        {
+          "root": 57,
+          "file": "violin-section-57.wav",
+          "loop": [
+            0.73,
+            4.7
+          ],
+          "bytes": 441044,
+          "frames": 220500,
+          "rate": 44100,
+          "sha256": "2135ce0921b601d9c1d0a5594b9dc12c6480fb292071f996534af4b2443c8aa2",
+          "source": "Strings/Violin Section/susVib/VlnEns_susVib_A2_v2.wav",
+          "sourceSha256": "db6bad06c78577a105f6c2a5dc5c7ac0643c36e6904742411f0506dd9d6fa84b"
+        },
+        {
+          "root": 62,
+          "file": "violin-section-62.wav",
+          "loop": [
+            0.73,
+            4.7
+          ],
+          "bytes": 441044,
+          "frames": 220500,
+          "rate": 44100,
+          "sha256": "74cf243330a335205b139db5487316889875ced056a3baab384c577dd5c4a720",
+          "source": "Strings/Violin Section/susVib/VlnEns_susVib_D3_v2.wav",
+          "sourceSha256": "77893dbf1ea1be8c40ad756d16b916298e6b1b0742495e9853e020375592357c"
+        },
+        {
+          "root": 66,
+          "file": "violin-section-66.wav",
+          "loop": [
+            0.73,
+            4.7
+          ],
+          "bytes": 441044,
+          "frames": 220500,
+          "rate": 44100,
+          "sha256": "582e83839d1a916461696597d56768e94d6865bba4daef02465776fedbf7efaa",
+          "source": "Strings/Violin Section/susVib/VlnEns_susVib_F#3_v2.wav",
+          "sourceSha256": "d7bc6b4c259b9543de4fe66228ee107205b8f539c8d7c1de71f5781d45a14fc7"
+        },
+        {
+          "root": 72,
+          "file": "violin-section-72.wav",
+          "loop": [
+            0.73,
+            4.7
+          ],
+          "bytes": 441044,
+          "frames": 220500,
+          "rate": 44100,
+          "sha256": "d890a3bb8a094ea2601329867e6a0e6f3da9e1203dbb415983ebef1db0a00e90",
+          "source": "Strings/Violin Section/susVib/VlnEns_susVib_C4_v2.wav",
+          "sourceSha256": "5857387b40c412f756ef281c1171247664432a4e5078c98142d595d15cd92ef9"
+        },
+        {
+          "root": 76,
+          "file": "violin-section-76.wav",
+          "loop": [
+            0.73,
+            4.7
+          ],
+          "bytes": 441044,
+          "frames": 220500,
+          "rate": 44100,
+          "sha256": "945c235f2a7f71537db1bbae2d30d7a6ad3046d970da07de7b216036d0aa561d",
+          "source": "Strings/Violin Section/susVib/VlnEns_susVib_E4_v2.wav",
+          "sourceSha256": "030c09a631ebbc7304fc0b47bb5c346cd646e7451d9fdc531870f2534c60d9e9"
+        },
+        {
+          "root": 83,
+          "file": "violin-section-83.wav",
+          "loop": [
+            0.73,
+            4.7
+          ],
+          "bytes": 441044,
+          "frames": 220500,
+          "rate": 44100,
+          "sha256": "d6702bfe210b9f9c56736407d09425cd15a4e5d87933cb56a559e251a8e30892",
+          "source": "Strings/Violin Section/susVib/VlnEns_susVib_B4_v2.wav",
+          "sourceSha256": "bdb85532f47e4ebd681f9617a415116e7e5aeb786dce2eeab5ab9b93c1b31644"
+        },
+        {
+          "root": 86,
+          "file": "violin-section-86.wav",
+          "loop": [
+            0.73,
+            4.7
+          ],
+          "bytes": 441044,
+          "frames": 220500,
+          "rate": 44100,
+          "sha256": "478dd61b4846b653d9d39e904be1292434ac5afb35082f5753aad0963a59eef4",
+          "source": "Strings/Violin Section/susVib/VlnEns_susVib_D5_v2.wav",
+          "sourceSha256": "0c2ca9de723bed0a0968e32126b934f778cd678b367a29e7fde91004daf84daf"
+        }
+      ]
+    },
+    "viola": {
+      "mapping": "ViolaEnsSusVib.sfz",
+      "mappingSha256": "d62dc6b6bfa83d4ebe49a44f6f1337d0621a32d7f10c699e26fc98720a640871",
+      "samples": [
+        {
+          "root": 48,
+          "file": "viola-48.wav",
+          "loop": [
+            0.73,
+            4.7
+          ],
+          "bytes": 441044,
+          "frames": 220500,
+          "rate": 44100,
+          "sha256": "0332a29507c7e670422400afda41c9cc6beafb3b6a21c2f35fb8be1d73a20f52",
+          "source": "Strings/Viola Section/susvib/ViolaEns_susvib_C2_v2_1.wav",
+          "sourceSha256": "09db4ed2c8eda02d1f6a27258a2292b56e65e94ecc0337265bbbac5d9978dc92"
+        },
+        {
+          "root": 52,
+          "file": "viola-52.wav",
+          "loop": [
+            0.73,
+            4.7
+          ],
+          "bytes": 441044,
+          "frames": 220500,
+          "rate": 44100,
+          "sha256": "8d7bb10f7a08946be3fb913abe9829e80d5455629c6c9632a7055605708f090a",
+          "source": "Strings/Viola Section/susvib/ViolaEns_susvib_E2_v2_1.wav",
+          "sourceSha256": "bb31bed6936b5c855fceb94d829e2d3a0492f9af4ad7a2cee57e783719710ceb"
+        },
+        {
+          "root": 55,
+          "file": "viola-55.wav",
+          "loop": [
+            0.73,
+            4.7
+          ],
+          "bytes": 441044,
+          "frames": 220500,
+          "rate": 44100,
+          "sha256": "7352d320e57a146d96292de0204e32a7cd27f3b44b728e0149888e13b99bd7ca",
+          "source": "Strings/Viola Section/susvib/ViolaEns_susvib_G2_v2_1.wav",
+          "sourceSha256": "e3552ebd2d1ac5d089cd2424d31ea88be8d887643311cb23abf5b416838ce2ba"
+        },
+        {
+          "root": 62,
+          "file": "viola-62.wav",
+          "loop": [
+            0.73,
+            4.7
+          ],
+          "bytes": 441044,
+          "frames": 220500,
+          "rate": 44100,
+          "sha256": "769dbc08a16423652ec659c68d200db51dbc7156e5eb60c5e3a950a6837dda67",
+          "source": "Strings/Viola Section/susvib/ViolaEns_susvib_D3_v2_1.wav",
+          "sourceSha256": "f941028c5d5e854b4391669056f0f639799f80ac7c8da3939c7788b1a394d16c"
+        },
+        {
+          "root": 69,
+          "file": "viola-69.wav",
+          "loop": [
+            0.73,
+            4.7
+          ],
+          "bytes": 441044,
+          "frames": 220500,
+          "rate": 44100,
+          "sha256": "8db8ca989e7e95e98501db0a02829f27057d4e60779f55f8cd42a5aed1e7c3f3",
+          "source": "Strings/Viola Section/susvib/ViolaEns_susvib_A3_v2_1.wav",
+          "sourceSha256": "35984c7bfffe781d8e33bee045f66427a827794ff5c53c3d3bb82baeee3272dd"
+        },
+        {
+          "root": 76,
+          "file": "viola-76.wav",
+          "loop": [
+            0.73,
+            4.7
+          ],
+          "bytes": 441044,
+          "frames": 220500,
+          "rate": 44100,
+          "sha256": "aaab22e40a98b12e323ffdd7804b39ce3599a97d4740e1bcd98c2deb5b4b9d78",
+          "source": "Strings/Viola Section/susvib/ViolaEns_susvib_E4_v2_1.wav",
+          "sourceSha256": "29899afd4513761c3f1e3a4cc56f5c11cdb4de2b204f9f1467946327362e4bd7"
+        },
+        {
+          "root": 79,
+          "file": "viola-79.wav",
+          "loop": [
+            0.73,
+            4.7
+          ],
+          "bytes": 441044,
+          "frames": 220500,
+          "rate": 44100,
+          "sha256": "37afa92071ae90ca9c0c90083c44844c13829e65999e79c143c2254cb63149fe",
+          "source": "Strings/Viola Section/susvib/ViolaEns_susvib_G4_v2_1.wav",
+          "sourceSha256": "b09b8338945b814b9ce6dd8980a49323d10e55f89f1c4dcf6d58b04cd672d99c"
+        },
+        {
+          "root": 86,
+          "file": "viola-86.wav",
+          "loop": [
+            0.73,
+            4.7
+          ],
+          "bytes": 441044,
+          "frames": 220500,
+          "rate": 44100,
+          "sha256": "e7ec37ff00de4ad7de0cdaadc9edd41555d83a4926dd7ddecb8a47071124e5eb",
+          "source": "Strings/Viola Section/susvib/ViolaEns_susvib_D5_v2_1.wav",
+          "sourceSha256": "d3c5d05da8f90533aa7587649f18f4e68147aa7abc7a5559d8741089bea32239"
+        }
+      ]
+    },
+    "cello": {
+      "mapping": "CelloEnsSusVib.sfz",
+      "mappingSha256": "276352639dda425dd12a4fdb3acdf545867fdb0ff4f89876319f4ec3cf12a19f",
+      "samples": [
+        {
+          "root": 36,
+          "file": "cello-36.wav",
+          "loop": [
+            0.73,
+            4.7
+          ],
+          "bytes": 441044,
+          "frames": 220500,
+          "rate": 44100,
+          "sha256": "0155116d702c15ed18b78fdbaaa07d091ee9789e3af70f30625cc7a9b9b306e2",
+          "source": "Strings/Cello Section/susvib/susvib_C1_v3_1.wav",
+          "sourceSha256": "19195ab85ab71626bd11e7100febdaeeba1c237ff5887b934fd0ffd8dfad82cb"
+        },
+        {
+          "root": 43,
+          "file": "cello-43.wav",
+          "loop": [
+            0.73,
+            4.7
+          ],
+          "bytes": 441044,
+          "frames": 220500,
+          "rate": 44100,
+          "sha256": "61ae54aec6f97825c174d3885909e7c03ecd84a696c132fa624e6635df3d3622",
+          "source": "Strings/Cello Section/susvib/susvib_G1_v3_1.wav",
+          "sourceSha256": "e4c61d4ab855ec20ddb69ff608a1c066ff8a779ddd08d1dfe1d534d3a4563ad0"
+        },
+        {
+          "root": 47,
+          "file": "cello-47.wav",
+          "loop": [
+            0.73,
+            4.7
+          ],
+          "bytes": 441044,
+          "frames": 220500,
+          "rate": 44100,
+          "sha256": "935775903053f7154c02f02a0010b4ea36ea20bf69492c3cb32b8776fcae6973",
+          "source": "Strings/Cello Section/susvib/susvib_B1_v3_1.wav",
+          "sourceSha256": "8331a0e13f41243efab111f9b5e9185524c27ee48631269acecafc954ab7eaa8"
+        },
+        {
+          "root": 53,
+          "file": "cello-53.wav",
+          "loop": [
+            0.73,
+            4.7
+          ],
+          "bytes": 441044,
+          "frames": 220500,
+          "rate": 44100,
+          "sha256": "373b9841d9dac5b39e38a531328d4d143cd8eb542d0fe7cb573b06f921488588",
+          "source": "Strings/Cello Section/susvib/susvib_F2_v3_1.wav",
+          "sourceSha256": "d965197faf2e6ab8675f1d65505e5ba934a5ab769412d314bad94133e18f24d0"
+        },
+        {
+          "root": 60,
+          "file": "cello-60.wav",
+          "loop": [
+            0.73,
+            4.7
+          ],
+          "bytes": 441044,
+          "frames": 220500,
+          "rate": 44100,
+          "sha256": "d6e6d8d1590a0854077a829e634ffdd209384e875605025452dcfb577f3aeff6",
+          "source": "Strings/Cello Section/susvib/susvib_C3_v3_1.wav",
+          "sourceSha256": "51e884d54eea3bf4ba7ee35289a09f15ddb6a52cd849248d01bf18477ccbd07b"
+        },
+        {
+          "root": 67,
+          "file": "cello-67.wav",
+          "loop": [
+            0.73,
+            4.7
+          ],
+          "bytes": 441044,
+          "frames": 220500,
+          "rate": 44100,
+          "sha256": "7c47c52a4e59d33c22ea61c254c7fb708d18b2b927b340aed99e656049085919",
+          "source": "Strings/Cello Section/susvib/susvib_G3_v3_1.wav",
+          "sourceSha256": "17df597c259a849870aa25e9fbfa6093371851f83ba7b9deb9cb9e1ec11463a7"
+        },
+        {
+          "root": 71,
+          "file": "cello-71.wav",
+          "loop": [
+            0.73,
+            4.7
+          ],
+          "bytes": 441044,
+          "frames": 220500,
+          "rate": 44100,
+          "sha256": "cf33c475d55ec79f067c83d8c2ac76f80bb375deef20ebf215eaafe173465815",
+          "source": "Strings/Cello Section/susvib/susvib_B3_v3_1.wav",
+          "sourceSha256": "1c8b571516ac503df871bbea74756dfc3813b4bc10a76921d231afb0175cdbf1"
+        },
+        {
+          "root": 77,
+          "file": "cello-77.wav",
+          "loop": [
+            0.73,
+            4.7
+          ],
+          "bytes": 441044,
+          "frames": 220500,
+          "rate": 44100,
+          "sha256": "53d39b6fd713bf9e831468e597406463667382c7c2deb70294ddb30453a57880",
+          "source": "Strings/Cello Section/susvib/susvib_F4_v3_1.wav",
+          "sourceSha256": "24ea4a0f892cb60c4a52d6a5b1ef8281e4e9a9f78b5f938e078da7cbbfd5ba19"
+        }
+      ]
+    },
+    "contrabass": {
+      "mapping": "ContrabassSusNV.sfz",
+      "mappingSha256": "137172b02f0357f059816bd0ab197c38a5c06659cfc6e64fec11b35abac54fbb",
+      "samples": [
+        {
+          "root": 28,
+          "file": "contrabass-28.wav",
+          "loop": [
+            0.73,
+            4.7
+          ],
+          "bytes": 441044,
+          "frames": 220500,
+          "rate": 44100,
+          "sha256": "43ebdcad9550f7622c31eba2780b6dbb93b6fc69784b3afdceccc630df2bc756",
+          "source": "Strings/Solo Contrabass/SusNV/BKCtbss_SusNV_E0_v3_rr1.wav",
+          "sourceSha256": "a40e0ee5f4bd31ed6c097b382ce916140e2175b34969f32b0f3162051bdc268f"
+        },
+        {
+          "root": 31,
+          "file": "contrabass-31.wav",
+          "loop": [
+            0.73,
+            4.7
+          ],
+          "bytes": 441044,
+          "frames": 220500,
+          "rate": 44100,
+          "sha256": "927d8bde23179a490b34ba7ab50b39f8f50d63439c89fc94d26492d9cdd233a5",
+          "source": "Strings/Solo Contrabass/SusNV/BKCtbss_SusNV_G0_v3_rr1.wav",
+          "sourceSha256": "129f188021438e2c103d709a550db59ba9aba9eb771a1763fdb2f57b188040fe"
+        },
+        {
+          "root": 36,
+          "file": "contrabass-36.wav",
+          "loop": [
+            0.73,
+            4.7
+          ],
+          "bytes": 441044,
+          "frames": 220500,
+          "rate": 44100,
+          "sha256": "bd6efd3a0dd47f05940903ff0bbe7b2e732c63c98debb27d846f0699e491a3a2",
+          "source": "Strings/Solo Contrabass/SusNV/BKCtbss_SusNV_C1_v3_rr1.wav",
+          "sourceSha256": "220043ee46c072d1aef3e8c16f4531d0e3e4d7369dfbbf0869c75b11663cb792"
+        },
+        {
+          "root": 40,
+          "file": "contrabass-40.wav",
+          "loop": [
+            0.73,
+            4.7
+          ],
+          "bytes": 441044,
+          "frames": 220500,
+          "rate": 44100,
+          "sha256": "79b1d19234c2a9edc02d576415a48e83ada7c4c25df093dd0c11db535d7b69a7",
+          "source": "Strings/Solo Contrabass/SusNV/BKCtbss_SusNV_E1_v3_rr1.wav",
+          "sourceSha256": "1f122393a2b0e771d3e9d17b122c1f4f0a5872c342d46743103250946b7dda55"
+        },
+        {
+          "root": 42,
+          "file": "contrabass-42.wav",
+          "loop": [
+            0.73,
+            4.7
+          ],
+          "bytes": 441044,
+          "frames": 220500,
+          "rate": 44100,
+          "sha256": "e0c3771a3afa91c3c7c054c4d32a54719401ca5ccf6f397b80668697ffe6d708",
+          "source": "Strings/Solo Contrabass/SusNV/BKCtbss_SusNV_F#1_v3_rr1.wav",
+          "sourceSha256": "165cce5739a5a80c33336a2f667fc1a7ed5541bba74dfae7e3f122a70b0a0418"
+        },
+        {
+          "root": 45,
+          "file": "contrabass-45.wav",
+          "loop": [
+            0.73,
+            4.7
+          ],
+          "bytes": 441044,
+          "frames": 220500,
+          "rate": 44100,
+          "sha256": "827945328696502021f3567a1bde2c95630fbdd6f0ea5cc8105240bbc89c0665",
+          "source": "Strings/Solo Contrabass/SusNV/BKCtbss_SusNV_A1_v3_rr1.wav",
+          "sourceSha256": "993b0f67c4050225d3d45cdc50c3362ec6026956b765a946498419541aa6e8c4"
+        },
+        {
+          "root": 52,
+          "file": "contrabass-52.wav",
+          "loop": [
+            0.73,
+            4.7
+          ],
+          "bytes": 441044,
+          "frames": 220500,
+          "rate": 44100,
+          "sha256": "a6cf2f12ccc445d89ca037ffaab461195cb0cd18ee625f7a8a391e00721d77e6",
+          "source": "Strings/Solo Contrabass/SusNV/BKCtbss_SusNV_E2_v3_rr1.wav",
+          "sourceSha256": "fb300e271ef6ebf42b9e049a180209a4ab80c9b8f750c32a22257838bb82f7ab"
+        },
+        {
+          "root": 59,
+          "file": "contrabass-59.wav",
+          "loop": [
+            0.73,
+            4.7
+          ],
+          "bytes": 441044,
+          "frames": 220500,
+          "rate": 44100,
+          "sha256": "4a4cb9e2519b14356e5d51af7db06590f320f9331175c126ae28ece51cc838f5",
+          "source": "Strings/Solo Contrabass/SusNV/BKCtbss_SusNV_B2_v3_rr1.wav",
+          "sourceSha256": "e38aaa840cef00b48cb12fe3ae20098890a4a22d58741c860c633c65f9537f1f"
+        }
+      ]
+    },
+    "violin-pizz": {
+      "mapping": "ViolinEnsPizz.sfz",
+      "mappingSha256": "c94b1129e5a8c7e7f7a8e556f6d7c491dbe88875cc2080a0fd2794eb77f5b733",
+      "samples": [
+        {
+          "root": 55,
+          "file": "violin-pizz-55.wav",
+          "loop": null,
+          "bytes": 218868,
+          "frames": 109412,
+          "rate": 44100,
+          "sha256": "f88787bd7ec86b39bae5e68af96090c0b6ed41ad02c5ad99f4929a530dfe434c",
+          "source": "Strings/Violin Section/Pizz/VlnEns_Pizz_G2_v2_rr2.wav",
+          "sourceSha256": "85f4cdeff82491f0c6d1b881f5403aa178ac08b538498ba5179fd2c9c7004157"
+        },
+        {
+          "root": 57,
+          "file": "violin-pizz-57.wav",
+          "loop": null,
+          "bytes": 157900,
+          "frames": 78928,
+          "rate": 44100,
+          "sha256": "a2d8ea6a8bc5183da5c6eaf0f618b5574df5baafa2c6e0c45595ac6fe25ae337",
+          "source": "Strings/Violin Section/Pizz/VlnEns_Pizz_A2_v2_rr2.wav",
+          "sourceSha256": "da100ff90d5c4568b9d1787627ecf2114fc08f140f2d8481e547572ff5404a42"
+        },
+        {
+          "root": 62,
+          "file": "violin-pizz-62.wav",
+          "loop": null,
+          "bytes": 163800,
+          "frames": 81878,
+          "rate": 44100,
+          "sha256": "8a7d8413a72dc11065ca84d7b83fcc3f0f18a54a1880e79df43ab4dabb9e5be7",
+          "source": "Strings/Violin Section/Pizz/VlnEns_Pizz_D3_v2_rr2.wav",
+          "sourceSha256": "386de13448544594429d903be5603ff6b302b2582a6734ec0d754c3cbf284efd"
+        },
+        {
+          "root": 66,
+          "file": "violin-pizz-66.wav",
+          "loop": null,
+          "bytes": 88390,
+          "frames": 44173,
+          "rate": 44100,
+          "sha256": "169d3f52f93e430b291d75118edd61e77e02a5ff9c9a86afde5a0e03065da3f6",
+          "source": "Strings/Violin Section/Pizz/VlnEns_Pizz_F#3_v2_rr2.wav",
+          "sourceSha256": "fef269022693eef0b318c1db1a03658f1063ee4d7e3b3bb25e29add97bad6cdc"
+        },
+        {
+          "root": 72,
+          "file": "violin-pizz-72.wav",
+          "loop": null,
+          "bytes": 74172,
+          "frames": 37064,
+          "rate": 44100,
+          "sha256": "fe1b198d265f9134cc45aae4ff8670e0878e0fd23264a228bb42137784726e94",
+          "source": "Strings/Violin Section/Pizz/VlnEns_Pizz_C4_v2_rr2.wav",
+          "sourceSha256": "f7ca78a98e4d7dae1ad0a1e1d7f20d9696aedb22751748a3b28f5c4ec2df7de2"
+        },
+        {
+          "root": 76,
+          "file": "violin-pizz-76.wav",
+          "loop": null,
+          "bytes": 83962,
+          "frames": 41959,
+          "rate": 44100,
+          "sha256": "ffdd33e5b57591f473362e57a458cff561787eb916daff65cb3b50db029795e0",
+          "source": "Strings/Violin Section/Pizz/VlnEns_Pizz_E4_v2_rr2.wav",
+          "sourceSha256": "7d30e264bdb4884d9d6fe1e6a36e87ada920fa9c630576208510e27f3b2cd22b"
+        },
+        {
+          "root": 83,
+          "file": "violin-pizz-83.wav",
+          "loop": null,
+          "bytes": 50778,
+          "frames": 25367,
+          "rate": 44100,
+          "sha256": "2f31e8cd872e30956c2fb86d36445eb5ddc0567411d4ff404d3a18709ea64531",
+          "source": "Strings/Violin Section/Pizz/VlnEns_Pizz_B4_v2_rr2.wav",
+          "sourceSha256": "a316a9761252799f7d5aa64987076432e57b2b4ba31a572e390c4f294ff114f2"
+        },
+        {
+          "root": 86,
+          "file": "violin-pizz-86.wav",
+          "loop": null,
+          "bytes": 52732,
+          "frames": 26344,
+          "rate": 44100,
+          "sha256": "5dd9697f745712816d3a33f98f24774f9beaa2d2bd95284c6ae2f9127d934f51",
+          "source": "Strings/Violin Section/Pizz/VlnEns_Pizz_D5_v2_rr2.wav",
+          "sourceSha256": "cbb872a715f93bba14d7913000015e89aefd477e3c1a7535c8e864e8fa6c0583"
+        }
+      ]
+    },
+    "cello-pizz": {
+      "mapping": "CelloEnsPizz.sfz",
+      "mappingSha256": "84e586f7518b99c11da5efddb321a9ea4b9edc4149b96f3e9621f4c7e9fc3cca",
+      "samples": [
+        {
+          "root": 36,
+          "file": "cello-pizz-36.wav",
+          "loop": null,
+          "bytes": 295544,
+          "frames": 147750,
+          "rate": 44100,
+          "sha256": "bae82962a48b3859ea368b3d2e4da37ca22c271d9d47899c60b8cc18142b62a0",
+          "source": "Strings/Cello Section/pizzT/pizzT_C1_v2_RR2.wav",
+          "sourceSha256": "c2485a37f8e62af3ef7b530a6e6e9892a5887b36c675072a3b201db39793da73"
+        },
+        {
+          "root": 43,
+          "file": "cello-pizz-43.wav",
+          "loop": null,
+          "bytes": 325962,
+          "frames": 162959,
+          "rate": 44100,
+          "sha256": "265d5a0e9cf1fddebb4eecbc75041654800b0a688b05848cdb00f7b236287a16",
+          "source": "Strings/Cello Section/pizzT/pizzT_G1_v2_RR2.wav",
+          "sourceSha256": "0d56d33e6665fd25f7d2aa7e97cc918fe26ab81a956cfefcadd6e17a4f116193"
+        },
+        {
+          "root": 47,
+          "file": "cello-pizz-47.wav",
+          "loop": null,
+          "bytes": 180426,
+          "frames": 90191,
+          "rate": 44100,
+          "sha256": "9216fc99dd02a8e15d7d113d1f2c54ef77b26469e36eebff97ddee562b5d804a",
+          "source": "Strings/Cello Section/pizzT/pizzT_B1_v2_RR2.wav",
+          "sourceSha256": "675a55fce6f23a97281704024ed01e69cc8699fd3458fe76f22ba19b91c20348"
+        },
+        {
+          "root": 53,
+          "file": "cello-pizz-53.wav",
+          "loop": null,
+          "bytes": 122156,
+          "frames": 61056,
+          "rate": 44100,
+          "sha256": "ff53e01b4ff0e3313737e3a54934c7850307df75c6d745c67c0e6176b7ed25c9",
+          "source": "Strings/Cello Section/pizzT/pizzT_F2_v2_RR2.wav",
+          "sourceSha256": "2114b5d349fad4c99ae5cc12080dc0fb838490fb9f79b707446d9a5e59826859"
+        },
+        {
+          "root": 60,
+          "file": "cello-pizz-60.wav",
+          "loop": null,
+          "bytes": 165044,
+          "frames": 82500,
+          "rate": 44100,
+          "sha256": "dcbd73b6695a0b59d8dd5f48e96c27c5329103ac140ab467c2230c0c91e53ffb",
+          "source": "Strings/Cello Section/pizzT/pizzT_C3_v2_RR2.wav",
+          "sourceSha256": "7287080f6071252812a8b88bf21c32e0985b0a584eccc4487fb282ec1211195c"
+        },
+        {
+          "root": 67,
+          "file": "cello-pizz-67.wav",
+          "loop": null,
+          "bytes": 254064,
+          "frames": 127010,
+          "rate": 44100,
+          "sha256": "b905153bd637bad3cdcb5708c8fd3214cb10f4b449cbb943759e8f2c1670ed0d",
+          "source": "Strings/Cello Section/pizzT/pizzT_G3_v2_RR2.wav",
+          "sourceSha256": "7d8f5c99d87f2adb23156322e0e13cbff594495c7850d041cdd2ea2b9a535d6a"
+        },
+        {
+          "root": 71,
+          "file": "cello-pizz-71.wav",
+          "loop": null,
+          "bytes": 73426,
+          "frames": 36691,
+          "rate": 44100,
+          "sha256": "c85f53d525429b1c5a9be96f972582f13c047c4795c533988e349b462981f841",
+          "source": "Strings/Cello Section/pizzT/pizzT_B3_v2_RR2.wav",
+          "sourceSha256": "16a123fc950e385698dac06fa3835bceee305f9038a3098f202341d51341d135"
+        },
+        {
+          "root": 77,
+          "file": "cello-pizz-77.wav",
+          "loop": null,
+          "bytes": 58694,
+          "frames": 29325,
+          "rate": 44100,
+          "sha256": "973a84ee8c9ae8c12ba2e8d9cf4e24beba649c89d6f2b7478cd7755a94234d03",
+          "source": "Strings/Cello Section/pizzT/pizzT_F4_v2_RR2.wav",
+          "sourceSha256": "1906061298d316ab7796101b089325218e9b44e8cfb7f0447b24ad85ec24616a"
+        }
+      ]
+    },
+    "harp": {
+      "mapping": "Harp.sfz",
+      "mappingSha256": "25b553eb756a94f833b1cc1239fe3e6dced3ebc83335bac95d05c951589f7da9",
+      "samples": [
+        {
+          "root": 28,
+          "file": "harp-28.wav",
+          "loop": null,
+          "bytes": 793844,
+          "frames": 396900,
+          "rate": 44100,
+          "sha256": "fd9402f24c9d901b01acdf3fe6b88feff8f1fcc23b97c190d560de112d0e4146",
+          "source": "Strings/Harp/KSHarp_E1_f.wav",
+          "sourceSha256": "70f534627d6155bab46262e0383a8b431c25fde78ca029947d453748b1f73038"
+        },
+        {
+          "root": 38,
+          "file": "harp-38.wav",
+          "loop": null,
+          "bytes": 793844,
+          "frames": 396900,
+          "rate": 44100,
+          "sha256": "37ec653b35e4115189f46845d39c20e8ee37c88a0974f4cc9a36a7014d31aff2",
+          "source": "Strings/Harp/KSHarp_D2_mf.wav",
+          "sourceSha256": "b9cbdc08e43fc0b28ac70246df991cb390f5cbd7f31519b3cc7f70d283b70566"
+        },
+        {
+          "root": 48,
+          "file": "harp-48.wav",
+          "loop": null,
+          "bytes": 630460,
+          "frames": 315208,
+          "rate": 44100,
+          "sha256": "b8566d233a05c247b547c06d4bebc6d77b56fe01a45af6c906f85280b53f597e",
+          "source": "Strings/Harp/KSHarp_C3_mf.wav",
+          "sourceSha256": "e5d232771704e140959819de8cf2a3e0ba49d021ca77354c42664ce4fce6d9f3"
+        },
+        {
+          "root": 59,
+          "file": "harp-59.wav",
+          "loop": null,
+          "bytes": 793844,
+          "frames": 396900,
+          "rate": 44100,
+          "sha256": "d6e95c8a174bd5ddf99735f9feb1db40ee405134c17b8974210e969d5f7fde72",
+          "source": "Strings/Harp/KSHarp_B3_mf.wav",
+          "sourceSha256": "f6f71be8c640822ef48a448b245585659acdfcc7ed5774e10f37be2fc02fcab4"
+        },
+        {
+          "root": 72,
+          "file": "harp-72.wav",
+          "loop": null,
+          "bytes": 606276,
+          "frames": 303116,
+          "rate": 44100,
+          "sha256": "c9a460a7df4028dc1e0f0399d6955d5aee87f21ca2210a9594a0dff6ff48bf19",
+          "source": "Strings/Harp/KSHarp_C5_mf.wav",
+          "sourceSha256": "7c8b862f6fd3f1442ed87537af976d84bda8c05a5b4900e8907d570b5202a517"
+        },
+        {
+          "root": 83,
+          "file": "harp-83.wav",
+          "loop": null,
+          "bytes": 165852,
+          "frames": 82904,
+          "rate": 44100,
+          "sha256": "06123231ee7bf9eecbdfadd3ca84b764acc551121a86bf7b18aac77c6bf48814",
+          "source": "Strings/Harp/KSHarp_B5_mf.wav",
+          "sourceSha256": "f2757b674c6b7301bed52e17a1ae3e3d34d628b3f7edc5773ebb25798d2541f7"
+        },
+        {
+          "root": 93,
+          "file": "harp-93.wav",
+          "loop": null,
+          "bytes": 65046,
+          "frames": 32501,
+          "rate": 44100,
+          "sha256": "55f60840bd3f6468a9f75c76ce1a3dd1f10a061b27fad297831a7d4bc48a8f2d",
+          "source": "Strings/Harp/KSHarp_A6_mf.wav",
+          "sourceSha256": "4605355d22fae6f58190bf0d033d2ebdd745d63e2e43204d6f41ad27e4f09af0"
+        },
+        {
+          "root": 101,
+          "file": "harp-101.wav",
+          "loop": null,
+          "bytes": 44050,
+          "frames": 22003,
+          "rate": 44100,
+          "sha256": "9b22adbddef3a60db89fdae647ed3620c17a748539d95c1b2d57ea3aaf2e2719",
+          "source": "Strings/Harp/KSHarp_F7_f.wav",
+          "sourceSha256": "638b40d6c6c674257daa89b0b1e5108973ccbf13d7cc282e21266d3fb71500c5"
+        }
+      ]
+    },
+    "flute": {
+      "mapping": "FluteSusNV.sfz",
+      "mappingSha256": "0c3e15abe738778c38f93aa69e1d994e3b6e32b68ab7977b9138c4e079f99661",
+      "samples": [
+        {
+          "root": 60,
+          "file": "flute-60.wav",
+          "loop": [
+            0.73,
+            4.7
+          ],
+          "bytes": 441044,
+          "frames": 220500,
+          "rate": 44100,
+          "sha256": "cedf3404a6e11f149863c1052552bbeb3afdf9d5effbb04816ef205f7b28a203",
+          "source": "Woodwinds/Flute/susNV/LDFlute_susNV_C3_v3_1.wav",
+          "sourceSha256": "8e0549fb44827c7379b74bba4d8402671c863e483cc1ea85a73407ce27ca3bd6"
+        },
+        {
+          "root": 64,
+          "file": "flute-64.wav",
+          "loop": [
+            0.73,
+            4.7
+          ],
+          "bytes": 441044,
+          "frames": 220500,
+          "rate": 44100,
+          "sha256": "06d2fa66a5faece8bc5e9fef41ef3198c2b1115b0aa08ec6cb36790cc02779d5",
+          "source": "Woodwinds/Flute/susNV/LDFlute_susNV_E3_v3_1.wav",
+          "sourceSha256": "3226ecd95142e09f1c1b6db0834265da845ea0ce48ea2570131c558eb8ad8f66"
+        },
+        {
+          "root": 72,
+          "file": "flute-72.wav",
+          "loop": [
+            0.73,
+            4.7
+          ],
+          "bytes": 441044,
+          "frames": 220500,
+          "rate": 44100,
+          "sha256": "bed59e79d28309713b18d502f4e4bdb0b212a6f8e0782b7076eb536b50290b36",
+          "source": "Woodwinds/Flute/susNV/LDFlute_susNV_C4_v3_1.wav",
+          "sourceSha256": "9e09ce606f8fe31c8dd071c717de54d40c38029e3c2e947500defac474e8cd7d"
+        },
+        {
+          "root": 76,
+          "file": "flute-76.wav",
+          "loop": [
+            0.73,
+            4.7
+          ],
+          "bytes": 441044,
+          "frames": 220500,
+          "rate": 44100,
+          "sha256": "cc105cb1d1dfeeb9b9984acdd34890150f096cdb51256a8161be37d5cf4c7dc0",
+          "source": "Woodwinds/Flute/susNV/LDFlute_susNV_E4_v3_1.wav",
+          "sourceSha256": "670c72afcd4d437236f0a9f33a532c46fd56145615aad775eb7aab1c5ab6c24d"
+        },
+        {
+          "root": 81,
+          "file": "flute-81.wav",
+          "loop": [
+            0.73,
+            4.7
+          ],
+          "bytes": 441044,
+          "frames": 220500,
+          "rate": 44100,
+          "sha256": "617def06915b99adc18fdc9b8a66d10c0eadcd8b53a7dadbebac7226b30333bc",
+          "source": "Woodwinds/Flute/susNV/LDFlute_susNV_A4_v3_1.wav",
+          "sourceSha256": "9958014f58a16b5b28b8a8b3afe2e28a9f5af5b68c9bc9057ea2cbdfcadbf4df"
+        },
+        {
+          "root": 84,
+          "file": "flute-84.wav",
+          "loop": [
+            0.73,
+            4.7
+          ],
+          "bytes": 441044,
+          "frames": 220500,
+          "rate": 44100,
+          "sha256": "0fd1c6e986d741bfc8d1daddc2f28859c0ad7936db961423e076b3af627ac0c4",
+          "source": "Woodwinds/Flute/susNV/LDFlute_susNV_C5_v2_1.wav",
+          "sourceSha256": "7c9414267bade75f432e38aa893edea9fb7146b5b1b3e0ae1f97a475fa89db0f"
+        },
+        {
+          "root": 93,
+          "file": "flute-93.wav",
+          "loop": [
+            0.73,
+            4.7
+          ],
+          "bytes": 441044,
+          "frames": 220500,
+          "rate": 44100,
+          "sha256": "797aaf682eaed8bf95923633660cab52b9d92f55595c43670a2222e64245176c",
+          "source": "Woodwinds/Flute/susNV/LDFlute_susNV_A5_v3_1.wav",
+          "sourceSha256": "36f09bd6d712c9c55d4e32e15bca12966f0dc96206973c8aa25088036f662513"
+        },
+        {
+          "root": 96,
+          "file": "flute-96.wav",
+          "loop": [
+            0.73,
+            4.7
+          ],
+          "bytes": 441044,
+          "frames": 220500,
+          "rate": 44100,
+          "sha256": "59749428567a55240b2d32e17c161c1dcc6502d1ccf1c172b518e60f9aa65749",
+          "source": "Woodwinds/Flute/susNV/LDFlute_susNV_C6_v1_1.wav",
+          "sourceSha256": "0d1c902873564fac780ded78ce54788745bc81b0b3113b311169cfee9fdf9357"
+        }
+      ]
+    },
+    "piccolo": {
+      "mapping": "PiccoloSus.sfz",
+      "mappingSha256": "a52f886b05285275a1003e05de8ddab9249d3fbc6eec66e332a140af740891d3",
+      "samples": [
+        {
+          "root": 67,
+          "file": "piccolo-67.wav",
+          "loop": [
+            0.73,
+            4.7
+          ],
+          "bytes": 441044,
+          "frames": 220500,
+          "rate": 44100,
+          "sha256": "7c467bb554feed46bddf95569f334df9eb4cc872de0a30015cf2cdb888967767",
+          "source": "Woodwinds/Piccolo/Sus/piccolo_G4_sustain1.wav",
+          "sourceSha256": "6bdc2e38e2b5982fa5a9a05dc7d8ad5d6a7e0617a1fe4f23df571400757a5a95"
+        },
+        {
+          "root": 72,
+          "file": "piccolo-72.wav",
+          "loop": [
+            0.73,
+            4.7
+          ],
+          "bytes": 441044,
+          "frames": 220500,
+          "rate": 44100,
+          "sha256": "8178220c85805ed4fe5bad78e2674a92920d00a9df91b3e163375f95e9cb2833",
+          "source": "Woodwinds/Piccolo/Sus/piccolo_C5_sustain1.wav",
+          "sourceSha256": "d3069f1cf627d1cf9715ea5564e26e0988d321a6e7c5d4ffe8ff5345ff78c09f"
+        },
+        {
+          "root": 79,
+          "file": "piccolo-79.wav",
+          "loop": [
+            0.73,
+            4.7
+          ],
+          "bytes": 441044,
+          "frames": 220500,
+          "rate": 44100,
+          "sha256": "01d7927140b36dd19ffd770c3723691e5ca79268b93dc0bf5f9364bffc372d20",
+          "source": "Woodwinds/Piccolo/Sus/piccolo_G5_sustain1.wav",
+          "sourceSha256": "1d12025a1985e51c4223b21b03baa9dc3c4f6a344f0358bcdcfdecce41158cd5"
+        },
+        {
+          "root": 84,
+          "file": "piccolo-84.wav",
+          "loop": [
+            0.73,
+            4.7
+          ],
+          "bytes": 441044,
+          "frames": 220500,
+          "rate": 44100,
+          "sha256": "6f9c224ce987ef86cbec19d64864dcb5fe43e37489a6ae8534c30904bb7ae826",
+          "source": "Woodwinds/Piccolo/Sus/piccolo_C6_sustain1.wav",
+          "sourceSha256": "72a4ef9adf0788a3accbf38bd5f1f850220c67c92146f998f2c2b91e30627f43"
+        },
+        {
+          "root": 91,
+          "file": "piccolo-91.wav",
+          "loop": [
+            0.73,
+            4.7
+          ],
+          "bytes": 441044,
+          "frames": 220500,
+          "rate": 44100,
+          "sha256": "d6cc2ebb28b6e2240c6148fdb2c14272dc1e99d4c246b880f6fd560c2e3f88f7",
+          "source": "Woodwinds/Piccolo/Sus/piccolo_G6_sustain1.wav",
+          "sourceSha256": "a17900c99093951d62a1179f4cafbc14b19b8a8e9ff4375ff0b83e8f0cbebbf6"
+        }
+      ]
+    },
+    "oboe": {
+      "mapping": "OboeSusNV.sfz",
+      "mappingSha256": "d3963e2b65ff608ee3728666ac0764fd680a6c51339c8ee858f426c5a94e51ee",
+      "samples": [
+        {
+          "root": 58,
+          "file": "oboe-58.wav",
+          "loop": [
+            0.73,
+            4.7
+          ],
+          "bytes": 441044,
+          "frames": 220500,
+          "rate": 44100,
+          "sha256": "9e293f3d772344331f9a24994a6aa2d8a9f234f7e00fc620a7eaeee7ce140c2e",
+          "source": "Woodwinds/Oboe/Sus/Oboe_Sus_A#2_v3_Main.wav",
+          "sourceSha256": "78333824a35f1187a8d30e039ca1965113ee194cd9710afe2c3a1e9eb5a486b6"
+        },
+        {
+          "root": 62,
+          "file": "oboe-62.wav",
+          "loop": [
+            0.73,
+            4.7
+          ],
+          "bytes": 441044,
+          "frames": 220500,
+          "rate": 44100,
+          "sha256": "b597412a6b7512412a83e85f91d6aae93dbf6080a37378b2551e7e833e591b92",
+          "source": "Woodwinds/Oboe/Sus/Oboe_Sus_D3_v3_Main.wav",
+          "sourceSha256": "8016596d214a18c814bd19e9c9c61a4e902f6d067ddeeeaa7b5e4e2ff2238a7c"
+        },
+        {
+          "root": 65,
+          "file": "oboe-65.wav",
+          "loop": [
+            0.73,
+            4.7
+          ],
+          "bytes": 441044,
+          "frames": 220500,
+          "rate": 44100,
+          "sha256": "554c36314eff9e4e840e4761eed5f0d70961acf3c13cddb5feb0f93d2ff90596",
+          "source": "Woodwinds/Oboe/Sus/Oboe_Sus_F3_v3_Main.wav",
+          "sourceSha256": "58d69a9cb3cd71dae917b83afe2efc3dbee1ab6c1d330fe2c3faf89b269f673c"
+        },
+        {
+          "root": 70,
+          "file": "oboe-70.wav",
+          "loop": [
+            0.73,
+            4.7
+          ],
+          "bytes": 441044,
+          "frames": 220500,
+          "rate": 44100,
+          "sha256": "ca1b7b039ffb041a7355be5bbc7b758488f9508bf0931e2199ca41f45e137534",
+          "source": "Woodwinds/Oboe/Sus/Oboe_Sus_A#3_v3_Main.wav",
+          "sourceSha256": "fcd9b2165297d50d1968bea121226450f78838b9d18087f3925ce92b6e9798b9"
+        },
+        {
+          "root": 77,
+          "file": "oboe-77.wav",
+          "loop": [
+            0.73,
+            4.7
+          ],
+          "bytes": 441044,
+          "frames": 220500,
+          "rate": 44100,
+          "sha256": "ea5a65382b8402a0760564fb28b269651827fd37ba3286b814721fcc1741e7e9",
+          "source": "Woodwinds/Oboe/Sus/Oboe_Sus_F4_v3_Main.wav",
+          "sourceSha256": "ff2d3e89da82b3fa184e0a6a1ebe817f73879f5e01833e44f9ee6c0991632bae"
+        },
+        {
+          "root": 82,
+          "file": "oboe-82.wav",
+          "loop": [
+            0.73,
+            4.7
+          ],
+          "bytes": 441044,
+          "frames": 220500,
+          "rate": 44100,
+          "sha256": "dbd36d3a8b41e27ebb91f858d0233663157328628e3d9df85c038e1722c213d2",
+          "source": "Woodwinds/Oboe/Sus/Oboe_Sus_A#4_v3_Main.wav",
+          "sourceSha256": "dc9a1faae5ccaea8aea2b67438b9efde2c1b1b7f422c97b70d493445e07009e8"
+        },
+        {
+          "root": 86,
+          "file": "oboe-86.wav",
+          "loop": [
+            0.73,
+            4.7
+          ],
+          "bytes": 441044,
+          "frames": 220500,
+          "rate": 44100,
+          "sha256": "69cbc4c9c74d3fc811ce3e6d73e9b94cd4e2d9ac0938f83d305709bd61ec8c59",
+          "source": "Woodwinds/Oboe/Sus/Oboe_Sus_D5_v3_Main.wav",
+          "sourceSha256": "13fb1986bbde4d6e61c13c39d0fb18eec4d0bbffd2f8c9fcda11d9874f5cbe92"
+        },
+        {
+          "root": 89,
+          "file": "oboe-89.wav",
+          "loop": [
+            0.73,
+            4.7
+          ],
+          "bytes": 441044,
+          "frames": 220500,
+          "rate": 44100,
+          "sha256": "76eb192fd6c963af62ba9ea6cac0daac5b2cbdd84fc9f2c2c0b12a9b30b867fa",
+          "source": "Woodwinds/Oboe/Sus/Oboe_Sus_F5_v3_Main.wav",
+          "sourceSha256": "9c24e524a1c8fdaf82a5874c944db46de26ff8ce4a0eb209d3e12fd65634e2f3"
+        }
+      ]
+    },
+    "clarinet": {
+      "mapping": "ClarinetSus.sfz",
+      "mappingSha256": "7e38b51122a750df7f2678f6f4ae39a41b35743e500577da1ca0f53662485ce5",
+      "samples": [
+        {
+          "root": 50,
+          "file": "clarinet-50.wav",
+          "loop": [
+            0.73,
+            4.7
+          ],
+          "bytes": 441044,
+          "frames": 220500,
+          "rate": 44100,
+          "sha256": "86abd9639e14e603bde8457bdad2024432e195a076766f50235e120c65150e96",
+          "source": "Woodwinds/Clarinet/susLong/DCClar_susLong_D2_v3_rr1_sum.wav",
+          "sourceSha256": "346775f54394b9cf5e9513a4ab8292274f20370f2ac4cd47cea6319c1fa494ff"
+        },
+        {
+          "root": 53,
+          "file": "clarinet-53.wav",
+          "loop": [
+            0.73,
+            4.7
+          ],
+          "bytes": 441044,
+          "frames": 220500,
+          "rate": 44100,
+          "sha256": "04f22cd65133c223a9ffdda086edfbe557717c8c507ef3828bb51003aa187370",
+          "source": "Woodwinds/Clarinet/susLong/DCClar_susLong_F2_v3_rr1_sum.wav",
+          "sourceSha256": "7049e55a73851574d5e11a518aeaa3c646bdd0f2323780a10abc379410dad2cf"
+        },
+        {
+          "root": 62,
+          "file": "clarinet-62.wav",
+          "loop": [
+            0.73,
+            4.7
+          ],
+          "bytes": 441044,
+          "frames": 220500,
+          "rate": 44100,
+          "sha256": "1f8a360ec426feb445c4c9092cf2fbd7fa85253fb70286bd52fa397fa166855e",
+          "source": "Woodwinds/Clarinet/susLong/DCClar_susLong_D3_v3_rr1_sum.wav",
+          "sourceSha256": "bec366e903704a8d267202b16c3f170c513aef18fc6727f5bc4ec424c27efeb3"
+        },
+        {
+          "root": 65,
+          "file": "clarinet-65.wav",
+          "loop": [
+            0.73,
+            4.7
+          ],
+          "bytes": 441044,
+          "frames": 220500,
+          "rate": 44100,
+          "sha256": "06eabb1a3f43082173b2d4de9d10cfd433b4d6c1964cdcfcfc426c7e28fa6f71",
+          "source": "Woodwinds/Clarinet/susLong/DCClar_susLong_F3_v3_rr1_sum.wav",
+          "sourceSha256": "6b434e88f724e46116dd71bdfe52dc82c9b1ec7cec5f512bf9719be51e646671"
+        },
+        {
+          "root": 74,
+          "file": "clarinet-74.wav",
+          "loop": [
+            0.73,
+            4.7
+          ],
+          "bytes": 441044,
+          "frames": 220500,
+          "rate": 44100,
+          "sha256": "cf46cb36b33da0567f5c7175908058de5cd25b86c9272f6010ad776e58bec9a7",
+          "source": "Woodwinds/Clarinet/susLong/DCClar_susLong_D4_v3_rr1_sum.wav",
+          "sourceSha256": "f913c749eb6b5a1c621e13548d5c30c8f67a6007a2992a6f85deb977c2d41b1f"
+        },
+        {
+          "root": 77,
+          "file": "clarinet-77.wav",
+          "loop": [
+            0.73,
+            4.7
+          ],
+          "bytes": 441044,
+          "frames": 220500,
+          "rate": 44100,
+          "sha256": "cb7a888be3bb30887fbc673a5fafd1ea98dca187039d52462701bfc8ec718b65",
+          "source": "Woodwinds/Clarinet/susLong/DCClar_susLong_F4_v3_rr1_sum.wav",
+          "sourceSha256": "8d9bcdf56ed0c2adebb38242d7b5bb0e2da6884fa9f42a6d4226fb21c1bc7f68"
+        },
+        {
+          "root": 86,
+          "file": "clarinet-86.wav",
+          "loop": [
+            0.73,
+            4.7
+          ],
+          "bytes": 441044,
+          "frames": 220500,
+          "rate": 44100,
+          "sha256": "35dd094be019205fead6ee1a32eec133b72b20a0ec0b783ebf76e714263ba62d",
+          "source": "Woodwinds/Clarinet/susLong/DCClar_susLong_D5_v3_rr1_sum.wav",
+          "sourceSha256": "4bcff7aa31fe94c9d4a23acde1a9c2cb437dd4ee9c9804c981bbfb184c76509a"
+        },
+        {
+          "root": 89,
+          "file": "clarinet-89.wav",
+          "loop": [
+            0.73,
+            4.7
+          ],
+          "bytes": 441044,
+          "frames": 220500,
+          "rate": 44100,
+          "sha256": "0a9619665ce91f6274759542f5a3a2f92af0fa2a5dac25fd815ff589e198df29",
+          "source": "Woodwinds/Clarinet/susLong/DCClar_susLong_F#5_v3_rr1_sum.wav",
+          "sourceSha256": "13355ccf2ead9ed98142c0062682aecf3ed3c443df619e94a9b3ec7ef523f057"
+        }
+      ]
+    },
+    "bassoon": {
+      "mapping": "BassoonSus.sfz",
+      "mappingSha256": "9702fc7cc52aaa01ae283a98e1d944920069657fec091590c9d42b6f3fa6fa2a",
+      "samples": [
+        {
+          "root": 34,
+          "file": "bassoon-34.wav",
+          "loop": [
+            0.73,
+            4.7
+          ],
+          "bytes": 441044,
+          "frames": 220500,
+          "rate": 44100,
+          "sha256": "fce491f5642eb50efd4f631b037275f4157a75b0d06453a846d839c3fcc86c7d",
+          "source": "Woodwinds/Bassoon/sus/PSBassoon_A#0_v2_1.wav",
+          "sourceSha256": "6d3a270be26862e40c1689111c0f91ef0ff9439ecb9805db344f1aba6ff7fff5"
+        },
+        {
+          "root": 41,
+          "file": "bassoon-41.wav",
+          "loop": [
+            0.73,
+            4.7
+          ],
+          "bytes": 441044,
+          "frames": 220500,
+          "rate": 44100,
+          "sha256": "4e971dc4dc0c41a509ca57108d8151a4189b2bdc4198ccc99e2ef38a32b9d935",
+          "source": "Woodwinds/Bassoon/sus/PSBassoon_F1_v2_1.wav",
+          "sourceSha256": "e510329bca3889d1a6e826f4ca1644c8347567e1dcc751eee6f6a2143935d0bc"
+        },
+        {
+          "root": 45,
+          "file": "bassoon-45.wav",
+          "loop": [
+            0.73,
+            4.7
+          ],
+          "bytes": 441044,
+          "frames": 220500,
+          "rate": 44100,
+          "sha256": "4d7886c70edc00914ef8e198447ed2157a31b578c941f73facd7af85fc54e355",
+          "source": "Woodwinds/Bassoon/sus/PSBassoon_A1_v2_1.wav",
+          "sourceSha256": "b954f1115c3c937ed9f793b1727a3ede0498d246045e4410111d5b620494cb41"
+        },
+        {
+          "root": 48,
+          "file": "bassoon-48.wav",
+          "loop": [
+            0.73,
+            4.7
+          ],
+          "bytes": 441044,
+          "frames": 220500,
+          "rate": 44100,
+          "sha256": "0442047f00dfc969595ec5bc796be1af4966bd52f21cbec34742bbe4f5c4c385",
+          "source": "Woodwinds/Bassoon/sus/PSBassoon_C2_v2_1.wav",
+          "sourceSha256": "836cda0976c44922375cf2cad0ac280c4638d8b943f44cadb1c3a75259bd22cf"
+        },
+        {
+          "root": 60,
+          "file": "bassoon-60.wav",
+          "loop": [
+            0.73,
+            4.7
+          ],
+          "bytes": 441044,
+          "frames": 220500,
+          "rate": 44100,
+          "sha256": "0f610dd84b0c7d2e7f719dd78b315c28d0302f9740d3094233ea5dfff460637d",
+          "source": "Woodwinds/Bassoon/sus/PSBassoon_C3_v2_1.wav",
+          "sourceSha256": "c1162eee63c6334ee60c7add58ce0e2f8d87b427c7a7cb64930f3bd63494e121"
+        },
+        {
+          "root": 68,
+          "file": "bassoon-68.wav",
+          "loop": [
+            0.73,
+            4.7
+          ],
+          "bytes": 441044,
+          "frames": 220500,
+          "rate": 44100,
+          "sha256": "96587faaf2188f4609ec17f9dfa525f7dc50aada58f5b215c28fd43c61e7420d",
+          "source": "Woodwinds/Bassoon/sus/PSBassoon_G#3_v2_1.wav",
+          "sourceSha256": "0fdc30b08b1836e444c0f6f6bc2bec485973c28d4bfeb110572038777558984a"
+        },
+        {
+          "root": 69,
+          "file": "bassoon-69.wav",
+          "loop": [
+            0.73,
+            4.7
+          ],
+          "bytes": 441044,
+          "frames": 220500,
+          "rate": 44100,
+          "sha256": "692ec02470c738514260277940652046074449bd28cd9c95bbee4a35157b5cd9",
+          "source": "Woodwinds/Bassoon/sus/PSBassoon_A3_v2_1.wav",
+          "sourceSha256": "f3d5c76d885236a006ef184bae4ba9f3d94cadbcf40fb157964349a8db6eedc8"
+        },
+        {
+          "root": 75,
+          "file": "bassoon-75.wav",
+          "loop": [
+            0.73,
+            4.7
+          ],
+          "bytes": 441044,
+          "frames": 220500,
+          "rate": 44100,
+          "sha256": "e8822a07dd0e9263a96d49d785266e9b7b42e2d0362ac83412ec94f5a2306cf2",
+          "source": "Woodwinds/Bassoon/sus/PSBassoon_D#4_v2_1.wav",
+          "sourceSha256": "7e4bd7de6c81a2060d6d108aaa3032c4509eca9352bd182ae6fc0052e0ed1f95"
+        }
+      ]
+    },
+    "trumpet": {
+      "mapping": "TrumpetSus.sfz",
+      "mappingSha256": "8dc5eca44087b0f0af782b3a54ee10a263520d7756f6ed497aa1e3111eea66a6",
+      "samples": [
+        {
+          "root": 53,
+          "file": "trumpet-53.wav",
+          "loop": [
+            0.73,
+            4.7
+          ],
+          "bytes": 441044,
+          "frames": 220500,
+          "rate": 44100,
+          "sha256": "c16a62b24df38059d06da98c81a3e940f6beb0b6b56e6469c89f3f9e24ce8cb1",
+          "source": "Brass/Trumpet/sus/Sum_SHTrumpet_sus_F2_v3_rr1.wav",
+          "sourceSha256": "31992fbdf596d77e9464dc57166718389f13870f8b9b1f1e83380f5ec2217c87"
+        },
+        {
+          "root": 57,
+          "file": "trumpet-57.wav",
+          "loop": [
+            0.73,
+            4.7
+          ],
+          "bytes": 441044,
+          "frames": 220500,
+          "rate": 44100,
+          "sha256": "9348e3610ce56dc2db711c95a45e688ee0a04685abbe68e88f70c20dd50589bc",
+          "source": "Brass/Trumpet/sus/Sum_SHTrumpet_sus_A2_v3_rr1.wav",
+          "sourceSha256": "6c331fb59ab6668e4f77ce59c19445fc52d1082f376df853c9282ed518205a5f"
+        },
+        {
+          "root": 63,
+          "file": "trumpet-63.wav",
+          "loop": [
+            0.73,
+            4.7
+          ],
+          "bytes": 441044,
+          "frames": 220500,
+          "rate": 44100,
+          "sha256": "dfa26bb71be18d522d63b75a62f5248aedd517300a85d09bcbb9f73fa964bf72",
+          "source": "Brass/Trumpet/sus/Sum_SHTrumpet_sus_D#3_v3_rr1.wav",
+          "sourceSha256": "8cf8ffb7948c8d787fa9dd2469ff7fc60ad26f079721ed038c9d6a9d6b402318"
+        },
+        {
+          "root": 67,
+          "file": "trumpet-67.wav",
+          "loop": [
+            0.73,
+            4.7
+          ],
+          "bytes": 441044,
+          "frames": 220500,
+          "rate": 44100,
+          "sha256": "79bf3d5eed4c7188bfeb342350000a95085bd6b8e05a47b686e2da49c2fa9c67",
+          "source": "Brass/Trumpet/sus/Sum_SHTrumpet_sus_G3_v3_rr1.wav",
+          "sourceSha256": "e916631d4ef5c7d2afa356b76cb0d3a18ba2702d1229535edf4fb6d73c2e521c"
+        },
+        {
+          "root": 70,
+          "file": "trumpet-70.wav",
+          "loop": [
+            0.73,
+            4.7
+          ],
+          "bytes": 441044,
+          "frames": 220500,
+          "rate": 44100,
+          "sha256": "6afd7145ed7803339eb06c608c9a0a637c288bd9559a500585633ac95fc6b016",
+          "source": "Brass/Trumpet/sus/Sum_SHTrumpet_sus_A#3_v3_rr1.wav",
+          "sourceSha256": "c931621fae92e22cc73ee43924c0d30ee629764bb37c30cc427b59411198461d"
+        },
+        {
+          "root": 74,
+          "file": "trumpet-74.wav",
+          "loop": [
+            0.73,
+            4.7
+          ],
+          "bytes": 441044,
+          "frames": 220500,
+          "rate": 44100,
+          "sha256": "94456f3d3c6834c11ab2605880b25b19c5189bce26f5b6f8f49b06f8b4cc83e7",
+          "source": "Brass/Trumpet/sus/Sum_SHTrumpet_sus_D4_v3_rr1.wav",
+          "sourceSha256": "71d77fc5c3c43b9453f17293c6039bf8554dec6581ca15c14c45893f8bc57566"
+        },
+        {
+          "root": 81,
+          "file": "trumpet-81.wav",
+          "loop": [
+            0.73,
+            4.7
+          ],
+          "bytes": 441044,
+          "frames": 220500,
+          "rate": 44100,
+          "sha256": "66c9a6707e9293073500092f21b401063a490b3c71252536670a3c569fb04105",
+          "source": "Brass/Trumpet/sus/Sum_SHTrumpet_sus_A4_v3_rr1.wav",
+          "sourceSha256": "0cd9d6d4dedadc6bfb9625045e632f84f6cd7b2a005f72b7efd198e5b0571172"
+        },
+        {
+          "root": 84,
+          "file": "trumpet-84.wav",
+          "loop": [
+            0.73,
+            4.7
+          ],
+          "bytes": 441044,
+          "frames": 220500,
+          "rate": 44100,
+          "sha256": "02450ee330290ab44b8f513c8831ed135a4e45ba72a809a996dd9a2ef9a2bfbe",
+          "source": "Brass/Trumpet/sus/Sum_SHTrumpet_sus_C5_v3_rr1.wav",
+          "sourceSha256": "ba7dc7050f277c5bba6c59a6dd330c2d50e29dc1d97bd19fb6bcbba4a8cad4d5"
+        }
+      ]
+    },
+    "horn": {
+      "mapping": "FHornSus.sfz",
+      "mappingSha256": "52a8ccef8baaf0dbea4b3e528b8096c89ffb5c8aafba2b69c4c38af1d64587a5",
+      "samples": [
+        {
+          "root": 33,
+          "file": "horn-33.wav",
+          "loop": [
+            0.73,
+            4.7
+          ],
+          "bytes": 441044,
+          "frames": 220500,
+          "rate": 44100,
+          "sha256": "f621ed231a7f5ffa387fcb54f1fe625a4335ab542531b365e3d699cc4b713b53",
+          "source": "Brass/F Horn/sus/MOHorn_sus_A0_v1_1.wav",
+          "sourceSha256": "cf71214116045722b401d12867c1c4ea0c52314834e5fc0538eeae8b7da6acad"
+        },
+        {
+          "root": 36,
+          "file": "horn-36.wav",
+          "loop": [
+            0.73,
+            3.520657596371882
+          ],
+          "bytes": 337026,
+          "frames": 168491,
+          "rate": 44100,
+          "sha256": "eb644be3ef309f1f2e999daa042ddb62be53984413aa131608eaaf6c132d9e42",
+          "source": "Brass/F Horn/sus/MOHorn_sus_C1_v3_1.wav",
+          "sourceSha256": "ab9e142f880687083e8f6fa72d37a60f3d1a067065feb457028e7f254490d2b7"
+        },
+        {
+          "root": 43,
+          "file": "horn-43.wav",
+          "loop": [
+            0.73,
+            4.7
+          ],
+          "bytes": 441044,
+          "frames": 220500,
+          "rate": 44100,
+          "sha256": "3a6fd7469fa390d03f535ecf581415a831a11627c15d98ad409ea7f6af647ab3",
+          "source": "Brass/F Horn/sus/MOHorn_sus_G1_v3_1.wav",
+          "sourceSha256": "10bf965bc7ea2db883983e93bf52fa44590ec8dc812801b564863640ee3cedce"
+        },
+        {
+          "root": 46,
+          "file": "horn-46.wav",
+          "loop": [
+            0.73,
+            4.7
+          ],
+          "bytes": 441044,
+          "frames": 220500,
+          "rate": 44100,
+          "sha256": "f8f51a6ccf0cfda568e73078f20d2ec39be69db9e428e0a88d88ac91643853eb",
+          "source": "Brass/F Horn/sus/MOHorn_sus_A#1_v3_1.wav",
+          "sourceSha256": "d30b661831843acb75220ae59549daec1557102cd6271414e54bff28da9f6766"
+        },
+        {
+          "root": 53,
+          "file": "horn-53.wav",
+          "loop": [
+            0.73,
+            4.7
+          ],
+          "bytes": 441044,
+          "frames": 220500,
+          "rate": 44100,
+          "sha256": "855197e3e2c652584b9fde3e2da496e6bc4742d3ddcaa4d1fe818f7edae9fd4b",
+          "source": "Brass/F Horn/sus/MOHorn_sus_F2_v3_1.wav",
+          "sourceSha256": "87351ffabbfb953553edb38d0f53c5f2a3f95a9085024461346ea977afb296bc"
+        },
+        {
+          "root": 57,
+          "file": "horn-57.wav",
+          "loop": [
+            0.73,
+            4.7
+          ],
+          "bytes": 441044,
+          "frames": 220500,
+          "rate": 44100,
+          "sha256": "d567395464c07257efb99c75bfde804263ec9f6e3336ec8bbb3d21e25e7b818c",
+          "source": "Brass/F Horn/sus/MOHorn_sus_A2_v3_1.wav",
+          "sourceSha256": "7ca89d390ac4f9d680d8052a0df0adac9051d844f6fca9154f29cc7aa8b4095a"
+        },
+        {
+          "root": 74,
+          "file": "horn-74.wav",
+          "loop": [
+            0.73,
+            4.7
+          ],
+          "bytes": 441044,
+          "frames": 220500,
+          "rate": 44100,
+          "sha256": "29ccfcb4f4a27271c2e39c8bd533380de94f3c5be8b6ab2e72b9f62f9a5c32e0",
+          "source": "Brass/F Horn/sus/MOHorn_sus_D4_v1_1.wav",
+          "sourceSha256": "2866520e737f3826ee9f53693f148109a9cc2d2e54235db0b92f78b2c100b8f7"
+        },
+        {
+          "root": 77,
+          "file": "horn-77.wav",
+          "loop": [
+            0.73,
+            4.7
+          ],
+          "bytes": 441044,
+          "frames": 220500,
+          "rate": 44100,
+          "sha256": "a0a0fe5baf8856a0f6d7c8ac3f464cfbb0eae72816ae3f2f5acf32b785c24c94",
+          "source": "Brass/F Horn/sus/MOHorn_sus_F4_v1_1.wav",
+          "sourceSha256": "580b2e57aa42f5fd6e4ecb65dcb79f01dfe510e98ddc2bea0a77fca1cba8d424"
+        }
+      ]
+    },
+    "trombone": {
+      "mapping": "TromboneSus.sfz",
+      "mappingSha256": "373f28cfaaeedcd2b21e404063fa80b3d40ee969abe0af74d4735ae10d5712bd",
+      "samples": [
+        {
+          "root": 34,
+          "file": "trombone-34.wav",
+          "loop": [
+            0.73,
+            3.158843537414966
+          ],
+          "bytes": 305114,
+          "frames": 152535,
+          "rate": 44100,
+          "sha256": "35c9e7acc4ae53ccdd605c094e08c9c2a87919d8d481adc113c2fb3bc1fa46d2",
+          "source": "Brass/Tenor Trombone/sus/tenortbn_sus_A#0_v2_1.wav",
+          "sourceSha256": "c8192572a34ba0c410cb77a33fe200a5850b334e1763b2ebc91ab5292978a0d4"
+        },
+        {
+          "root": 37,
+          "file": "trombone-37.wav",
+          "loop": [
+            0.73,
+            3.682448979591837
+          ],
+          "bytes": 351296,
+          "frames": 175626,
+          "rate": 44100,
+          "sha256": "c139380611a796e9b0ea4f37a1637e023c45740033453c247fbba2f5ce8f88b3",
+          "source": "Brass/Tenor Trombone/sus/tenortbn_sus_C#1_v2_1.wav",
+          "sourceSha256": "b957256f8057fef478fb8d713dd284ad9a1aa57f720ef9f18a4e0d1d59bbe65e"
+        },
+        {
+          "root": 41,
+          "file": "trombone-41.wav",
+          "loop": [
+            0.73,
+            4.7
+          ],
+          "bytes": 441044,
+          "frames": 220500,
+          "rate": 44100,
+          "sha256": "7d89cfe090ca42bca0b0d64cc4efd214884c681e1d244b2e586da0550f3f5b79",
+          "source": "Brass/Tenor Trombone/sus/tenortbn_sus_F1_v3_1.wav",
+          "sourceSha256": "7993b96b4a0643f413332cd1321ce992c31a883343a992511d343b9b6ff979b6"
+        },
+        {
+          "root": 46,
+          "file": "trombone-46.wav",
+          "loop": [
+            0.73,
+            4.7
+          ],
+          "bytes": 441044,
+          "frames": 220500,
+          "rate": 44100,
+          "sha256": "6861c805daa69b405c039be900f9e06a363fe9378a1350f85abfc672820a6ad9",
+          "source": "Brass/Tenor Trombone/sus/tenortbn_sus_A#1_v3_1.wav",
+          "sourceSha256": "9385dcf9b1a1b32db2d29b696d051fe8fe00aac9bfbd81270ff3570c57970d39"
+        },
+        {
+          "root": 53,
+          "file": "trombone-53.wav",
+          "loop": [
+            0.73,
+            4.7
+          ],
+          "bytes": 441044,
+          "frames": 220500,
+          "rate": 44100,
+          "sha256": "919401985a427c0067a84d36f3186b336a909b134728e9015a2af600c0e92661",
+          "source": "Brass/Tenor Trombone/sus/tenortbn_sus_F2_v3_1.wav",
+          "sourceSha256": "675abd9954c0bb01bd6049cb7f5dcf908f627c673668ac9393226a09ba0fad2a"
+        },
+        {
+          "root": 60,
+          "file": "trombone-60.wav",
+          "loop": [
+            0.73,
+            4.7
+          ],
+          "bytes": 441044,
+          "frames": 220500,
+          "rate": 44100,
+          "sha256": "b0abc44d78f27538f81d54ce547a593758ccdf7473f88867ea1d5c16ab770fc1",
+          "source": "Brass/Tenor Trombone/sus/tenortbn_sus_C3_v3_1.wav",
+          "sourceSha256": "ba3760e74edf6c25f96a0deb526bf87eba2bf74be94ba76bf31d0d6592efe687"
+        },
+        {
+          "root": 63,
+          "file": "trombone-63.wav",
+          "loop": [
+            0.73,
+            4.7
+          ],
+          "bytes": 441044,
+          "frames": 220500,
+          "rate": 44100,
+          "sha256": "547a2cb479eafc6d961b88171596bf415972a0dfb5ee29aa2928f74a49ec9cc1",
+          "source": "Brass/Tenor Trombone/sus/tenortbn_sus_D#3_v3_1.wav",
+          "sourceSha256": "289630ed8e777ff4f2542b010654e2aad372b8f4addb4635ef21ee1536eec615"
+        },
+        {
+          "root": 65,
+          "file": "trombone-65.wav",
+          "loop": [
+            0.73,
+            4.7
+          ],
+          "bytes": 441044,
+          "frames": 220500,
+          "rate": 44100,
+          "sha256": "9878d9d48b5eddc17a273a4a59f541600e2968874770d2bdd80e16507a2edcc8",
+          "source": "Brass/Tenor Trombone/sus/tenortbn_sus_F3_v3_1.wav",
+          "sourceSha256": "6f27199604f9f14254ae2fca7368b08cb17039f7401402fa95b9d9e2b7943420"
+        }
+      ]
+    },
+    "tuba": {
+      "mapping": "TubaSus.sfz",
+      "mappingSha256": "19108d85bb4fbfa21e6b754f01ae1b578f8e33cd1c0ef7b41fee9bc16a6d6ef8",
+      "samples": [
+        {
+          "root": 29,
+          "file": "tuba-29.wav",
+          "loop": [
+            0.73,
+            3.654512471655329
+          ],
+          "bytes": 348832,
+          "frames": 174394,
+          "rate": 44100,
+          "sha256": "c0d941ee47c68146054d40e628ab50633f0c2628472e87c869979767beda3e26",
+          "source": "Brass/Tuba/sus/Tuba3_sus_F0_v1_rr1_Mid.wav",
+          "sourceSha256": "cfcf1705f2e5ead3e0e5a95a046b29412c7037865c823583285ff72541286d2c"
+        },
+        {
+          "root": 34,
+          "file": "tuba-34.wav",
+          "loop": [
+            0.73,
+            3.6618820861678003
+          ],
+          "bytes": 349482,
+          "frames": 174719,
+          "rate": 44100,
+          "sha256": "49d79dcd6f82d0c250d1bee3890507ed038a0ff59dddf8d99f43de8f6405ece4",
+          "source": "Brass/Tuba/sus/Tuba3_sus_A#0_v3_rr1_Mid.wav",
+          "sourceSha256": "13617e024fcfc70d3b93430909d96e2a2c551505eb8c0a94b0de63b2612bc74d"
+        },
+        {
+          "root": 39,
+          "file": "tuba-39.wav",
+          "loop": [
+            0.73,
+            3.1494784580498867
+          ],
+          "bytes": 304288,
+          "frames": 152122,
+          "rate": 44100,
+          "sha256": "38395e6293beb84b20f12b7f08d6a19be00dbce16430c636335fc8a10e980c2c",
+          "source": "Brass/Tuba/sus/Tuba3_sus_D#1_v3_rr1_Mid.wav",
+          "sourceSha256": "c267f4e366f2521b4a00b3e99de648441928fa84998f882d31aa80be30f4a360"
+        },
+        {
+          "root": 41,
+          "file": "tuba-41.wav",
+          "loop": [
+            0.73,
+            2.924580498866213
+          ],
+          "bytes": 284452,
+          "frames": 142204,
+          "rate": 44100,
+          "sha256": "a8c7297ad2b17754dc854cd8ab87b88ca2cad6c48c6e5a823564284efbffd5cf",
+          "source": "Brass/Tuba/sus/Tuba3_sus_F1_v3_rr1_Mid.wav",
+          "sourceSha256": "f1e7a7834d7e1bc906cad605507d83876b52becc707cb0d77ef3dbd629ffe4cf"
+        },
+        {
+          "root": 50,
+          "file": "tuba-50.wav",
+          "loop": [
+            0.73,
+            4.209818594104308
+          ],
+          "bytes": 397810,
+          "frames": 198883,
+          "rate": 44100,
+          "sha256": "6f8786073813f42d726c3d91a21675af9c72cc738194781fb93dde8468252ef5",
+          "source": "Brass/Tuba/sus/Tuba3_sus_D2_v3_rr1_Mid.wav",
+          "sourceSha256": "714f93eab4ac32aaa88b1265ac12261d39bd97798cea0a81e7fd20afd977af81"
+        },
+        {
+          "root": 53,
+          "file": "tuba-53.wav",
+          "loop": [
+            0.73,
+            3.325328798185941
+          ],
+          "bytes": 319798,
+          "frames": 159877,
+          "rate": 44100,
+          "sha256": "61ebf002dff4aaf92420406fb27c61b95fe451817d4bc1bdbf9de3b1d3f9083d",
+          "source": "Brass/Tuba/sus/Tuba3_sus_F2_v3_rr1_Mid.wav",
+          "sourceSha256": "0d60f5d3dd72d4a1b79d6f1366249a1b834e19f38a87b04645cad3bbf5982c0a"
+        },
+        {
+          "root": 58,
+          "file": "tuba-58.wav",
+          "loop": [
+            0.73,
+            4.7
+          ],
+          "bytes": 441044,
+          "frames": 220500,
+          "rate": 44100,
+          "sha256": "00b76db17e600f32f92ea7b0a810a655fd218eb0e74bc996f4a31227a8afa04a",
+          "source": "Brass/Tuba/sus/Tuba3_sus_A#2_v3_rr1_Mid.wav",
+          "sourceSha256": "6c527d8ded1c71114971b60c718fb3a533b4a66c75ebfe69519d36b0ec7bda05"
+        },
+        {
+          "root": 62,
+          "file": "tuba-62.wav",
+          "loop": [
+            0.73,
+            4.7
+          ],
+          "bytes": 441044,
+          "frames": 220500,
+          "rate": 44100,
+          "sha256": "d6fec3aba8ce47b912e565be0a5063fa2a219f9995f5a9136ea246eb1b183a9a",
+          "source": "Brass/Tuba/sus/Tuba3_sus_D3_v1_rr1_Mid.wav",
+          "sourceSha256": "8f2bc8f32c619d25955c397ed9bfa5b2bb78f702688d952ae48764bf6f8f68b1"
+        }
+      ]
+    },
+    "timpani": {
+      "mapping": "Timpani.sfz",
+      "mappingSha256": "8debc0fa6da4344abb48b625cbaaa85ffcf3a7d0a946fe57ddbb16a49aab9fa5",
+      "samples": [
+        {
+          "root": 42,
+          "file": "timpani-42.wav",
+          "loop": null,
+          "bytes": 300654,
+          "frames": 150305,
+          "rate": 44100,
+          "sha256": "54b77b522ba49bcaf970e62b05860f834146331d61c7a4dfc0cb367daf5c7e9b",
+          "source": "Percussion/Timpani/Timpani1_Hit_v3_rr2_Sum.wav",
+          "sourceSha256": "ac6ae66048e162024d188f1ea01f6b8b6bd9184d35e164258bab6a383eb7ff93"
+        },
+        {
+          "root": 46,
+          "file": "timpani-46.wav",
+          "loop": null,
+          "bytes": 390228,
+          "frames": 195092,
+          "rate": 44100,
+          "sha256": "d4513e76fb8679e4a88a6ab94d1c5dc4286217da967c286b775084ec537ddb3e",
+          "source": "Percussion/Timpani/Timpani2_Hit_v3_rr2_Sum.wav",
+          "sourceSha256": "828019517a0475cb9b42d1e40e2cb0a62159f3a9de1d67a5c238f3687e41761e"
+        },
+        {
+          "root": 49,
+          "file": "timpani-49.wav",
+          "loop": null,
+          "bytes": 285054,
+          "frames": 142505,
+          "rate": 44100,
+          "sha256": "d81f61eee735c6579db8443bfa21e40f8b5c6086aa2d189c8ce8007c3cd14f86",
+          "source": "Percussion/Timpani/Timpani3_Hit_v3_rr2_Sum.wav",
+          "sourceSha256": "8eb961265ed1e07249dd2fc164f20b82f3e544c3e19ab3c9efef43a51e1c9575"
+        },
+        {
+          "root": 52,
+          "file": "timpani-52.wav",
+          "loop": null,
+          "bytes": 234086,
+          "frames": 117021,
+          "rate": 44100,
+          "sha256": "ee72da95d2014cd597cee4b7b1b7d2410e56dd92c9ab2729c0e786fa1b642a23",
+          "source": "Percussion/Timpani/Timpani4_Hit_v3_rr2_Sum.wav",
+          "sourceSha256": "ff4a34bdf6c98489dbe496c92671020bac7b3e92331f310fc8542085fb75d014"
+        },
+        {
+          "root": 54,
+          "file": "timpani-54.wav",
+          "loop": null,
+          "bytes": 233262,
+          "frames": 116609,
+          "rate": 44100,
+          "sha256": "c72db79a3a3df8f8879036cae13fc1cdb77c7bc79633db46c98922e0c5777a35",
+          "source": "Percussion/Timpani/Timpani5_Hit_v3_rr2_Sum.wav",
+          "sourceSha256": "e1195b473349412495d9c398840dc19b3fb1bf7530b4b85ab78a6d448caa9c40"
+        }
+      ]
+    },
+    "glockenspiel": {
+      "mapping": "Glockenspiel.sfz",
+      "mappingSha256": "04fc6e8ed652d919288605139c8adf04b02da8f7101145921a2f0c2bba5f3907",
+      "samples": [
+        {
+          "root": 67,
+          "file": "glockenspiel-67.wav",
+          "loop": null,
+          "bytes": 334398,
+          "frames": 167177,
+          "rate": 44100,
+          "sha256": "fd3c6e30bc74fc901fba12737d5172d8f134742f778ed2de51f3cb1931057826",
+          "source": "Percussion/Glock/glock_medium_G4.wav",
+          "sourceSha256": "6c4649b13e24fa01e4634edad8fe8edf18aef33facc5d49fe53097b376bac4da"
+        },
+        {
+          "root": 72,
+          "file": "glockenspiel-72.wav",
+          "loop": null,
+          "bytes": 362492,
+          "frames": 181224,
+          "rate": 44100,
+          "sha256": "d649b8ff1568e0261b637078d2a0b4c7ab4b1d9f4a9971d436cf5b11b83e880a",
+          "source": "Percussion/Glock/glock_medium_C5.wav",
+          "sourceSha256": "635f898e0bcb6975b96b18efd9c896f6f1b97ff12174a339ada4814e49675660"
+        },
+        {
+          "root": 79,
+          "file": "glockenspiel-79.wav",
+          "loop": null,
+          "bytes": 201848,
+          "frames": 100902,
+          "rate": 44100,
+          "sha256": "5cd001e4a8070430e160594b1744fa4fcfaa69acd6e91d9826bdd40a94a31ecf",
+          "source": "Percussion/Glock/glock_medium_G5.wav",
+          "sourceSha256": "7045c0ef7260e2f1ad11a64406cf7575ed898d1207a91104d33d78caefac63e4"
+        },
+        {
+          "root": 84,
+          "file": "glockenspiel-84.wav",
+          "loop": null,
+          "bytes": 192068,
+          "frames": 96012,
+          "rate": 44100,
+          "sha256": "f629a57845521a082ce86a760fce98a1474e720492ffb69f4d0730ec273e46f6",
+          "source": "Percussion/Glock/glock_medium_C6.wav",
+          "sourceSha256": "e942cbf502cf6731df2925945fe3234c876cb63f047d91007b6929887f9e4904"
+        },
+        {
+          "root": 91,
+          "file": "glockenspiel-91.wav",
+          "loop": null,
+          "bytes": 183696,
+          "frames": 91826,
+          "rate": 44100,
+          "sha256": "54fdd4414554cdf9e6f59faf2fb0417082c1f6eeb398d9669b61b1e3cc4cf5a8",
+          "source": "Percussion/Glock/glock_medium_G6.wav",
+          "sourceSha256": "a2ba94e59119cd5272c1161fc8b8fbfb94c7b44de45a9a6cc5973b1c332103af"
+        },
+        {
+          "root": 96,
+          "file": "glockenspiel-96.wav",
+          "loop": null,
+          "bytes": 62644,
+          "frames": 31300,
+          "rate": 44100,
+          "sha256": "c9c8624c6a3644f17847a8f599be2929e1e121ab2a00e66b008aed8780e3ed7f",
+          "source": "Percussion/Glock/glock_medium_C7.wav",
+          "sourceSha256": "b2ecbe0e60c983bbfaa49a1f45f8a11559f7dba27b8c8a032eb2cb7366a36910"
+        }
+      ]
+    },
+    "marimba": {
+      "mapping": "Marimba.sfz",
+      "mappingSha256": "55eabdca01bd62b1da57471a3ae3da21d80c7b9197b4c4b661db61df30990bae",
+      "samples": [
+        {
+          "root": 41,
+          "file": "marimba-41.wav",
+          "loop": null,
+          "bytes": 260746,
+          "frames": 130351,
+          "rate": 44100,
+          "sha256": "6c192b24e99cf282207052b174d754eba89f440f7fbb50b21a60904f58d307b7",
+          "source": "Percussion/Marimba/Marimba_hit_Outrigger_F1_loud_01.wav",
+          "sourceSha256": "c5cb5ce59540b0a23628a919e90153a6cee9bb35325b056e0710c12b64f0b193"
+        },
+        {
+          "root": 48,
+          "file": "marimba-48.wav",
+          "loop": null,
+          "bytes": 434004,
+          "frames": 216980,
+          "rate": 44100,
+          "sha256": "5dc70d86bc7b586888231d96823731aa059942fc1af52cda351678a528e19dd3",
+          "source": "Percussion/Marimba/Marimba_hit_Outrigger_C2_loud_01.wav",
+          "sourceSha256": "bfad3b0e57d04c31e6079aba11fb0a6c5c84627fd4bc46e4e0923663586c460c"
+        },
+        {
+          "root": 59,
+          "file": "marimba-59.wav",
+          "loop": null,
+          "bytes": 244738,
+          "frames": 122347,
+          "rate": 44100,
+          "sha256": "b99ece50b519b8c33f547ff927e400197dbc0223e252b3c1c6a4ed50a47013e0",
+          "source": "Percussion/Marimba/Marimba_hit_Outrigger_B2_loud_01.wav",
+          "sourceSha256": "a329138008daae1c03652822d7079c0e1e9941071b8c22195e1985f0c685fdeb"
+        },
+        {
+          "root": 65,
+          "file": "marimba-65.wav",
+          "loop": null,
+          "bytes": 226452,
+          "frames": 113204,
+          "rate": 44100,
+          "sha256": "47fa98060249229697fe7be7d9667adad3a436c49fbb7cfff788e7cd9a6316ba",
+          "source": "Percussion/Marimba/Marimba_hit_Outrigger_F3_loud_01.wav",
+          "sourceSha256": "379e749add43b12959fae06cc272f1871899cc05460faf41ead77b93e5d01843"
+        },
+        {
+          "root": 72,
+          "file": "marimba-72.wav",
+          "loop": null,
+          "bytes": 134114,
+          "frames": 67035,
+          "rate": 44100,
+          "sha256": "fde9abb75cff70206dff46bb332296fbeec172178b85e8cdb16e3dfd2b04bfb7",
+          "source": "Percussion/Marimba/Marimba_hit_Outrigger_C4_loud_01.wav",
+          "sourceSha256": "4af539d47a452d7fad26e171b1c8adcca272cee97191f040d192680462c880b8"
+        },
+        {
+          "root": 79,
+          "file": "marimba-79.wav",
+          "loop": null,
+          "bytes": 88462,
+          "frames": 44209,
+          "rate": 44100,
+          "sha256": "a4b31501f9ea41a5efc4e1bd413bc9c14d77761122d3d75714eb37ec39f03dcd",
+          "source": "Percussion/Marimba/Marimba_hit_Outrigger_G4_loud_01.wav",
+          "sourceSha256": "36f39f9f24789001add2b4c440defb7641178b0e8449c5cb7f1960bccaf0aaaf"
+        },
+        {
+          "root": 89,
+          "file": "marimba-89.wav",
+          "loop": null,
+          "bytes": 76700,
+          "frames": 38328,
+          "rate": 44100,
+          "sha256": "f897094e1f364558ab671441ce9b897839d9c8bda140a18af2177ce9a9e89e22",
+          "source": "Percussion/Marimba/Marimba_hit_Outrigger_F5_loud_01.wav",
+          "sourceSha256": "a434c15978b2ea4b8921feeb3fd1f177447324d06c177801e0e46c12a97abc86"
+        },
+        {
+          "root": 96,
+          "file": "marimba-96.wav",
+          "loop": null,
+          "bytes": 59920,
+          "frames": 29938,
+          "rate": 44100,
+          "sha256": "1eb0431bd636975d739c0336b0eb41995459c4db829dd8bdfd21cef7963a6694",
+          "source": "Percussion/Marimba/Marimba_hit_Outrigger_C6_loud_01.wav",
+          "sourceSha256": "2e42b1b6f6923f32e3daadc12b063e94d15af20fa410ddcb267eb906fd6e0e89"
+        }
+      ]
+    },
+    "xylophone": {
+      "mapping": "Xylophone.sfz",
+      "mappingSha256": "c46d614ff2277d663b373adcd99c7bf01c306369412f1c1f131abde79a9e3b09",
+      "samples": [
+        {
+          "root": 55,
+          "file": "xylophone-55.wav",
+          "loop": null,
+          "bytes": 188310,
+          "frames": 94133,
+          "rate": 44100,
+          "sha256": "9ce76f4b2f7f072d5fdb51adfd462c03222824ec565287c069f445a911164b63",
+          "source": "Percussion/Xylo/Xylo_Medium_G3_ff_01_far.wav",
+          "sourceSha256": "7fd42d4a659886367b7a54275e4050328385294e680de33eba5ee0007e53eb7c"
+        },
+        {
+          "root": 60,
+          "file": "xylophone-60.wav",
+          "loop": null,
+          "bytes": 176992,
+          "frames": 88474,
+          "rate": 44100,
+          "sha256": "648b5438b5f7c20c1498d35707176f54372d0ad9a4d5082a57866cd789d44fd2",
+          "source": "Percussion/Xylo/Xylo_Medium_C4_ff_01_far.wav",
+          "sourceSha256": "ef8650516f0734369c5f409f726315db13544e508f59cb82cf46f4206c10518d"
+        },
+        {
+          "root": 67,
+          "file": "xylophone-67.wav",
+          "loop": null,
+          "bytes": 137662,
+          "frames": 68809,
+          "rate": 44100,
+          "sha256": "6df9194753ca772d884f978f2152b28afd0dbe2c046c66f37a009d40fcddf739",
+          "source": "Percussion/Xylo/Xylo_Medium_G4_ff_01_far.wav",
+          "sourceSha256": "f7e72d629db9b1f7d37b050cc1abf18bbde9629d616c91647d7abe5d7fb249b8"
+        },
+        {
+          "root": 72,
+          "file": "xylophone-72.wav",
+          "loop": null,
+          "bytes": 101610,
+          "frames": 50783,
+          "rate": 44100,
+          "sha256": "5aadf7f273ad6e3582611a8361030fe5347a9a3186a1cd62d6d019ab3d85c1e2",
+          "source": "Percussion/Xylo/Xylo_Medium_C5_ff_01_far.wav",
+          "sourceSha256": "b2ceeb64877d9975afbdf2fafb8892c416ac760c63bb2bc544007ef2331d35fd"
+        },
+        {
+          "root": 79,
+          "file": "xylophone-79.wav",
+          "loop": null,
+          "bytes": 66170,
+          "frames": 33063,
+          "rate": 44100,
+          "sha256": "16e035cf62e7deedf41e129ff2c2f1dab2430d3871c9a2fd1b9c9913bfd126d8",
+          "source": "Percussion/Xylo/Xylo_Medium_G5_ff_01_far.wav",
+          "sourceSha256": "d5b45edd0c164356c0425b663b9307bbb77a647ba7554423c6a8aa455ac8b2b3"
+        },
+        {
+          "root": 84,
+          "file": "xylophone-84.wav",
+          "loop": null,
+          "bytes": 50706,
+          "frames": 25331,
+          "rate": 44100,
+          "sha256": "f2708652c9aed09d7f92168bd45b2f5f12f632192d683c3b3678ceddef5ff33c",
+          "source": "Percussion/Xylo/Xylo_Medium_C6_ff_01_far.wav",
+          "sourceSha256": "183d04381c44705f65c3750383f28695f4b2576311ace8fdbe567134f416ff27"
+        },
+        {
+          "root": 91,
+          "file": "xylophone-91.wav",
+          "loop": null,
+          "bytes": 43956,
+          "frames": 21956,
+          "rate": 44100,
+          "sha256": "1962cf98081037bf5c60a1d133f3326341c2ba8188d52f864dc4c55cfcd71eda",
+          "source": "Percussion/Xylo/Xylo_Medium_G6_ff_01_far.wav",
+          "sourceSha256": "8d46e7cb1d2f61f466458f042bd20ce6086802a2396cfc1dab13a5d72232d8bf"
+        },
+        {
+          "root": 96,
+          "file": "xylophone-96.wav",
+          "loop": null,
+          "bytes": 39318,
+          "frames": 19637,
+          "rate": 44100,
+          "sha256": "be1f24e31ef274e65bf5fa636b03968cdac55a540495eaf2c64eb61869f56a1e",
+          "source": "Percussion/Xylo/Xylo_Medium_C7_ff_01_far.wav",
+          "sourceSha256": "f922a9ca996341c3cd6d54d3f3c569812e5c4c3325b1bb19de503b113b9a9197"
+        }
+      ]
+    },
+    "tubular-bells": {
+      "mapping": "TubularBells.sfz",
+      "mappingSha256": "cde6e3ca00d3a0597f0c3caeba4912221953deb5ca19801aef790ed0efac6923",
+      "samples": [
+        {
+          "root": 60,
+          "file": "tubular-bells-60.wav",
+          "loop": null,
+          "bytes": 793844,
+          "frames": 396900,
+          "rate": 44100,
+          "sha256": "13dfd3fa0dcffbbd8f4f30534b94221329188709617650c75611cfd626c2b018",
+          "source": "Percussion/TB_hit_C4_v4_rr1.wav",
+          "sourceSha256": "d11d52910e0fc03c348bec0b0969960d737a6fdd3fa7380804f5751959e422c2"
+        },
+        {
+          "root": 67,
+          "file": "tubular-bells-67.wav",
+          "loop": null,
+          "bytes": 793844,
+          "frames": 396900,
+          "rate": 44100,
+          "sha256": "484e175180f624a6815ff651882ea25e0d9500277d4cc422bab793a39f94160f",
+          "source": "Percussion/TB_hit_G4_v4_rr1.wav",
+          "sourceSha256": "de3df68f1dd86e71819de9c3a8284d5b5b11650e6f1c37483f505f86aa07cf68"
+        },
+        {
+          "root": 72,
+          "file": "tubular-bells-72.wav",
+          "loop": null,
+          "bytes": 793844,
+          "frames": 396900,
+          "rate": 44100,
+          "sha256": "188c8835df3f4e2e3d44387d84ba83630c34519e70056ec8c462e2234812ea89",
+          "source": "Percussion/TB_hit_C5_v4_rr1.wav",
+          "sourceSha256": "aba6ebfb36eed049d211ab86c8caa6e8dbaf292db57a2d269306c6aecb2a3ab2"
+        },
+        {
+          "root": 77,
+          "file": "tubular-bells-77.wav",
+          "loop": null,
+          "bytes": 668516,
+          "frames": 334236,
+          "rate": 44100,
+          "sha256": "8ff62b1f891df93280b043aa3ca20b692874acf5b0d45c85f541cf0671b7cdfd",
+          "source": "Percussion/TB_hit_F5_v3_rr1.wav",
+          "sourceSha256": "34736a3a68fad88dde3ff7d04613bdbc1ba7be0804b039fc07312089e5cb1c44"
+        }
+      ]
+    },
+    "orchestral-kit": {
+      "mapping": "GM-StylePerc.sfz",
+      "mappingSha256": "195c22cdfae069f36651c810189d94069489d6d5ceed36eec51c7061e7452297",
+      "samples": [
+        {
+          "root": 36,
+          "file": "orchestral-kit-36.wav",
+          "loop": null,
+          "bytes": 345794,
+          "frames": 172875,
+          "rate": 44100,
+          "sha256": "159f3020d054430ac215ca02834cf0068d441d995f16428f04136918ae21060a",
+          "source": "Percussion/BDrumNewhit_v6_rr2_Sum.wav",
+          "sourceSha256": "7d82f466e07e586da3f13c569abb6c4074afd3d1bafb786fe31fc566f0026207"
+        },
+        {
+          "root": 38,
+          "file": "orchestral-kit-38.wav",
+          "loop": null,
+          "bytes": 129232,
+          "frames": 64594,
+          "rate": 44100,
+          "sha256": "c0426efe9f69e0dc76c5be34713c7c1d11a766116c0e4dfb8a49770c56f9aa7b",
+          "source": "Percussion/Snare2-HitSN_v7_rr2_Sum.wav",
+          "sourceSha256": "e2a598d82b22e961a6c59fe4dd63e6dd717df394398e5e9fbe7b473b83d1e10e"
+        },
+        {
+          "root": 49,
+          "file": "orchestral-kit-49.wav",
+          "loop": null,
+          "bytes": 793844,
+          "frames": 396900,
+          "rate": 44100,
+          "sha256": "d2dc73d8a523c22d502a2dc1ab66bc5a9f7fff4be2d079f522a5e978b5acd521",
+          "source": "Percussion/cymbal-crash1_mf_rr2.wav",
+          "sourceSha256": "88534fac7b69522738fa6ae39f305c424a26418c274a18ca5a08a1302e4c60a2"
+        },
+        {
+          "root": 51,
+          "file": "orchestral-kit-51.wav",
+          "loop": null,
+          "bytes": 793844,
+          "frames": 396900,
+          "rate": 44100,
+          "sha256": "75af89a40f8d810a621135fb6960109bc03c90ec4fc6163615746ca9f906469b",
+          "source": "Percussion/susCymb1-hit_f_rr2.wav",
+          "sourceSha256": "0854260c65e14da1204f3dae4ea69517e3cccf13dfd65801691e662041f294f5"
+        },
+        {
+          "root": 54,
+          "file": "orchestral-kit-54.wav",
+          "loop": null,
+          "bytes": 74042,
+          "frames": 36999,
+          "rate": 44100,
+          "sha256": "119d0090ee05f24830ba071a63ac173c161f6373cbb330518b47955e6c36cc99",
+          "source": "Percussion/Tamb1-Hit_v2_rr2_Sum.wav",
+          "sourceSha256": "2666d711d49fa7dc5d1fa520e1d338b7322a87694cc8ce023403fc2923966965"
+        },
+        {
+          "root": 75,
+          "file": "orchestral-kit-75.wav",
+          "loop": null,
+          "bytes": 49438,
+          "frames": 24697,
+          "rate": 44100,
+          "sha256": "636a014c3cb720388b5e8ddfa8ee681502c942a10d10cb8f898844b0983d983f",
+          "source": "Percussion/Claves1_Hit_v3_rr2_Sum.wav",
+          "sourceSha256": "685a393d7242bf5f75016bd0c0f083b2b94e12a4593a13ec794348daf898698d"
+        },
+        {
+          "root": 80,
+          "file": "orchestral-kit-80.wav",
+          "loop": null,
+          "bytes": 28712,
+          "frames": 14334,
+          "rate": 44100,
+          "sha256": "6c6f23c1b666eaae84f63d5f1ab78c0327a54396c88ac3b384aa1e3d02f694e5",
+          "source": "Percussion/Triangle6-HitFM_v2_rr2_Sum.wav",
+          "sourceSha256": "ece84b9b388297c49313a3c4e712b8a1b6c77d8b0f1adff13d78988e732d60bf"
+        },
+        {
+          "root": 81,
+          "file": "orchestral-kit-81.wav",
+          "loop": null,
+          "bytes": 47094,
+          "frames": 23525,
+          "rate": 44100,
+          "sha256": "63bc0cca1ce637e3588b3fe14cb9c4f4aa06e0c7fc061010d588e4106c0a97e3",
+          "source": "Percussion/Triangle6-Hit_v2_rr2_Sum.wav",
+          "sourceSha256": "a0fb6299bf24fa05220f69ceddd57655c3c072af4f5042786127851ae7f3cd40"
+        }
+      ]
+    }
+  }
+}
