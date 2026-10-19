@@ -5,6 +5,13 @@ import {
   midiChannels,
   KIT_NOTES,
 } from "./instruments.js";
+import {
+  barMap,
+  tempoEvents,
+  meterEvents,
+  validateTimeline,
+  MAX_BARS,
+} from "./timeline.js";
 export { INSTRUMENTS } from "./instruments.js";
 export const PPQ = 960,
   KEY = "score-lab-project-v1";
@@ -13,7 +20,8 @@ export const clone = (x) => structuredClone(x);
 const finite = (x, min, max) =>
   typeof x === "number" && Number.isFinite(x) && x >= min && x <= max;
 export const barTicks = (p) => (PPQ * p.meter[0] * 4) / p.meter[1];
-export const totalTicks = (p) => p.bars * barTicks(p);
+export const totalTicks = (p) =>
+  p.version === 2 ? barMap(p).at(-1).end : p.bars * barTicks(p);
 export const pitchName = (p) =>
   ["C", "C♯", "D", "D♯", "E", "F", "F♯", "G", "G♯", "A", "A♯", "B"][p % 12] +
   (Math.floor(p / 12) - 1);
@@ -32,25 +40,41 @@ export const xml = (x) =>
 export function validate(p) {
   if (
     !p ||
-    p.version !== 1 ||
+    ![1, 2].includes(p.version) ||
     typeof p.title !== "string" ||
     p.title.length > 160 ||
-    !finite(p.tempo, 40, 240) ||
-    !Number.isInteger(p.tempo) ||
+    !finite(
+      p.tempo,
+      p.version === 2 ? 4 : 40,
+      p.version === 2 ? 1000 : 240,
+    ) ||
+    (p.version === 1 && !Number.isInteger(p.tempo)) ||
     !Array.isArray(p.meter) ||
     !p.meter.every(Number.isInteger) ||
-    !["4/4", "3/4", "6/8"].includes(p.meter.join("/")) ||
+    (p.version === 1
+      ? !["4/4", "3/4", "6/8"].includes(p.meter.join("/"))
+      : p.meter.length !== 2) ||
     !Number.isInteger(p.bars) ||
     p.bars < 1 ||
-    p.bars > 64 ||
+    p.bars > (p.version === 2 ? MAX_BARS : 64) ||
     !Array.isArray(p.tracks) ||
     !p.tracks.length ||
     p.tracks.length > 16
   )
     throw Error("프로젝트 형식이나 범위를 확인하세요.");
+  validateTimeline(p);
+  const end = totalTicks(p);
+  if (
+    p.version === 2 &&
+    [...p.tempoMap, ...p.meterMap].some((e) => e.tick >= end)
+  )
+    throw Error(
+      "곡 끝 이후의 템포·박자 변화가 있습니다. 마디 수를 유지하거나 시간 지도를 먼저 수정하세요.",
+    );
   const ids = new Set();
   let count = 0,
-    drums = 0;
+    drums = 0,
+    midiEventCount = 0;
   const id = (x) => {
     if (typeof x !== "string" || x.length > 80 || !x || ids.has(x))
       throw Error("중복된 항목 ID입니다.");
@@ -70,6 +94,37 @@ export function validate(p) {
     )
       throw Error("트랙 설정을 확인하세요.");
     if (isPercussion(t.instrument)) drums++;
+    if (p.version === 2 && t.midi !== undefined) {
+      if (!t.midi || typeof t.midi !== "object")
+        throw Error("MIDI 트랙 정보 형식");
+      for (const [key, fields] of [
+        ["programs", ["program"]],
+        ["controllers", ["controller", "value"]],
+        ["bends", ["value"]],
+      ]) {
+        const list = t.midi[key];
+        if (key === "programs" && list === undefined) continue;
+        if (!Array.isArray(list) || list.length > 20000)
+          throw Error("MIDI 이벤트 한도");
+        let previous = -1;
+        for (const e of list) {
+          midiEventCount++;
+          if (
+            !e ||
+            !Number.isInteger(e.tick) ||
+            !finite(e.tick, 0, end) ||
+            e.tick < previous ||
+            fields.some(
+              (k) =>
+                !Number.isInteger(e[k]) ||
+                !finite(e[k], 0, key === "bends" ? 16383 : 127),
+            )
+          )
+            throw Error("MIDI 이벤트 값이나 순서를 확인하세요.");
+          previous = e.tick;
+        }
+      }
+    }
     for (const n of t.notes) {
       if (
         t.instrument === "orchestral-kit" &&
@@ -84,9 +139,9 @@ export function validate(p) {
         !Number.isInteger(n.pitch) ||
         !finite(n.pitch, 21, 108) ||
         !Number.isInteger(n.start) ||
-        !finite(n.start, 0, totalTicks(p) - 1) ||
+        !finite(n.start, 0, end - 1) ||
         !Number.isInteger(n.duration) ||
-        !finite(n.duration, 1, totalTicks(p) - n.start) ||
+        !finite(n.duration, 1, end - n.start) ||
         !Number.isInteger(n.velocity) ||
         !finite(n.velocity, 1, 127)
       )
@@ -97,6 +152,8 @@ export function validate(p) {
     throw Error("최대 4096음, 드럼 트랙은 1개까지입니다.");
   if (p.tracks.length - drums > 15)
     throw Error("선율 악기는 최대 15트랙, 타악기 키트는 1트랙입니다.");
+  if (midiEventCount > 20000)
+    throw Error("MIDI 컨트롤 이벤트는 총 20,000개까지 보존할 수 있습니다.");
   return p;
 }
 export function parseProject(raw) {
@@ -274,7 +331,7 @@ export function vlq(n) {
   while ((n >>= 7)) out.unshift((n & 127) | 128);
   return out;
 }
-function midiTrack(events) {
+function midiTrack(events, endTick = 0) {
   events.sort((a, b) => a.tick - b.tick || a.order - b.order);
   let time = 0;
   const out = [];
@@ -282,22 +339,39 @@ function midiTrack(events) {
     out.push(...vlq(e.tick - time), ...e.data);
     time = e.tick;
   }
-  out.push(0, 255, 47, 0);
+  out.push(...vlq(Math.max(0, endTick - time)), 255, 47, 0);
   return [...new TextEncoder().encode("MTrk"), ...be(out.length, 4), ...out];
 }
 export function encodeMidi(p) {
   validate(p);
-  const tempo = Math.round(60000000 / p.tempo),
-    tracks = [
-      midiTrack([
-        { tick: 0, order: 0, data: [255, 81, 3, ...be(tempo, 3)] },
-        {
-          tick: 0,
+  const title = new TextEncoder().encode(p.title),
+    end = totalTicks(p);
+  const tracks = [
+    midiTrack(
+      [
+        { tick: 0, order: -1, data: [255, 3, ...vlq(title.length), ...title] },
+        ...tempoEvents(p).map((e) => ({
+          tick: e.tick,
+          order: 0,
+          data: [255, 81, 3, ...be(e.microseconds, 3)],
+        })),
+        ...meterEvents(p).map((e) => ({
+          tick: e.tick,
           order: 1,
-          data: [255, 88, 4, p.meter[0], Math.log2(p.meter[1]), 24, 8],
-        },
-      ]),
-    ];
+          data: [
+            255,
+            88,
+            4,
+            e.numerator,
+            Math.log2(e.denominator),
+            e.clocks,
+            e.thirtyseconds,
+          ],
+        })),
+      ],
+      end,
+    ),
+  ];
   const channels = midiChannels(p.tracks);
   for (const [index, t] of p.tracks.entries()) {
     const c = channels[index],
@@ -305,20 +379,38 @@ export function encodeMidi(p) {
     const name = new TextEncoder().encode(t.name);
     e.push(
       { tick: 0, order: 0, data: [255, 3, ...vlq(name.length), ...name] },
-      { tick: 0, order: 0, data: [192 + c, CATALOG[t.instrument].program] },
       { tick: 0, order: 1, data: [176 + c, 7, Math.round(t.volume * 127)] },
       {
         tick: 0,
         order: 1,
-        data: [176 + c, 10, Math.round((t.pan + 1) * 63.5)],
+        data: [176 + c, 10, Math.min(127, Math.round((t.pan + 1) * 64))],
       },
     );
+    for (const event of (p.version === 2 ? t.midi?.programs : null) ?? [
+      { tick: 0, program: CATALOG[t.instrument].program },
+    ])
+      e.push({ tick: event.tick, order: 0, data: [192 + c, event.program] });
+    if (p.version === 2 && t.midi) {
+      for (const event of t.midi.controllers)
+        if (!(event.tick === 0 && [7, 10].includes(event.controller)))
+          e.push({
+            tick: event.tick,
+            order: -1,
+            data: [176 + c, event.controller, event.value],
+          });
+      for (const event of t.midi.bends)
+        e.push({
+          tick: event.tick,
+          order: 1,
+          data: [224 + c, event.value & 127, event.value >> 7],
+        });
+    }
     for (const n of t.notes)
       e.push(
         { tick: n.start, order: 3, data: [144 + c, n.pitch, n.velocity] },
         { tick: n.start + n.duration, order: 2, data: [128 + c, n.pitch, 0] },
       );
-    tracks.push(midiTrack(e));
+    tracks.push(midiTrack(e, end));
   }
   return new Uint8Array([
     ...new TextEncoder().encode("MThd"),
@@ -363,7 +455,7 @@ export function lanes(notes, quantum = 1, limit = Infinity) {
 }
 export function musicXML(p) {
   validate(p);
-  const bt = barTicks(p);
+  const measures = barMap(p);
   const channels = midiChannels(p.tracks);
   let out =
     '<?xml version="1.0" encoding="UTF-8"?><score-partwise version="4.0"><work><work-title>' +
@@ -395,17 +487,26 @@ export function musicXML(p) {
     const clef = CATALOG[t.instrument].clef;
     const voices = lanes(t.notes);
     for (let b = 0; b < p.bars; b++) {
+      const measure = measures[b],
+        bt = measure.end - measure.start;
       out += `<measure number="${b + 1}">`;
-      if (b === 0)
-        out += `<attributes><divisions>${PPQ}</divisions><time><beats>${p.meter[0]}</beats><beat-type>${p.meter[1]}</beat-type></time><clef><sign>${clef === "bass" ? "F" : clef === "alto" ? "C" : clef === "percussion" ? "percussion" : "G"}</sign><line>${clef === "bass" ? 4 : clef === "alto" ? 3 : 2}</line></clef></attributes><direction><sound tempo="${p.tempo}"/></direction>`;
+      if (
+        b === 0 ||
+        measures[b - 1].meter.join("/") !== measure.meter.join("/")
+      )
+        out += `<attributes><divisions>${PPQ}</divisions><time><beats>${measure.meter[0]}</beats><beat-type>${measure.meter[1]}</beat-type></time><clef><sign>${clef === "bass" ? "F" : clef === "alto" ? "C" : clef === "percussion" ? "percussion" : "G"}</sign><line>${clef === "bass" ? 4 : clef === "alto" ? 3 : 2}</line></clef></attributes>`;
+      for (const e of tempoEvents(p).filter(
+        (e) => e.tick >= measure.start && e.tick < measure.end,
+      ))
+        out += `<direction><offset>${e.tick - measure.start}</offset><sound tempo="${60000000 / e.microseconds}"/></direction>`;
       voices.forEach((lane, vi) => {
         if (vi) out += `<backup><duration>${bt}</duration></backup>`;
-        let cursor = b * bt;
+        let cursor = measure.start;
         const rest = (d) =>
           `<note><rest/><duration>${d}</duration><voice>${vi + 1}</voice></note>`;
         for (const g of lane) {
-          const start = Math.max(g.start, b * bt),
-            end = Math.min(g.end, (b + 1) * bt);
+          const start = Math.max(g.start, measure.start),
+            end = Math.min(g.end, measure.end);
           if (start >= end) continue;
           if (start > cursor) out += rest(start - cursor);
           g.notes.forEach((n, ni) => {
@@ -441,7 +542,7 @@ export function musicXML(p) {
           });
           cursor = end;
         }
-        if (cursor < (b + 1) * bt) out += rest((b + 1) * bt - cursor);
+        if (cursor < measure.end) out += rest(measure.end - cursor);
       });
       out += "</measure>";
     }

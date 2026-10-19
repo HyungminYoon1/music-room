@@ -19,7 +19,27 @@ import {
 } from "./model.js";
 import * as audio from "./audio.js";
 import { scorePages, pdf } from "./notation.js";
-import { CATALOG, isPercussion, KIT_NOTES } from "./instruments.js";
+import {
+  CATALOG,
+  isPercussion,
+  KIT_NOTES,
+  setTrackInstrument,
+} from "./instruments.js";
+import {
+  barMap,
+  barStart,
+  tempoEvents,
+  meterEvents,
+  setInitialTempo,
+  setInitialMeter,
+  tickSeconds,
+} from "./timeline.js";
+import {
+  parseMidi,
+  midiToProject,
+  reviewMidiSelection,
+  MIDI_MAX_BYTES,
+} from "./midi-import.js";
 import {
   chordNotes,
   quantizeNotes,
@@ -49,10 +69,11 @@ let editTool = "draw",
   addingInstrument = false,
   instrumentFamily = "전체",
   auditionGeneration = 0;
-let importGeneration = 0;
+let importGeneration = 0,
+  pendingMidi = null;
 // A late file read must not discard even an input that has not blurred yet.
-document.addEventListener("input", () => {
-  importGeneration++;
+document.addEventListener("input", (e) => {
+  if (!e.target.closest("#midi-dialog")) importGeneration++;
 });
 try {
   const raw = localStorage.getItem(KEY);
@@ -145,9 +166,38 @@ function render() {
     [...selection].filter((id) => track().notes.some((n) => n.id === id)),
   );
   $("title").value = p.title;
-  $("tempo").value = p.tempo;
+  $("tempo").value = Number(p.tempo.toFixed(6));
+  $("tempo").min = p.version === 2 ? 4 : 40;
+  $("tempo").max = p.version === 2 ? 1000 : 240;
+  $("tempo").step = p.version === 2 ? "any" : "1";
+  $("tempo").title =
+    p.version === 2
+      ? "곡 시작 BPM. 이후의 템포 변화는 유지됩니다."
+      : "곡 전체 BPM";
+  $("meter").replaceChildren(
+    ...(p.version === 2
+      ? Array.from({ length: 32 }, (_, i) =>
+          [1, 2, 4, 8, 16, 32].map((d) => [i + 1, d].join("/")),
+        ).flat()
+      : ["4/4", "3/4", "6/8"]
+    ).map((s) => {
+      const o = make("option", s);
+      o.value = s;
+      return o;
+    }),
+  );
   $("meter").value = p.meter.join("/");
+  $("meter").title =
+    p.version === 2
+      ? "곡 시작 박자. 이후의 박자 변화와 음표 위치는 유지됩니다."
+      : "곡 전체 박자";
+  $("bars").max = p.version === 2 ? 512 : 64;
   $("bars").value = p.bars;
+  $("timing-map").textContent =
+    "시간 지도" +
+    (p.version === 2
+      ? " · " + (p.tempoMap.length + p.meterMap.length - 2) + "회 변화"
+      : "");
   for (const id of ["loop-start", "loop-end"]) {
     $(id).max = p.bars;
     $(id).value = Math.min(p.bars, Math.max(1, Number($(id).value) || 1));
@@ -178,6 +228,23 @@ function render() {
         pitchName(info.range[0]) +
         "–" +
         pitchName(info.range[1]));
+  if (p.version === 2 && t.midi?.programs?.length)
+    $("instrument-info").textContent +=
+      " · 원본 GM " +
+      (t.midi.programs[0].program + 1) +
+      (t.midi.programs.length > 1
+        ? " · 곡 중간 악기 변경 " + (t.midi.programs.length - 1) + "회"
+        : "");
+  if (
+    p.version === 2 &&
+    t.midi &&
+    (t.midi.bends.length ||
+      t.midi.controllers.some(
+        (e) => e.tick > 0 || ![7, 10].includes(e.controller),
+      ))
+  )
+    $("instrument-info").textContent +=
+      " · 페달·컨트롤·벤드: MIDI 저장에만 반영";
   $("add-chord").disabled = isPercussion(t.instrument);
   $("remove-track").disabled = p.tracks.length === 1;
   $("track-list").replaceChildren();
@@ -271,10 +338,18 @@ function renderRoll() {
   }
   $("ruler").style.width = width + "px";
   $("ruler").replaceChildren();
-  for (let b = 0; b < p.bars; b++) {
-    const el = make("span", b + 1, "bar-label");
-    el.style.left = ((b * barTicks(p)) / PPQ) * px + "px";
-    el.style.width = (barTicks(p) / PPQ) * px + "px";
+  for (const [b, measure] of barMap(p).entries()) {
+    const el = make(
+      "span",
+      b +
+        1 +
+        (p.version === 2
+          ? " · " + measure.meter.join("/") + (measure.partial ? " *" : "")
+          : ""),
+      "bar-label",
+    );
+    el.style.left = (measure.start / PPQ) * px + "px";
+    el.style.width = ((measure.end - measure.start) / PPQ) * px + "px";
     if (
       $("loop").checked &&
       b >= Number($("loop-start").value) - 1 &&
@@ -297,7 +372,19 @@ function renderRoll() {
   }
   $("grid").style.backgroundSize =
     `${(barTicks(p) / PPQ) * px}px ${ROW}px,${Math.max(3, (px * snap) / PPQ)}px ${ROW}px,100% ${ROW}px`;
-  for (const e of $("grid").querySelectorAll(".note,.pitch-shade")) e.remove();
+  for (const e of $("grid").querySelectorAll(
+    ".note,.pitch-shade,.measure-line",
+  ))
+    e.remove();
+  if (p.version === 2) {
+    $("grid").style.backgroundSize =
+      `0px ${ROW}px,${Math.max(3, (px * snap) / PPQ)}px ${ROW}px,100% ${ROW}px`;
+    for (const b of barMap(p)) {
+      const line = make("i", undefined, "measure-line");
+      line.style.left = (b.start / PPQ) * px + "px";
+      $("grid").append(line);
+    }
+  }
   if (!isPercussion(track().instrument))
     for (const [row, pitch] of rowPitches().entries()) {
       const outside =
@@ -606,11 +693,11 @@ $("redo").onclick = () => {
   render();
 };
 field("title", (v) => (p.title = v));
-field("tempo", (v) => (p.tempo = Number(v)));
-field("meter", (v) => (p.meter = v.split("/").map(Number)));
+field("tempo", (v) => setInitialTempo(p, Number(v)));
+field("meter", (v) => setInitialMeter(p, v.split("/").map(Number)));
 field("bars", (v) => (p.bars = Number(v)));
 field("track-name", (v) => (track().name = v));
-field("instrument", (v) => (track().instrument = v));
+field("instrument", (v) => setTrackInstrument(track(), v));
 field("volume", (v) => (track().volume = Number(v)));
 field("pan", (v) => (track().pan = Number(v)));
 $("add-track").onclick = () => openInstruments(true);
@@ -643,8 +730,8 @@ $("play").onclick = async () => {
         $("play").textContent = "▶ 재생";
       },
       {
-        loopStart: (Number($("loop-start").value) - 1) * barTicks(p),
-        loopEnd: Number($("loop-end").value) * barTicks(p),
+        loopStart: barStart(p, Number($("loop-start").value) - 1),
+        loopEnd: barStart(p, Number($("loop-end").value)),
         metronome: $("metronome").checked,
         onProgress: (done, total) => status(`음원 준비 ${done} / ${total}`),
       },
@@ -757,6 +844,149 @@ $("open").onchange = async () => {
   } catch (e) {
     if (token === importGeneration) status(e.message);
   }
+};
+$("midi-open").onchange = async () => {
+  const token = ++importGeneration,
+    file = $("midi-open").files[0];
+  $("midi-open").value = "";
+  if (!file) return;
+  if ($("midi-dialog").open) $("midi-dialog").close();
+  try {
+    if (file.size > MIDI_MAX_BYTES)
+      throw Error("MIDI 파일은 2MB 이내여야 합니다.");
+    const bytes = await file.arrayBuffer();
+    if (token !== importGeneration) return;
+    const data = parseMidi(bytes),
+      all = data.tracks.map((t) => t.id);
+    pendingMidi = {
+      data,
+      token,
+      filename: file.name,
+      ids: new Set(reviewMidiSelection(data, all).ok ? all : []),
+    };
+    renderMidiImport();
+    $("midi-dialog").showModal();
+  } catch (e) {
+    if (token === importGeneration) status(e.message);
+  }
+};
+function renderMidiImport() {
+  if (!pendingMidi) return;
+  const { data, ids, filename } = pendingMidi;
+  $("midi-summary").textContent =
+    filename +
+    " · MIDI " +
+    data.format +
+    " · " +
+    data.ppq +
+    " PPQ · " +
+    data.tracks.length +
+    "개 파트";
+  $("midi-tracks").replaceChildren();
+  for (const t of data.tracks) {
+    const label = make("label", undefined, "midi-track"),
+      check = make("input");
+    check.type = "checkbox";
+    check.checked = ids.has(t.id);
+    check.dataset.track = t.id;
+    check.onchange = () => {
+      if (check.checked) ids.add(t.id);
+      else ids.delete(t.id);
+      updateMidiReview();
+    };
+    const text = make("span");
+    text.append(
+      make("strong", t.name),
+      make(
+        "small",
+        (t.channel === 9 ? "타악기" : "GM " + (t.programs[0].program + 1)) +
+          " → " +
+          CATALOG[t.instrument].name +
+          " · " +
+          t.notes.length.toLocaleString() +
+          "음 · 채널 " +
+          (t.channel + 1),
+      ),
+    );
+    label.append(check, text);
+    $("midi-tracks").append(label);
+  }
+  updateMidiReview();
+}
+function updateMidiReview() {
+  if (!pendingMidi) return;
+  const review = reviewMidiSelection(pendingMidi.data, [...pendingMidi.ids]);
+  $("midi-selection").textContent =
+    `선율 ${review.melodic}/15 · 타악기 ${review.percussion}/1 · ${review.notes.toLocaleString()}/4,096음` +
+    (review.bars ? " · " + review.bars + "마디" : "");
+  $("midi-errors").textContent = review.errors.join(" ");
+  $("midi-warnings").replaceChildren(
+    ...review.warnings.map((s) => make("li", s)),
+  );
+  $("midi-confirm").disabled = !review.ok;
+}
+$("midi-none").onclick = () => {
+  pendingMidi.ids.clear();
+  renderMidiImport();
+};
+$("midi-all").onclick = () => {
+  pendingMidi.ids = new Set(pendingMidi.data.tracks.map((t) => t.id));
+  renderMidiImport();
+};
+$("midi-confirm").onclick = () => {
+  if (!pendingMidi) return;
+  if (pendingMidi.token !== importGeneration) {
+    $("midi-dialog").close();
+    status("파일을 읽는 동안 곡이 변경되었습니다. MIDI를 다시 선택하세요.");
+    return;
+  }
+  try {
+    const q = midiToProject(pendingMidi.data, [...pendingMidi.ids]);
+    if (
+      !confirm(
+        "선택한 MIDI 트랙으로 현재 곡을 바꿀까요? 필요한 곡은 프로젝트 파일로 먼저 저장하세요.",
+      )
+    )
+      return;
+    replace(q);
+    $("midi-dialog").close();
+    status(
+      "MIDI를 가져왔습니다. 악기와 음표를 편집한 뒤 MIDI 또는 프로젝트로 저장하세요.",
+    );
+  } catch (e) {
+    $("midi-errors").textContent = e.message;
+  }
+};
+$("midi-dialog").addEventListener("close", () => {
+  pendingMidi = null;
+});
+$("timing-map").onclick = () => {
+  const events = [
+    ...tempoEvents(p).map((e) => ({
+      tick: e.tick,
+      text:
+        "BPM " + (60000000 / e.microseconds).toFixed(6).replace(/\.?0+$/, ""),
+    })),
+    ...meterEvents(p).map((e) => ({
+      tick: e.tick,
+      text: "박자 " + e.numerator + "/" + e.denominator,
+    })),
+  ].sort((a, b) => a.tick - b.tick);
+  $("timing-events").replaceChildren(
+    ...events.map((e) => {
+      const row = make("div", undefined, "timing-event");
+      row.append(
+        make("span", transportPosition(p, e.tick)),
+        make("strong", e.text),
+        make(
+          "small",
+          e.tick + "틱 · " + tickSeconds(p, e.tick).toFixed(3) + "초",
+        ),
+      );
+      return row;
+    }),
+  );
+  $("timing-dialog").showModal();
 };
 document.querySelectorAll("[data-export]").forEach(
   (b) =>
@@ -1224,7 +1454,7 @@ function renderInstruments() {
           p.tracks.push(t);
           trackId = t.id;
           selection.clear();
-        } else track().instrument = id;
+        } else setTrackInstrument(track(), id);
       });
       if (okay) {
         $("instrument-dialog").close();

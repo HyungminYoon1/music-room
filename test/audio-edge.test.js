@@ -171,3 +171,29 @@ test("over-180-second WAV refuses before audio context/sample work", async (t) =
   assert.equal(state.requests.length, 0);
   assert.equal(state.offline, 0);
 });
+test("sub-50ms loop is rejected before scheduling excessive repeat events", async (t) => {
+  const { audio, p, resolveSamples } = await fixture(t);
+  const pending = audio.play(p, 0, true, () => {}, {
+    loopStart: 0,
+    loopEnd: 1,
+  });
+  const rejected = assert.rejects(pending, /구간|50/);
+  await resolveSamples();
+  await rejected;
+  assert.equal(audio.audioState().playing, false);
+});
+test("dense imported chord does not allocate thousands of voices before applying its live cap", async (t) => {
+  const { audio, p, state, resolveSamples } = await fixture(t);
+  p.tracks[0].notes = Array.from({ length: 4096 }, (_, i) => ({
+    id: "dense" + i,
+    pitch: 60,
+    start: 0,
+    duration: 960,
+    velocity: 80,
+  }));
+  const pending = audio.play(p);
+  await resolveSamples();
+  await pending;
+  assert(state.nodes <= 400, `allocated ${state.nodes} nodes`);
+  audio.stop();
+});

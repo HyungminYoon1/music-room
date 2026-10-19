@@ -1,6 +1,7 @@
 import { VF, jsPDF } from "../vendor/music.js";
 import { lanes, barTicks, pitchName } from "./model.js";
 import { CATALOG } from "./instruments.js";
+import { barMap, tempoEvents } from "./timeline.js";
 const Q = 240;
 function pieces(start, end) {
   const out = [];
@@ -22,9 +23,17 @@ function key(p) {
 }
 export function scorePages(p) {
   const pages = [],
-    bt = barTicks(p),
+    measures = barMap(p),
     W = 794,
     H = 1123;
+  if (p.tracks.length * Math.ceil(p.bars / 8) > 128)
+    throw Error(
+      "화면·PDF 악보는 최대 128쪽입니다. 트랙이나 구간을 나누거나 MIDI·MusicXML로 저장하세요.",
+    );
+  if (measures.some((b) => b.start % Q || b.end % Q))
+    throw Error(
+      "16분음표 격자 중간에 박자가 바뀌는 곡입니다. 정확한 악보는 MusicXML로 저장하세요.",
+    );
   for (const t of p.tracks) {
     const voices = lanes(t.notes, Q, 8),
       clef = CATALOG[t.instrument].clef;
@@ -43,25 +52,48 @@ export function scorePages(p) {
       );
       const previous = new Map();
       for (let b = pageBar; b < Math.min(pageBar + 8, p.bars); b++) {
+        const measure = measures[b];
         const row = Math.floor((b - pageBar) / 2),
           col = (b - pageBar) % 2,
           x = 42 + col * 354,
           y = 95 + row * 232,
           stave = new VF.Stave(x, y, 354);
         if (col === 0) stave.addClef(clef);
-        if (b === 0) stave.addTimeSignature(p.meter.join("/"));
+        if (
+          b === 0 ||
+          measures[b - 1].meter.join("/") !== measure.meter.join("/")
+        )
+          stave.addTimeSignature(measure.meter.join("/"));
         stave.setContext(ctx).draw();
         ctx.setFont("sans-serif", 11, "");
         ctx.fillText(String(b + 1), x + 5, y - 5);
+        const tempo = tempoEvents(p).filter(
+          (e) => e.tick >= measure.start && e.tick < measure.end,
+        );
+        if (tempo.length)
+          ctx.fillText(
+            tempo
+              .map(
+                (e) =>
+                  "♩ " +
+                  (60000000 / e.microseconds).toFixed(2) +
+                  (e.tick > measure.start
+                    ? " @" + (e.tick - measure.start)
+                    : ""),
+              )
+              .join(" · "),
+            x + 45,
+            y - 5,
+          );
         const rendered = [],
           ties = [],
           beams = [];
         for (const [vi, lane] of voices.entries()) {
           const events = [];
-          let cursor = b * bt;
+          let cursor = measure.start;
           for (const g of lane) {
-            const s = Math.max(g.start, b * bt),
-              e = Math.min(g.end, (b + 1) * bt);
+            const s = Math.max(g.start, measure.start),
+              e = Math.min(g.end, measure.end);
             if (s >= e) continue;
             if (s > cursor)
               for (const r of pieces(cursor, s))
@@ -70,7 +102,7 @@ export function scorePages(p) {
               events.push({ ...r, notes: g.notes, group: g });
             cursor = e;
           }
-          for (const r of pieces(cursor, (b + 1) * bt))
+          for (const r of pieces(cursor, measure.end))
             events.push({ ...r, notes: null });
           const notes = events.map((e) => {
             const duration = {
@@ -112,7 +144,8 @@ export function scorePages(p) {
               }
               previous.set(groupKey, n);
               if (
-                e.start + e.d === (pageBar + 8) * bt &&
+                e.start + e.d ===
+                  measures[Math.min(pageBar + 7, p.bars - 1)].end &&
                 e.group.end > e.start + e.d
               ) {
                 const indices = e.notes.map((_, i) => i);
@@ -129,9 +162,11 @@ export function scorePages(p) {
             return n;
           });
           const v = new VF.Voice({
-            num_beats: p.meter[0],
-            beat_value: p.meter[1],
-          }).addTickables(notes);
+            num_beats: measure.meter[0],
+            beat_value: measure.meter[1],
+          })
+            .setMode(VF.Voice.Mode.SOFT)
+            .addTickables(notes);
           rendered.push(v);
           beams.push(...VF.Beam.generateBeams(notes));
         }

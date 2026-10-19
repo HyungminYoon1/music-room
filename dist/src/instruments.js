@@ -129,3 +129,47 @@ export function midiChannels(tracks) {
     return next++;
   });
 }
+export function gmInstrument(program, percussion = false, pitches = []) {
+  if (percussion)
+    return pitches.every((n) => Object.hasOwn(KIT_NOTES, n))
+      ? "orchestral-kit"
+      : "drums";
+  const exact = Object.entries(CATALOG).find(
+    ([, v]) => !v.percussion && v.program === program,
+  );
+  if (exact) return exact[0];
+  if (program < 8) return "piano";
+  if (program < 16) return "marimba";
+  if (program < 24) return "organ";
+  if (program < 32) return "pluck";
+  if (program < 40) return "bass";
+  if (program < 56) return "violin-section";
+  if (program < 64) return "trumpet";
+  if (program < 72) return "clarinet";
+  if (program < 80) return "flute";
+  if (program < 88) return "pluck";
+  return "pad";
+}
+export function trackAtNote(t, tick) {
+  if (
+    !Array.isArray(t.midi?.programs) ||
+    !t.midi.programs.length ||
+    isPercussion(t.instrument)
+  )
+    return t;
+  let program = t.midi.programs[0].program;
+  for (const e of t.midi.programs) {
+    if (e.tick > tick) break;
+    program = e.program;
+  }
+  return { ...t, instrument: gmInstrument(program) };
+}
+export function setTrackInstrument(t, id) {
+  t.instrument = id;
+  if (t.midi && Array.isArray(t.midi.controllers)) {
+    delete t.midi.programs;
+    t.midi.controllers = t.midi.controllers.filter(
+      (e) => ![0, 32].includes(e.controller),
+    );
+  }
+}

@@ -1379,3 +1379,109 @@ dialog > p {
     transition: none !important;
   }
 }
+.measure-line {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: #597867;
+  pointer-events: none;
+  z-index: 1;
+}
+.midi-actions,
+.midi-footer {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin: 15px 0;
+}
+.midi-footer {
+  justify-content: flex-end;
+  position: sticky;
+  bottom: -25px;
+  background: #1b2627;
+  padding-block: 12px;
+  margin-bottom: 0;
+}
+#midi-selection {
+  flex: 1;
+  color: var(--accent);
+  font-size: 12px;
+  min-width: 180px;
+}
+#midi-tracks {
+  max-height: 40dvh;
+  overflow: auto;
+  border-block: 1px solid var(--line);
+  padding: 5px 0;
+}
+.midi-track {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  cursor: pointer;
+  padding: 11px 8px;
+  border-bottom: 1px solid var(--line);
+  overflow-wrap: anywhere;
+}
+.midi-track:has(input:checked) {
+  background: #2a4035;
+}
+.midi-track input {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+}
+.midi-track strong,
+.midi-track small {
+  display: block;
+  white-space: normal;
+}
+.midi-track small {
+  margin-top: 6px;
+  line-height: 1.5;
+}
+#midi-errors {
+  display: block;
+  color: #ffc3ae;
+  font-size: 12px;
+  line-height: 1.6;
+  margin-top: 10px;
+}
+#midi-warnings {
+  padding-left: 20px;
+  font-size: 12px;
+  color: #edcf9d;
+  line-height: 1.7;
+}
+.timing-event {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--line);
+}
+.timing-event span {
+  font-family: monospace;
+  color: var(--accent);
+}
+#timing-events {
+  max-height: 55dvh;
+  overflow: auto;
+}
+@media (min-width: 721px) and (max-width: 1400px) {
+  header {
+    flex-wrap: wrap;
+  }
+  .file-actions {
+    flex-wrap: wrap;
+  }
+  .project-title {
+    max-width: none;
+  }
+  .file-actions > a {
+    display: none;
+  }
+}

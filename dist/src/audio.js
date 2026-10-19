@@ -5,7 +5,8 @@ import {
   encodeWav,
   validate,
 } from "./model.js";
-import { CATALOG } from "./instruments.js";
+import { CATALOG, trackAtNote } from "./instruments.js";
+import { tickSeconds, secondsTick, beatEvents } from "./timeline.js";
 import { loadSamples } from "./sampler.js";
 import { loopEvents } from "./editing.js";
 let context,
@@ -20,19 +21,20 @@ export const audioState = () =>
   transport
     ? {
         playing: true,
-        tick: transport.loop
-          ? transport.start +
-            ((transport.offset -
-              transport.start +
-              Math.max(0, context.currentTime - transport.time) /
-                transport.sec) %
-              (transport.end - transport.start))
-          : Math.min(
-              transport.end,
-              transport.offset +
-                Math.max(0, context.currentTime - transport.time) /
-                  transport.sec,
-            ),
+        tick: secondsTick(
+          transport.project,
+          transport.loop
+            ? transport.start +
+                ((transport.offset -
+                  transport.start +
+                  Math.max(0, context.currentTime - transport.time)) %
+                  (transport.end - transport.start))
+            : Math.min(
+                transport.end,
+                transport.offset +
+                  Math.max(0, context.currentTime - transport.time),
+              ),
+        ),
       }
     : { playing: false, tick: 0 };
 export function meter() {
@@ -219,7 +221,12 @@ export async function play(
   stop();
   validate(p);
   const token = generation,
-    notes = soundingTracks(p).flatMap((t) => t.notes.map((n) => ({ t, n })));
+    notes = soundingTracks(p).flatMap((t) =>
+      t.notes.map((n) => ({
+        t: p.version === 2 ? trackAtNote(t, n.start) : t,
+        n,
+      })),
+    );
   let loaded;
   try {
     loaded = await ensure(notes, (done, total) => {
@@ -240,8 +247,7 @@ export async function play(
   master.connect(compressor);
   compressor.connect(analyser);
   analyser.connect(ctx.destination);
-  const sec = 60 / p.tempo / PPQ,
-    start = loop ? (options.loopStart ?? 0) : 0,
+  const start = loop ? (options.loopStart ?? 0) : 0,
     end = loop ? (options.loopEnd ?? totalTicks(p)) : totalTicks(p);
   if (
     !Number.isFinite(startTick) ||
@@ -249,62 +255,70 @@ export async function play(
     !Number.isInteger(end) ||
     start < 0 ||
     end > totalTicks(p) ||
-    start >= end
+    start >= end ||
+    (loop && tickSeconds(p, end) - tickSeconds(p, start) < 0.05)
   ) {
     stop();
-    throw Error("재생 구간을 확인하세요.");
+    throw Error(
+      "재생 구간을 확인하세요. 반복 구간은 50밀리초 이상이어야 합니다.",
+    );
   }
-  const offset = Math.max(start, Math.min(end - 1, startTick));
+  const offset = tickSeconds(p, Math.max(start, Math.min(end - 1, startTick)));
+  const timed = notes.map(({ t, n }) => ({
+    t,
+    n: {
+      ...n,
+      start: tickSeconds(p, n.start),
+      duration: tickSeconds(p, n.start + n.duration) - tickSeconds(p, n.start),
+    },
+  }));
+  const clicks = beatEvents(p).map((n) => ({
+    t: {},
+    n: { ...n, start: tickSeconds(p, n.start), duration: 0.001 },
+  }));
   let scheduled = 0;
   transport = {
-    start,
+    start: tickSeconds(p, start),
     offset,
     loop,
-    sec,
+    project: p,
     time: ctx.currentTime + 0.07,
-    tempo: p.tempo,
-    end,
+    end: tickSeconds(p, end),
   };
   const schedule = () => {
     if (!transport || token !== generation) return;
     if (
       !loop &&
-      ctx.currentTime >= transport.time + (end - offset) * sec + 0.55
+      ctx.currentTime >= transport.time + transport.end - offset + 0.55
     ) {
       stop();
       onEnd();
       return;
     }
-    const elapsed = Math.max(0, (ctx.currentTime - transport.time) / sec),
-      ahead = elapsed + 0.15 / sec;
+    const elapsed = Math.max(0, ctx.currentTime - transport.time),
+      ahead = elapsed + 0.15;
     // If the main thread stalled, skip expired starts instead of bursting old notes.
-    const from = Math.max(scheduled, elapsed - 0.04 / sec);
-    for (const event of loopEvents(notes, transport, from, ahead))
+    const from = Math.max(scheduled, elapsed - 0.04);
+    // Bound creation as well as active voices; dense MIDI must not allocate
+    // thousands of immediately discarded nodes during each scheduling window.
+    for (const event of loopEvents(timed, transport, from, ahead).slice(-96))
       voice(
         ctx,
         master,
         event.t,
         event.n,
-        transport.time + event.at * sec,
-        (event.duration + event.offset) * sec,
-        event.offset * sec,
+        transport.time + event.at,
+        event.duration + event.offset,
+        event.offset,
         true,
         samples,
       );
     if (options.metronome) {
-      const beat = (PPQ * 4) / p.meter[1];
-      const clicks = Array.from(
-        { length: Math.ceil((end - start) / beat) },
-        (_, i) => ({ t: {}, n: { start: start + i * beat, duration: 1 } }),
-      );
       for (const event of loopEvents(clicks, transport, from, ahead)) {
         const o = ctx.createOscillator(),
           g = ctx.createGain(),
-          at = transport.time + event.at * sec;
-        o.frequency.value =
-          event.n.start % ((PPQ * p.meter[0] * 4) / p.meter[1]) === 0
-            ? 1200
-            : 850;
+          at = transport.time + event.at;
+        o.frequency.value = event.n.accent ? 1200 : 850;
         g.gain.setValueAtTime(0.08, at);
         g.gain.exponentialRampToValueAtTime(0.0001, at + 0.035);
         o.connect(g);
@@ -342,13 +356,16 @@ export async function wav(p) {
   validate(p);
   stop();
   const token = generation,
-    seconds = (totalTicks(p) * 60) / p.tempo / PPQ + 1.5;
+    seconds = tickSeconds(p, totalTicks(p)) + 1.5;
   if (seconds > 180)
     throw Error(
       "WAV는 잔향 포함 180초까지 내보낼 수 있습니다. 마디 수를 줄이거나 템포를 높여 주세요.",
     );
   const events = soundingTracks(p).flatMap((t) =>
-    t.notes.map((n) => ({ t, n })),
+    t.notes.map((n) => ({
+      t: p.version === 2 ? trackAtNote(t, n.start) : t,
+      n,
+    })),
   );
   const { samples } = await ensure(events);
   if (token !== generation) throw Error("음원 내보내기가 취소되었습니다.");
@@ -358,10 +375,18 @@ export async function wav(p) {
   g.gain.value = 0.75;
   g.connect(compressor);
   compressor.connect(ctx.destination);
-  const sec = 60 / p.tempo / PPQ;
-  for (const t of soundingTracks(p))
-    for (const n of t.notes)
-      voice(ctx, g, t, n, n.start * sec, n.duration * sec, 0, false, samples);
+  for (const { t, n } of events)
+    voice(
+      ctx,
+      g,
+      t,
+      n,
+      tickSeconds(p, n.start),
+      tickSeconds(p, n.start + n.duration) - tickSeconds(p, n.start),
+      0,
+      false,
+      samples,
+    );
   const b = await ctx.startRendering();
   if (token !== generation) throw Error("음원 내보내기가 취소되었습니다.");
   return encodeWav(b.getChannelData(0), b.getChannelData(1));

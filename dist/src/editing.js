@@ -1,4 +1,5 @@
 import { PPQ, barTicks, uid } from "./model.js";
+import { barMap } from "./timeline.js";
 export const CHORDS = Object.freeze({
   major: [0, 4, 7],
   minor: [0, 3, 7],
@@ -74,14 +75,31 @@ export function intersectingNotes(notes, start, end, low, high) {
     .map((n) => n.id);
 }
 export function transportPosition(p, tick) {
-  const beat = (PPQ * 4) / p.meter[1],
-    t = Math.max(0, Math.floor(tick));
+  if (!p.meterMap) {
+    const t = Math.max(0, Math.floor(tick)),
+      beat = (PPQ * 4) / p.meter[1];
+    return (
+      String(Math.floor(t / barTicks(p)) + 1).padStart(2, "0") +
+      " : " +
+      (Math.floor((t % barTicks(p)) / beat) + 1) +
+      " : " +
+      String(t % beat).padStart(3, "0")
+    );
+  }
+  const t = Math.max(0, Math.floor(tick)),
+    bars = barMap(p, p.bars + 1);
+  const index = Math.max(
+      0,
+      bars.findLastIndex((b) => b.start <= t),
+    ),
+    bar = bars[index],
+    beat = (PPQ * 4) / bar.meter[1];
   return (
-    String(Math.floor(t / barTicks(p)) + 1).padStart(2, "0") +
+    String(index + 1).padStart(2, "0") +
     " : " +
-    (Math.floor((t % barTicks(p)) / beat) + 1) +
+    (Math.floor((t - bar.start) / beat) + 1) +
     " : " +
-    String(t % beat).padStart(3, "0")
+    String((t - bar.start) % beat).padStart(3, "0")
   );
 }
 // Half-open scheduling window on one clock: loop boundaries never restart AudioContext.

@@ -30,10 +30,15 @@
       <div class="file-actions">
         <button id="templates">편곡 예제</button><button id="new">새 곡</button
         ><label class="file-open"
-          >열기<input
+          >프로젝트 열기<input
             id="open"
             type="file"
             accept=".json,application/json" /></label
+        ><label class="file-open"
+          >MIDI 가져오기<input
+            id="midi-open"
+            type="file"
+            accept=".mid,.midi,audio/midi,audio/x-midi" /></label
         ><button id="save">프로젝트 저장</button
         ><a
           href="https://hyungminyoon1.github.io/web-lab/"
@@ -59,6 +64,7 @@
         </select></label
       >
       <label>마디<input id="bars" type="number" min="1" max="64" /></label>
+      <button id="timing-map">시간 지도</button>
       <div class="loop-controls">
         <label class="check"><input id="loop" type="checkbox" /> 반복</label
         ><input
@@ -295,8 +301,9 @@
         <summary>저장 방식 · 음원 출처 · 내보내기</summary>
         <p>
           곡은 이 브라우저에 자동 저장됩니다. 다른 기기에서 작업하려면 프로젝트
-          JSON을 저장하세요. 최대 16트랙(선율 15 + 타악기 키트 1), 64마디,
-          4,096음입니다.
+          JSON을 저장하세요. 최대 16트랙(선율 15 + 타악기 키트 1),
+          4,096음입니다. MIDI 가져오기는 2MB·512마디까지 지원하며 기존 곡은
+          64마디 형식을 유지합니다.
         </p>
         <p>
           오케스트라: Sam Gossner·Simon Dalzell의 VSCO Community Edition(CC0).
@@ -315,6 +322,48 @@
         </p>
       </details>
     </footer>
+    <dialog id="midi-dialog" aria-labelledby="midi-heading">
+      <div class="dialog-head">
+        <div>
+          <span class="eyebrow">IMPORT MIDI</span>
+          <h2 id="midi-heading">가져올 트랙 선택</h2>
+        </div>
+        <button data-close="midi-dialog" aria-label="MIDI 가져오기 취소">
+          ✕
+        </button>
+      </div>
+      <p id="midi-summary"></p>
+      <p>
+        선율 15트랙과 타악기 키트 1트랙까지 선택하세요. 음표가 없는 지휘 트랙의
+        템포·박자 정보는 자동으로 포함됩니다. 파일은 서버로 보내지 않습니다.
+      </p>
+      <div class="midi-actions">
+        <button id="midi-all">전체 선택</button
+        ><button id="midi-none">선택 해제</button
+        ><output id="midi-selection"></output>
+      </div>
+      <div id="midi-tracks"></div>
+      <output id="midi-errors" role="status"></output>
+      <ul id="midi-warnings"></ul>
+      <div class="midi-footer">
+        <button data-close="midi-dialog">취소</button
+        ><button id="midi-confirm" class="primary">선택한 트랙 가져오기</button>
+      </div>
+    </dialog>
+    <dialog id="timing-dialog" aria-labelledby="timing-heading">
+      <div class="dialog-head">
+        <h2 id="timing-heading">템포·박자 지도</h2>
+        <button data-close="timing-dialog" aria-label="시간 지도 닫기">
+          ✕
+        </button>
+      </div>
+      <p>
+        원본 MIDI의 변화 지점입니다. 재생과 MIDI 재저장에 적용됩니다. 상단
+        BPM·박자를 바꾸면 시작 값만 바뀌고 이후 변화와 음표 위치는 유지됩니다. *
+        눈금은 마디 중간의 박자 변경으로 생긴 짧은 마디입니다.
+      </p>
+      <div id="timing-events"></div>
+    </dialog>
     <dialog id="instrument-dialog" aria-labelledby="instrument-heading">
       <div class="dialog-head">
         <div>
